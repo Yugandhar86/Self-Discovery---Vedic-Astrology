@@ -1,0 +1,8 @@
+{
+  "name": "Jyotish Soul Synthesis",
+  "description": "Expert Vedic astrology mapped to psychological frameworks, revealing your karmic trajectory through IFS parts work and attachment theory.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

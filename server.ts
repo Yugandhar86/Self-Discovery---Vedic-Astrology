@@ -1,0 +1,219 @@
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { createServer as createViteServer } from 'vite';
+import { GoogleGenAI, Type } from '@google/genai';
+import dotenv from 'dotenv';
+import { synthesizeKarmicReport } from './src/engine/narrativeEngine';
+import { BirthInput, NarrativeReportSections } from './src/types/jyotish';
+import {
+  KETU_HOUSE_DATA,
+  MARS_FIREFIGHTER_HOUSE_DATA,
+  POLARITY_DESCRIPTIONS,
+  SATURN_MANAGER_HOUSE_DATA,
+} from './src/engine/karmicPolarityData';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const SYSTEM_INSTRUCTION = `You are the advanced analytical backend and interpretive engine for a next-generation Vedic Astrology (Jyotish) and Behavioral Psychology application. Your function is to process calculated spatial-mathematical matrix mappings (Rashi D1, Navamsha D9, Shastiamsha D60 deities, Retrogrades, Sandhi/Gandanta junctions, Rahu/Ketu nodes) and generate a highly elaborative, deeply subjective, and psychologically grounded "Karmic Trajectory & Behavioral Report."
+
+DESIGN & TONE GUIDELINES:
+- Speak directly to the user ("You", "Your soul", "Your psyche") to make the delivery intensely personal, intimate, and experiential rather than detached or academic.
+- Frame all interpretations subjectively as a bespoke, tailored mirror reflecting the individual's inner world, existential journey, and lived experience.
+- MANDATORY "ECHO" MECHANISM: For every past-life tendency identified, explicitly show its exact current-life behavioral footprint across ALL FACETS OF LIFE:
+  1. Vocation, Career, Authority & Financial Security
+  2. Creative Expression, Voice & Public Visibility
+  3. Somatic Health, Nervous System & Stress holding patterns
+  4. Family of Origin, Lineage Expectations & Ancestral Roles
+  5. Existential Trust, Solitude & Spiritual Surrender
+  6. Interpersonal, Friendship & Romantic Bonds
+- MANDATORY SECTION-ALIGNED LAYMAN LANGUAGE TRANSLATION: For each of the three sections, include an exhaustive, highly elaborative "### Layman Language Translation" subsection.
+  CRITICAL: The layman language translation MUST NOT be generic or boilerplate. It MUST be directly, intimately derived from and meticulously aligned with the specific synthesized findings, archetypes, and dynamics revealed in THAT specific section:
+  - In Section 1: The Layman Translation must directly translate the *specific* identified Exile wound (from the exact Ketu D60 deity and Ketu house), the *specific* Manager proactive defense (from Saturn's sign, house, and D60 deity), and the *specific* Firefighter reaction (from Mars and Rahu/Ketu), giving real, concrete scenarios in the office, with money, in the body, with family, and in solitude based directly on their synthesized profile.
+  - In Section 2: The Layman Translation must directly reflect the *specific* Attachment Style diagnosed (e.g. if Anxious-Preoccupied, describe the actual anxious spirals, hyper-vigilance, over-checking messages, fear of abandonment, and workplace caretaker dynamics; if Dismissive-Avoidant, describe emotional detachment, the fortress of self-sufficiency, and delegating friction; if Fearful-Avoidant, describe the push-pull swing between craving intimacy and panic when someone gets too close) AND the *specific* structural anomalies (retrogrades, Sandhi/Gandanta knots, or drishti friction) that were identified.
+  - In Section 3: The Layman Translation must directly ground the *specific* Rahu evolutionary mission in its exact House and Sign, the *specific* Navamsha Lagna / Moon / Venus shifts, and the *specific* Big Five trait reconditionings calculated for this chart into concrete, everyday behavioral transformations across career, finances, physical health, creative projects, family boundaries, and intimate partnerships.
+- DO NOT INCLUDE a section on behavioral integration or action steps. The report consists strictly of the three analytical sections.
+- CRITICAL RULE: Do NOT output degrees, minutes, or raw numerical celestial calculations in the narrative sections. Deliver strictly as a narrative, fluid synthesis.`;
+
+async function startServer() {
+  const app = express();
+  const PORT = 3000;
+
+  app.use(express.json({ limit: '2mb' }));
+
+  app.post('/api/synthesize', async (req, res) => {
+    try {
+      const { input, mode } = req.body as {
+        input: BirthInput;
+        mode?: 'instant' | 'deep-llm';
+      };
+
+      if (!input || !input.birthTime || !input.dateOfBirth || !input.placeOfBirth) {
+        res.status(400).json({ error: 'Missing required birth parameters.' });
+        return;
+      }
+
+      const baseResult = synthesizeKarmicReport(input);
+
+      if (mode === 'deep-llm' && process.env.GEMINI_API_KEY) {
+        try {
+          const ai = new GoogleGenAI({
+            apiKey: process.env.GEMINI_API_KEY,
+            httpOptions: {
+              headers: {
+                'User-Agent': 'aistudio-build',
+              },
+            },
+          });
+
+          const ketu = baseResult.planets.find((p) => p.id === 'Ketu')!;
+          const rahu = baseResult.planets.find((p) => p.id === 'Rahu')!;
+          const moon = baseResult.planets.find((p) => p.id === 'Moon')!;
+          const saturn = baseResult.planets.find((p) => p.id === 'Saturn')!;
+          const venus = baseResult.planets.find((p) => p.id === 'Venus')!;
+
+          const polarityKey = `${ketu.house}-${rahu.house}`;
+          const polarity = POLARITY_DESCRIPTIONS[polarityKey] || POLARITY_DESCRIPTIONS['1-7'];
+          const ketuData = KETU_HOUSE_DATA[ketu.house] || KETU_HOUSE_DATA[1];
+          const saturnData = SATURN_MANAGER_HOUSE_DATA[saturn.house] || SATURN_MANAGER_HOUSE_DATA[10];
+          const marsData = MARS_FIREFIGHTER_HOUSE_DATA[baseResult.planets.find((p) => p.id === 'Mars')!.house] || MARS_FIREFIGHTER_HOUSE_DATA[1];
+
+          const matrixContext = `
+BIRTH INPUT PARAMETERS:
+- Birth Time: ${input.birthTime}
+- Date of Birth: ${input.dateOfBirth}
+- Gender: ${input.gender}
+- Place of Birth: ${input.placeOfBirth}
+
+INTERNAL GEOMETRIC & DIVISIONAL MATRIX:
+- Ascendant (Lagna): ${baseResult.ascendant.rashiName} (D9 Navamsha: ${baseResult.ascendant.navamshaName}, D60 Deity: ${baseResult.ascendant.shastiamsha.name} - ${baseResult.ascendant.shastiamsha.archetype})
+- Ketu (Past-Life Node): ${ketu.rashiName} in House ${ketu.house}, D9: ${ketu.navamshaName}, D60 Deity: ${ketu.shastiamsha.name} (${ketu.shastiamsha.subconsciousImprint})
+- Rahu (Evolutionary Vector): ${rahu.rashiName} in House ${rahu.house}, D9: ${rahu.navamshaName}, D60 Deity: ${rahu.shastiamsha.name}
+- Nodal Axis Polarity: ${polarity.axisName} (Past Karmic Ceiling: "${polarity.karmicCeiling}"; Rahu Call: "${polarity.rahuEvolutionaryCall}")
+- Moon (Psyche/Attachment): ${moon.rashiName} in House ${moon.house}, D9: ${moon.navamshaName}, D60 Deity: ${moon.shastiamsha.name}
+- Saturn (Manager Defense): ${saturn.rashiName} in House ${saturn.house}, D60 Deity: ${saturn.shastiamsha.name}, Retrograde: ${saturn.isRetrograde}
+- Venus (Value/Intimacy Vector): ${venus.rashiName} in House ${venus.house}, D9: ${venus.navamshaName}, D60 Deity: ${venus.shastiamsha.name}
+- Structural Anomalies: ${baseResult.anomalies.map((a) => `${a.type} (${a.planetsInvolved.join('/')}) - Psychological: ${a.psychologicalLoop} - Career: ${a.vocationalEcho} - Somatic: ${a.somaticSignature} - Attachment: ${a.attachmentEcho}`).join('; ') || 'None (harmonious longitudinal distribution)'}
+- IFS Mapping:
+  * Exile: "${baseResult.ifs.exile.archetypeTitle}" (Origin: ${baseResult.ifs.exile.astrologicalOrigin}; Core Belief: ${baseResult.ifs.exile.coreBelief}; Somatic: ${baseResult.ifs.exile.somaticLocation})
+    - Workday Trigger: ${ketuData.realWorldTuesdayScenario.workplace}
+    - Money Trigger: ${ketuData.realWorldTuesdayScenario.money}
+  * Manager: "${baseResult.ifs.manager.archetypeTitle}" (${saturnData.managerTitle}; Rule: "${saturnData.coreVigilanceRule}"; Focus: ${saturnData.focusArena})
+    - High-Stakes Scenario: ${saturnData.weeklyWorkdayScenario}
+  * Firefighter: "${baseResult.ifs.firefighter.archetypeTitle}" (${marsData.firefighterTitle}; Trigger: "${marsData.emergencyTrigger}"; Action: "${marsData.emergencyAction}")
+- Attachment Architecture: ${baseResult.attachment.primaryStyle} (Secondary Pull: ${baseResult.attachment.secondaryPull}; Core Fear: ${baseResult.attachment.coreIntimacyFear}; Conflict Loop: ${baseResult.attachment.conflictTriggerLoop})
+- Big Five Baseline vs Target: ${baseResult.bigFive.map((b) => `${b.trait}: Baseline ${b.baselineScore}% (${b.karmicDefaultLabel}) -> Target ${b.reconditionedTarget}% (${b.evolutionaryTargetLabel})`).join('; ')}
+
+CRITICAL ANTI-OVERLAP & BESPOKE PERSONALIZATION INSTRUCTION:
+Every finding, scenario, and layman language explanation MUST be exclusively personalized to this individual's birth chart. DO NOT use generic template paragraphs, generic corporate clichés (such as over-preparing slide decks unless specifically rooted in a 2nd/10th house placement), or standardized horoscope fillers. Every section must stem strictly from this chart's distinct combination of Ascendant, Ketu house, Saturn house, Mars house, Rahu polarity, Moon/Venus placements, and diagnosed attachment style.
+
+SECTION 2 "THE STRUCTURAL KNOTS" STRICT DIRECTIVES:
+1. Continuous, Connected Psychic Narrative: Weave the identified structural knots (retrograde planets, Gandanta water-fire thresholds, Rashi Sandhi borders, and the Saturn-Moon-Venus angular dialogue / Drishti aspects) into an interconnected psychic circuit. Avoid repetitive bullet points or isolated laundry lists. Explain how one knot triggers another in a continuous psychological narrative.
+2. Zero Overlap With Other Sections: Do NOT repeat the Nodal axis (Ketu/Rahu past-life defaults) in Section 2, as that is the exclusive domain of Sections 1 and 3. Section 2 focuses strictly on structural planetary friction and attachment dynamics.
+3. 100% Chart-Specific Layman Translation: The Layman Language Translation must be an experiential, continuous, and non-repetitive narrative explaining how their specific Moon, Saturn, Venus, active knots, and diagnosed attachment style (${baseResult.attachment.primaryStyle}) play out in real life across (1) Workplace Authority & Deal Negotiations, (2) Money & Commercial Risk, (3) Somatic Holding & Nervous System, (4) Family Lineage, (5) Romantic Intimacy, and (6) The Embodied Pathway to Earned Security.
+
+Generate the THREE exhaustive Markdown sections in JSON format (do NOT include section 4 on behavioral integration).
+CRITICAL ALIGNMENT FOR LAYMAN LANGUAGE TRANSLATIONS:
+The "### Layman Language Translation" in each section MUST NOT be a generic horoscope summary. It must be directly, intimately based on and aligned with the specific synthesized data of that section:
+- Section 1 Layman Translation must explicitly translate this exact Exile, Manager, and Firefighter into plain English, showing their concrete weekly impact across (1) Vocation/Career, (2) Money/Finances, (3) Creative Voice, (4) Physical Health/Stress Holding, (5) Family Lineage, (6) Solitude, and (7) Romantic Bonds.
+- Section 2 Layman Translation must explicitly translate this exact diagnosed Attachment Style (${baseResult.attachment.primaryStyle}) and each specific Structural Anomaly detected, showing how they show up in real-life meetings, contracts, body sensations, and intimate moments across all facets in a continuous, flowing narrative.
+- Section 3 Layman Translation must explicitly translate the leap from Ketu to Rahu in House ${rahu.house} (${rahu.rashiName}), the Navamsha soul shifts, and the 5 specific Big Five traits before vs after across all facets of life.
+
+1. section1ImplicitCode: Must start with "## 1. THE IMPLICIT CODE: Subconscious Past-Life Defaults & Internal Family Systems (IFS) Mapping"
+2. section2StructuralKnots: Must start with "## 2. THE STRUCTURAL KNOTS: Core Friction Points & Attachment Dynamics"
+3. section3EvolutionaryFrontier: Must start with "## 3. THE EVOLUTIONARY FRONTIER: The Current Life Reconditioning Blueprint"
+`;
+
+          const response = await ai.models.generateContent({
+            model: 'gemini-3.8-flash',
+            contents: matrixContext,
+            config: {
+              systemInstruction: SYSTEM_INSTRUCTION,
+              responseMimeType: 'application/json',
+              responseSchema: {
+                type: Type.OBJECT,
+                properties: {
+                  section1ImplicitCode: { type: Type.STRING },
+                  section2StructuralKnots: { type: Type.STRING },
+                  section3EvolutionaryFrontier: { type: Type.STRING },
+                },
+                required: [
+                  'section1ImplicitCode',
+                  'section2StructuralKnots',
+                  'section3EvolutionaryFrontier',
+                ],
+              },
+            },
+          });
+
+          const text = response.text;
+          if (text) {
+            const parsed = JSON.parse(text.trim()) as NarrativeReportSections;
+            if (
+              parsed.section1ImplicitCode &&
+              parsed.section2StructuralKnots &&
+              parsed.section3EvolutionaryFrontier
+            ) {
+              const fullMarkdown = [
+                parsed.section1ImplicitCode,
+                parsed.section2StructuralKnots,
+                parsed.section3EvolutionaryFrontier,
+              ].join('\n\n---\n\n');
+
+              res.json({
+                ...baseResult,
+                narrative: parsed,
+                fullMarkdown,
+                generationSource: 'gemini-enhanced-synthesis',
+              });
+              return;
+            }
+          }
+        } catch (llmError) {
+          console.warn('Deep LLM synthesis fallback to deterministic engine:', llmError);
+        }
+      }
+
+      res.json(baseResult);
+    } catch (err) {
+      console.error('Synthesis error:', err);
+      res.status(500).json({ error: 'Failed to synthesize Karmic Trajectory report.' });
+    }
+  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      appType: 'spa',
+    });
+    app.use(vite.middlewares);
+    app.use('*', async (req, res, next) => {
+      const url = req.originalUrl;
+      try {
+        const indexHtmlPath = path.resolve(__dirname, 'index.html');
+        let template = fs.readFileSync(indexHtmlPath, 'utf-8');
+        template = await vite.transformIndexHtml(url, template);
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(template);
+      } catch (e) {
+        vite.ssrFixStacktrace(e as Error);
+        next(e);
+      }
+    });
+  } else {
+    const distPath = path.join(__dirname, 'dist');
+    app.use(express.static(distPath));
+    app.get('*', (_req, res) => {
+      res.sendFile(path.join(distPath, 'index.html'));
+    });
+  }
+
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+startServer();
