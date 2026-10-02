@@ -5,14 +5,14 @@ import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI, Type } from '@google/genai';
 import dotenv from 'dotenv';
-import { synthesizeKarmicReport } from './src/engine/narrativeEngine';
-import { BirthInput, NarrativeReportSections } from './src/types/jyotish';
+import { synthesizeKarmicReport } from './src/engine/narrativeEngine.ts';
+import type { BirthInput, NarrativeReportSections } from './src/types/jyotish.ts';
 import {
   KETU_HOUSE_DATA,
   MARS_FIREFIGHTER_HOUSE_DATA,
   POLARITY_DESCRIPTIONS,
   SATURN_MANAGER_HOUSE_DATA,
-} from './src/engine/karmicPolarityData';
+} from './src/engine/karmicPolarityData.ts';
 
 dotenv.config();
 
@@ -41,7 +41,13 @@ DESIGN & TONE GUIDELINES:
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+  const HOST = '0.0.0.0';
+
+  // 1. Immediate Health Check Endpoints for Google Cloud Run container liveness/readiness probes
+  app.get(['/healthz', '/health', '/api/health'], (_req, res) => {
+    res.status(200).send('OK');
+  });
 
   app.use(express.json({ limit: '2mb' }));
 
@@ -115,6 +121,13 @@ SECTION 2 "THE STRUCTURAL KNOTS" STRICT DIRECTIVES:
 1. Continuous, Connected Psychic Narrative: Weave the identified structural knots (retrograde planets, Gandanta water-fire thresholds, Rashi Sandhi borders, and the Saturn-Moon-Venus angular dialogue / Drishti aspects) into an interconnected psychic circuit. Avoid repetitive bullet points or isolated laundry lists. Explain how one knot triggers another in a continuous psychological narrative.
 2. Zero Overlap With Other Sections: Do NOT repeat the Nodal axis (Ketu/Rahu past-life defaults) in Section 2, as that is the exclusive domain of Sections 1 and 3. Section 2 focuses strictly on structural planetary friction and attachment dynamics.
 3. 100% Chart-Specific Layman Translation: The Layman Language Translation must be an experiential, continuous, and non-repetitive narrative explaining how their specific Moon, Saturn, Venus, active knots, and diagnosed attachment style (${baseResult.attachment.primaryStyle}) play out in real life across (1) Workplace Authority & Deal Negotiations, (2) Money & Commercial Risk, (3) Somatic Holding & Nervous System, (4) Family Lineage, (5) Romantic Intimacy, and (6) The Embodied Pathway to Earned Security.
+
+SECTION 3 "THE EVOLUTIONARY FRONTIER" STRICT DIRECTIVES:
+1. 100% Chart Personalization & Zero Overlap: Ground the entire section strictly in this chart's specific Rahu sign, house, and Shastiamsha deity, the Nodal Polarity Axis (${polarity.axisName}), the exact transition from birth Lagna/Moon/Venus to Navamsha (${baseResult.ascendant.navamshaName}, ${moon.navamshaName}, ${venus.navamshaName}), and the calculated Big Five trait shifts. DO NOT use generic template paragraphs or cliché self-help slogans.
+2. Distinct, Non-Repetitive Layman Language Translation: The Layman Translation MUST NOT repeat the analytical section's bullets or text. Instead, it must be an experiential translation showing concrete, real-life human scenarios:
+   - The visceral shift from past-life Ketu comfort to Rahu growth across (1) Career & Leadership, (2) Money & Wealth Allocation, (3) Creative Voice & Visibility, (4) Somatic Health & Regulation, (5) Family Lineage Healing, (6) Solitude & Spiritual Trust, and (7) Romantic Devotion.
+   - What operating from their specific Navamsha Lagna (${baseResult.ascendant.navamshaName}), Navamsha Moon (${moon.navamshaName}), and Navamsha Venus (${venus.navamshaName}) looks and feels like during high-stakes challenges.
+   - Five concrete everyday micro-experiments for the Big Five personality traits in real-life situations.
 
 Generate the THREE exhaustive Markdown sections in JSON format (do NOT include section 4 on behavioral integration).
 CRITICAL ALIGNMENT FOR LAYMAN LANGUAGE TRANSLATIONS:
@@ -205,14 +218,21 @@ The "### Layman Language Translation" in each section MUST NOT be a generic horo
     });
   } else {
     const distPath = path.join(__dirname, 'dist');
-    app.use(express.static(distPath));
+    const indexPath = path.join(distPath, 'index.html');
+    if (fs.existsSync(distPath)) {
+      app.use(express.static(distPath));
+    }
     app.get('*', (_req, res) => {
-      res.sendFile(path.join(distPath, 'index.html'));
+      if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+      } else {
+        res.status(200).send('OK');
+      }
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`Server running on http://${HOST}:${PORT}`);
   });
 }
 

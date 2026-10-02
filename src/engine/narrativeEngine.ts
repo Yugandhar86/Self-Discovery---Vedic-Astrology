@@ -1,4 +1,4 @@
-import {
+import type {
   AttachmentDynamics,
   AttachmentStyleName,
   BigFiveDimension,
@@ -9,19 +9,19 @@ import {
   NarrativeReportSections,
   PlanetaryPosition,
   StructuralAnomaly,
-} from '../types/jyotish';
+} from '../types/jyotish.ts';
 import {
   calculatePlanetaryMatrix,
   formatRawSchemaInput,
   HOUSE_PSYCHOLOGY,
   RASHI_LIST,
-} from './jyotishEngine';
+} from './jyotishEngine.ts';
 import {
   KETU_HOUSE_DATA,
   MARS_FIREFIGHTER_HOUSE_DATA,
   POLARITY_DESCRIPTIONS,
   SATURN_MANAGER_HOUSE_DATA,
-} from './karmicPolarityData';
+} from './karmicPolarityData.ts';
 
 function buildPersonalizedAttachmentFacets(
   primaryStyle: AttachmentStyleName,
@@ -341,6 +341,9 @@ export function generateExhaustiveNarrative(
   const saturn = planets.find((p) => p.id === 'Saturn')!;
   const rahu = planets.find((p) => p.id === 'Rahu')!;
   const ketu = planets.find((p) => p.id === 'Ketu')!;
+  const sun = planets.find((p) => p.id === 'Sun')!;
+  const mercury = planets.find((p) => p.id === 'Mercury')!;
+  const jupiter = planets.find((p) => p.id === 'Jupiter')!;
 
   const ascRashi = RASHI_LIST[ascendant.rashiIndex];
   const ketuRashi = RASHI_LIST[ketu.rashiIndex];
@@ -348,9 +351,13 @@ export function generateExhaustiveNarrative(
   const moonRashi = RASHI_LIST[moon.rashiIndex];
   const saturnRashi = RASHI_LIST[saturn.rashiIndex];
   const venusRashi = RASHI_LIST[venus.rashiIndex];
+  const sunRashi = RASHI_LIST[sun.rashiIndex];
+  const mercuryRashi = RASHI_LIST[mercury.rashiIndex];
+  const jupiterRashi = RASHI_LIST[jupiter.rashiIndex];
   const navAscRashi = RASHI_LIST[ascendant.navamshaIndex];
   const navVenusRashi = RASHI_LIST[venus.navamshaIndex];
   const navMoonRashi = RASHI_LIST[moon.navamshaIndex];
+  const navSaturnRashi = RASHI_LIST[saturn.navamshaIndex];
 
   const ketuHouse = HOUSE_PSYCHOLOGY[ketu.house];
   const rahuHouse = HOUSE_PSYCHOLOGY[rahu.house];
@@ -604,46 +611,60 @@ Let us strip away the astrological vectors and translate this exact matrix—you
    ${laymanEarnedSecurity}`;
 
   // SECTION 3: THE EVOLUTIONARY FRONTIER + BESPOKE LAYMAN LANGUAGE TRANSLATION (ALL LIFE FACETS)
-  const bigFiveNarrativeBlocks = bigFive
-    .map((dim) => {
-      return `- **${dim.trait} (Shifting from *${dim.karmicDefaultLabel}* ➔ *${dim.evolutionaryTargetLabel}*):**
-  - *The Unconscious Default:* ${dim.shadowExpression}
-  - *The Self-Led Reconditioning:* ${dim.selfLedExpression}
-  - *The Daily Stretch:* ${dim.stretchMechanism}
-  - *Life Facets Impact:* ${dim.lifeArenaImpact}`;
-    })
-    .join('\n\n');
+  // Dynamic, personalized evolutionary monograph with zero duplication and strict alignment to the birth chart
 
-  // Build dynamic, customized layman translations for each of the 5 Big Five traits
-  const bigFiveLaymanDetails = bigFive
+  let navAscDescription = '';
+  if (navAscRashi.element === 'Fire') {
+    navAscDescription = `Emerging from the conditioned hesitation or protective armor of your ${ascRashi.name} birth Lagna, your ${navAscRashi.name} Navamsha self radiates decisive, sovereign courage. In high-stakes leadership moments and organizational crossroads within ${rahuHouse.arena}, you stop asking for unanimous consensus or doubting your authority; you step forward as the unhesitating visionary.`;
+  } else if (navAscRashi.element === 'Earth') {
+    navAscDescription = `Grounding the volatile anxieties or fluctuating instincts of your birth chart, your ${navAscRashi.name} Navamsha self embodies patient architectural mastery. You replace hyper-vigilant hustle with sustainable operational rhythms, building enduring systems and ventures in ${rahuHouse.arena} that compound long-term value without demanding physical exhaustion.`;
+  } else if (navAscRashi.element === 'Air') {
+    navAscDescription = `Transcending the territorial fortress of your birth chart, your ${navAscRashi.name} Navamsha self acts as an objective strategic synthesizer, diplomat, and innovator. You articulate complex visions with effortless clarity, convening key stakeholders and negotiating high-value alliances in ${rahuHouse.arena} with unshakeable perspective.`;
+  } else {
+    navAscDescription = `Softening the rigid emotional containment of your birth chart, your ${navAscRashi.name} Navamsha self commands through magnetic empathic depth and intuitive timing. You read the unspoken psychological currents of rooms and partnerships, guiding people through profound transformations without absorbing their distress into your own system.`;
+  }
+
+  let navMoonDescription = `In your birth chart, your Moon in ${moonRashi.name} digested emotional stress through ${
+    moon.rashiElement === 'Water'
+      ? 'turbulent emotional absorption, intense sensitivity, and protective isolation'
+      : moon.rashiElement === 'Earth'
+        ? 'somatic muscular bracing, stoic self-containment, and treating vulnerability as an operational risk'
+        : moon.rashiElement === 'Air'
+          ? 'compulsive mental looping, over-analyzing relational subtexts, and restless nervous energy'
+          : 'adrenal urgency, reactive frustration, and an impulse to force immediate outcomes'
+  }. In your D9 soul-matrix, your emotional consciousness ripens into **${navMoonRashi.name}**: you develop an unshakeable interior sanctuary. When external friction arises in ${saturnHouse.arena} or ${venusHouse.arena}, your nervous system no longer spirals; you anchor into self-compassionate discernment, holding space for complex feelings without losing your center.`;
+
+  let navVenusDescription = `Your birth Venus in ${venusRashi.name} within the ${venusHouse.name} approached love, creativity, and financial pricing with protective armor—either under-valuing your gifts or keeping intimate partners at a safe distance. Ripening into your **${navVenusRashi.name}** Navamsha Venus, your relational capacity transforms into sacred reciprocity. You command premium compensation for your intellectual property without guilt, establish immovable contractual boundaries, and welcome deep, unarmored intimacy where mutual vulnerability is celebrated as true power.`;
+
+  const bigFiveNarrativeBlocks = bigFive
     .map((dim, idx) => {
-      return `### Trait 0${idx + 1}: ${dim.trait} (Moving from ${dim.baselineScore}% Baseline ➔ ${dim.reconditionedTarget}% Evolutionary Target)
-- **What the Old Karmic Default Looked Like in Daily Life (*${dim.karmicDefaultLabel}*):** ${dim.shadowExpression}
-- **What Reconditioning Looks Like in Practice (*${dim.evolutionaryTargetLabel}*):** ${dim.selfLedExpression}
-- **The Real-World Behavioral Stretch:** ${dim.stretchMechanism}
-- **Its Concrete Impact Across Life Arenas:** ${dim.lifeArenaImpact}`;
+      return `#### Trait 0${idx + 1}: ${dim.trait}
+- **Psychometric Calibration:** Moving from Baseline ${dim.baselineScore}% (*${dim.karmicDefaultLabel}*) ➔ Evolutionary Target ${dim.reconditionedTarget}% (*${dim.evolutionaryTargetLabel}*)
+- **The Unconscious Karmic Default:** ${dim.shadowExpression}
+- **The Self-Led Evolutionary Maturation:** ${dim.selfLedExpression}
+- **The Daily Stretch Mechanism:** ${dim.stretchMechanism}
+- **Impact Across Living Spheres:** ${dim.lifeArenaImpact}`;
     })
     .join('\n\n');
 
   const section3EvolutionaryFrontier = `## 3. THE EVOLUTIONARY FRONTIER: The Current Life Reconditioning Blueprint
 
-If Ketu and your Shastiamsha deities describe the ancient fortress you built to survive the past, your North Node (**Rahu**) in **${rahuRashi.name}** within your **${rahuHouse.name}**—illuminated by the deeper soul-horizon of your **Navamsha (D9)** chart—describes the exact evolutionary medicine required to make you whole in this lifetime across your career, finances, creative voice, health, family, and relationships.
+If Ketu in ${ketuRashi.name} (${ketuHouse.name}) and your past-life Shastiamsha imprint (${ketu.shastiamsha.name}) describe the ancient fortress you built to survive the past, your North Node (**Rahu**) in **${rahuRashi.name}** within your **${rahuHouse.name}**—governed by the **${rahu.shastiamsha.name}** deity stream (*${rahu.shastiamsha.archetype}*) and illuminated by the higher soul-blueprint of your **Navamsha (D9)** chart—describes the exact evolutionary medicine required to make you whole in this lifetime across your career, finances, creative voice, health, family, and relationships.
 
-Your soul did not incarnate to repeat the familiar, sterile safety of ${ketuHouse.arena}. It chose the electric, unfamiliar, and deeply fertile stretch zone of ${rahuHouse.arena}, expressed through the evolutionary frequency of ${rahuRashi.psychologicalDomain}. To your Manager and Firefighter parts, this Rahu frontier initially looks messy, risky, and out of control. Where Ketu in ${ketuRashi.name} demands guaranteed safety before taking a step, Rahu in ${rahuRashi.name} asks you to step into the arena *before* you feel ready—to risk ${rahuHouse.evolutionaryTask}.
+Your soul did not incarnate in ${input.placeOfBirth.split(',')[0]} to endlessly repeat the familiar, exhausted survival loops of ${ketuHouse.arena}. It deliberately chose the electric, unvetted, and generative frontier of **${rahuHouse.arena}**, expressed through the psychological wavelength of **${rahuRashi.name}** (${rahuRashi.psychologicalDomain}). To your ${saturnData.managerTitle} and ${marsData.firefighterTitle}, this Rahu frontier initially feels hazardous and destabilizing. Where Ketu in ${ketuRashi.name} demands guaranteed safety and pre-calculated outcomes before taking a single step, Rahu in ${rahuRashi.name} demands that you step into the arena *before* you feel fully ready—to risk **${rahuHouse.evolutionaryTask}**.
 
-### The ${polarity.axisName}
-- **The Karmic Ceiling of the Past:** ${polarity.karmicCeiling}
-- **Rahu's Evolutionary Call in this Lifetime:** ${polarity.rahuEvolutionaryCall}
+### The Nodal Polarity Axis: ${polarity.axisName}
+- **The Exhausted Past-Life Comfort Zone:** ${polarity.karmicCeiling} In your chart, this manifests as an over-developed reflex to retreat into ${ketuHouse.arena} whenever modern adult demands feel chaotic, clinging to ${ketuRashi.name} containment.
+- **Rahu's Evolutionary Imperative in this Lifetime:** ${polarity.rahuEvolutionaryCall} Stepping across this threshold requires you to embody ${rahuRashi.name} boldness within ${rahuHouse.arena}, allowing yourself to be seen, compensated, and trusted without demanding a guaranteed emergency parachute.
 
 ### The Navamsha (D9) Soul Trajectory: Who You Become When the Armor Drops
-In Vedic structural psychology, the root birth matrix shows the inherited conditioning and defensive reflexes, while the **Navamsha** reveals the ripened fruit of your consciousness once those defenses are unburdened. Your Navamsha horizon shifts into **${navAscRashi.name}**, your emotional foundation ripens into **${navMoonRashi.name}**, and your capacity for relational and commercial harmony matures into **${navVenusRashi.name}**.
+In Vedic structural psychology, the root birth matrix maps your inherited conditioning and defensive reflexes, while the **Navamsha** reveals the ripened fruit of your consciousness once those defenses are unburdened. Your Navamsha horizon shifts into **${navAscRashi.name}**, your emotional foundation ripens into **${navMoonRashi.name}**, and your capacity for relational and commercial harmony matures into **${navVenusRashi.name}**.
 
-- **The Metaphysical-to-Behavioral Echo (The Navamsha Shift Across Life):**
-  - **In Career & Leadership:** Instead of leading through hyper-control and micromanagement, your ${navAscRashi.name} Navamsha self embodies visionary delegation and collaborative stewardship. You build systems that run smoothly without demanding your physical depletion.
-  - **In Creative Voice:** You stop hoarding your creative gifts. Guided by ${navVenusRashi.name}, you share your ideas, designs, or ventures with the public while remaining grounded in your own validation.
-  - **In Somatic Health:** Regulated through ${navMoonRashi.name}, the chronic tension in your body melts away as your nervous system learns that it is safe to down-regulate. You sleep deeply, eat with pleasure, and listen to your body's early whisper rather than waiting for an emergency scream.
-  - **In Family & Ancestral Lineage:** You release the role of the family fixer. You relate to relatives with warmth and kindness while maintaining sovereign, calm boundaries that protect your peace.
-  - **In Intimacy & Friendship:** The guarded reflex of ${venusRashi.name} softens into the ${navVenusRashi.name} capacity for real-time transparency. You risk asking for what you need, welcoming true interdependence.
+- **In Executive Authority & Career Direction:** ${navAscDescription}
+- **In Creative Voice & Public Radiance:** ${navVenusDescription}
+- **In Somatic Health & Nervous System Regulation:** ${navMoonDescription}
+- **In Family Lineage & Generational Healing:** Operating from your ${navAscRashi.name} and ${navMoonRashi.name} consciousness, you release the historical role of the family fixer or emotional sponge. You relate to relatives with genuine warmth and practical kindness while upholding sovereign, calm boundaries that protect your private peace.
+- **In Intimate Vulnerability & Sacred Partnership:** The guarded reflex of your birth Venus softens into the ${navVenusRashi.name} capacity for real-time transparency. You risk asking for what you need, welcoming true interdependence and mutual devotion without the underlying terror of entrapment or sudden loss.
 
 ### Reconditioning Your Big Five Personality Matrix Across All Facets
 As you systematically unburden your ${ifs.exile.archetypeTitle} and invite your ${ifs.manager.archetypeTitle} to step down from 24/7 duty, your behavioral footprint undergoes a measurable, structural realignment:
@@ -653,28 +674,28 @@ ${bigFiveNarrativeBlocks}
 ---
 
 ### Layman Language Translation: What Stepping Into Your ${rahuRashi.name} Rahu Frontier and ${navAscRashi.name} Navamsha Actually Looks Like in Daily Life
-Let's take this grand evolutionary roadmap and translate it into what your life actually looks and feels like when you stop running on your past-life defaults and start operating from your unburdened **${navAscRashi.name}** Self across every single sphere of life:
+Let us strip away the astrological architecture and translate this grand evolutionary roadmap into an experiential, real-world narrative of how you actually think, feel, decide, and live when operating from your unburdened **${navAscRashi.name}** Self across every arena of life:
 
-1. **The Core Shift from Your Past-Life Comfort (${ketuRashi.name} in ${ketuHouse.name}) to Your Growth Frontier (${rahuRashi.name} in ${rahuHouse.name}):**
-   - **The Evolutionary Axis You Are Navigating:** *${polarity.axisName}*
-   - **The Old Karmic Default You Are Leaving Behind:** In previous lifetimes and throughout your early adult conditioning, you survived by mastering **${ketuHouse.arena}**. ${polarity.karmicCeiling}
-   - **The New Rahu Arena You Are Called to Inhabit:** Your soul's growth in this lifetime requires you to expand boldly into **${rahuHouse.arena}**, embodying the qualities of **${rahuRashi.psychologicalDomain}**. This means risking **${rahuHouse.evolutionaryTask}** even when your palms sweat and your Manager part protests. ${polarity.rahuEvolutionaryCall}
-   - **In Career & Workplace Authority:** ${polarity.facetsShift.vocationAndMoney}
-   - **With Money & Material Abundance:** Shifting from scarcity anxiety or defensive isolation in capital into sustainable wealth generation that supports your true life purpose.
-   - **In Creative Voice & Visibility:** ${polarity.facetsShift.creativeVoiceAndVisibility}
-   - **In Physical Health & Nervous System Regulation:** ${polarity.facetsShift.somaticHealthAndNervousSystem}
-   - **In Family Lineage & Ancestral Dynamics:** ${polarity.facetsShift.familyLineageAndAncestralRoles}
-   - **In Solitude & Existential Meaning:** ${polarity.facetsShift.existentialTrustAndSolitude}
-   - **In Romantic Intimacy & Friendships:** ${polarity.facetsShift.interpersonalAndRomanticBonds}
+1. **The Visceral Leap from Past-Life Default to Growth Frontier across Living Spheres:**
+   - **In Career, Workplace Authority & Deal-Making:** On a typical high-stakes workday, stepping into Rahu means resisting your default impulse to retreat into the comfortable, solitary technical bunker of ${ketuHouse.arena}. Instead of quietly doing the work yourself and hoping leadership notices, you step directly into ${rahuHouse.arena}—pitching your high-conviction ideas, facilitating key decision-making meetings, and accepting the scaled responsibility that matches your true intellect.
+   - **With Money, Capital Allocation & Wealth Sovereignty:** In financial management and commercial negotiations, stepping into your Rahu frontier means dismantling the old scarcity reflex or compulsive financial isolation. Guided by your ${navVenusRashi.name} Navamsha Venus, you stop discounting your rates or avoiding equity partnerships out of fear of conflict. You price your services at fair market value, establish transparent joint-venture contracts, and view capital not as a frantic survival moat, but as an energetic resource for collective impact.
+   - **In Creative Voice, Originality & Public Stature:** You stop treating your creative projects as private secrets to be hidden until they are flawless. You publish your writings, launch your products, or voice your boldest industry perspectives in ${rahuHouse.arena} while they are raw and vital, trusting that your authentic frequency will magnetically attract aligned peers and collaborators.
+   - **In the Physical Body, Nervous System & Somatic Restoration:** Your body physically registers this evolutionary leap as a profound, cellular sigh of relief. You deliberately interrupt the chronic habit of holding tension in your ${saturnData.somaticLocation}. You institute non-negotiable sleep rhythms, step away from digital screens during meals, and allow your body to experience deep, unhurried parasympathetic restoration.
+   - **In Family Lineage & Ancestral Dynamics:** In real-world family interactions, you stop participating in inherited generational guilt triangles. When relatives attempt to draw you into old conflicts or demand that you play the compliant caretaker, you smile with genuine warmth and say: *"I love you dearly, and I know you have the strength to resolve this yourself."* You break centuries of lineage codependency by remaining lovingly sovereign.
+   - **In Solitude, Spiritual Peace & Existential Surrender:** When spending time alone in your personal sanctuary, solitude ceases to be an anxious bunker where your mind simulates worst-case disasters. It becomes a sacred, nourishing temple of renewal where you commune with the divine intelligence of the cosmos, knowing at the cellular level that you are guided and protected.
+   - **In Romantic Intimacy & Sacred Interdependence:** In the living room with your intimate partner, stepping into your frontier means replacing your conditioned withdrawal or anxious protest with courageous vulnerability. When feeling tender or overwhelmed, you don't shut down behind work or pick a petty fight; you look your partner in the eyes, take a breath, and say: *"I am feeling a little tender right now, and I just need you to hold me for five minutes."* You discover that being fully known does not destroy your freedom—it deepens it.
 
 2. **Operating From Your Navamsha (D9) Consciousness in Plain English:**
-   - **Your ${navAscRashi.name} Navamsha Ascendant:** In high-stakes moments, you no longer react from the conditioned defensiveness of your birth chart. You pause, connect with your breath, and respond with the grounded authority and wisdom of ${navAscRashi.name}.
-   - **Your Navamsha Moon in ${navMoonRashi.name}:** When unexpected emotional storms arrive, your Navamsha Moon acts as a steady anchor, providing deep self-compassion and emotional equanimity rather than falling into catastrophic spirals.
-   - **Your Navamsha Venus in ${navVenusRashi.name}:** In contracts, creative projects, and romantic bonds, you operate from an innate sense of worth, attracting partnerships based on genuine peer-level reciprocity and shared values.
+   - **Your ${navAscRashi.name} Navamsha Ascendant in Action:** In executive meetings, client presentations, or unexpected crises, you no longer react from the conditioned defensiveness of your birth chart. You carry yourself with grounded posture, breathe into your abdomen, and communicate with the natural authority, poise, and clarity of ${navAscRashi.name}.
+   - **Your Navamsha Moon in ${navMoonRashi.name} in Action:** When unexpected emotional friction, client criticism, or partner distance occurs, your Navamsha Moon acts as a steady emotional gyroscope. You don't flood into panic or numbness; you validate your own feelings, self-soothe with compassion, and respond with thoughtful discernment.
+   - **Your Navamsha Venus in ${navVenusRashi.name} in Action:** In commercial contract negotiations, creative collaborations, and romantic relationships, you operate from an innate certainty of your worth. You attract collaborators and lovers who meet you with equal respect, mutual transparency, and sacred reciprocity.
 
-3. **Your Big Five Personality Transformation Grounded in Everyday Situations:**
-
-${bigFiveLaymanDetails}`;
+3. **Five Concrete Real-World Behavioral Stretches (Big Five in Daily Action):**
+   - **Micro-Experiment 01 (For Neuroticism ➔ Emotional Equanimity):** When a sudden wave of threat-scanning or catastrophic worry spikes around your career or personal life, practice the **3-Minute Somatic Anchor**. Place one hand firmly on your ${saturnData.somaticLocation}, take 3 slow diaphragmatic breaths, and speak out loud: *"My system is recalling a past-life defense; in this exact moment, I am safe and fully capable of handling reality."*
+   - **Micro-Experiment 02 (For Openness ➔ Experiential Fluidity):** Practice the **70% Threshold Rule**. When developing a new proposal, artistic creation, or business initiative, release it to collaborators or your audience when you are 70% satisfied rather than waiting for 100% conceptual mastery, allowing real-world engagement to polish the final outcome.
+   - **Micro-Experiment 03 (For Conscientiousness ➔ Aligned Devotional Craft):** Institute the **Sacred Work Curfew**. Once this week, close your laptop at a predetermined evening hour regardless of unfinished tasks. Choose one operational responsibility in ${saturnHouse.arena} to delegate entirely without surveillance, trusting your team and honoring your body's right to rest.
+   - **Micro-Experiment 04 (For Agreeableness ➔ Boundary-Rich Compassion):** Practice the **Clean Single-Sentence Boundary**. When a client, colleague, or family member requests labor or compromises that infringe upon your health or fair value, decline with warmth in a single declarative sentence without offering defensive apologies or over-explanations.
+   - **Micro-Experiment 05 (For Extraversion ➔ Sovereign Visibility):** Take the **Center-Stage Step**. In your next professional meeting or public forum within ${rahuHouse.arena}, voice your perspective first, share your authentic accomplishments without self-effacing humor, and allow yourself to be acknowledged and compensated at scale.`;
 
   return {
     section1ImplicitCode,

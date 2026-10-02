@@ -1,4 +1,4 @@
-import {
+import type {
   ArchivalPreset,
   BirthInput,
   GenderOption,
@@ -7,7 +7,7 @@ import {
   PlanetId,
   ShastiamshaDeityInfo,
   StructuralAnomaly,
-} from '../types/jyotish';
+} from '../types/jyotish.ts';
 
 export const RASHI_LIST: Array<{
   index: number;

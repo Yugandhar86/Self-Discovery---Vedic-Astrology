@@ -1,4 +1,4 @@
-import { AttachmentStyleName, LifeFacetsImpact } from '../types/jyotish';
+import type { AttachmentStyleName, LifeFacetsImpact } from '../types/jyotish.ts';
 
 export interface KetuHouseTrajectory {
   houseNumber: number;
