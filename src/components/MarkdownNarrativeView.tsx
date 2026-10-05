@@ -250,7 +250,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-semibold text-stone-900 tracking-tight leading-[1.12] text-balance">
-          The Mirror of {ketu.shastiamsha.name} & the {result.ascendant.rashiName} Horizon
+          The Mirror of Your Subconscious Blueprint & Sovereign Horizon
         </h1>
         <p className="text-base sm:text-lg text-stone-600 mt-3 max-w-3xl leading-relaxed">
           An exhaustive, multi-dimensional translation of your subconscious past-life defaults, structural attachment knots, and evolutionary frontier—spanning career, money, creative voice, bodily health, family lineage, and intimate bonds.
@@ -263,7 +263,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             onClick={() => scrollToSection(1)}
             className="hover:text-[#9A3412] transition-colors font-medium whitespace-nowrap cursor-pointer"
           >
-            01 / The Implicit Code (IFS Mapping & Layman Translation)
+            01 / The Implicit Code (Inner Protective Dynamics & Grounded Translation)
           </button>
           <span className="text-stone-300" aria-hidden="true">·</span>
           <button
@@ -271,7 +271,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             onClick={() => scrollToSection(2)}
             className="hover:text-[#9A3412] transition-colors font-medium whitespace-nowrap cursor-pointer"
           >
-            02 / The Structural Knots (Attachment Dynamics & Layman Translation)
+            02 / The Structural Knots (Relational Blueprints & Grounded Translation)
           </button>
           <span className="text-stone-300" aria-hidden="true">·</span>
           <button
@@ -279,7 +279,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             onClick={() => scrollToSection(3)}
             className="hover:text-[#9A3412] transition-colors font-medium whitespace-nowrap cursor-pointer"
           >
-            03 / The Evolutionary Frontier (Big Five Shift & Layman Translation)
+            03 / The Evolutionary Frontier (Behavioral Realignment & Grounded Translation)
           </button>
         </div>
       </div>
@@ -330,12 +330,12 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
               ) : (
                 <div className="w-full aspect-video bg-[#EBE6DF] flex items-center justify-center p-4 text-center">
                   <span className="font-display text-sm italic text-stone-600">
-                    Harmonic Vector Plate of {result.ascendant.rashiName} Lagna & {ketu.shastiamsha.name} Shastiamsha
+                    Harmonic Vector Plate: Subconscious Blueprint & Sovereign Horizon
                   </span>
                 </div>
               )}
               <figcaption className="text-xs italic text-stone-600 mt-2.5 leading-normal">
-                Plate I — Celestial Harmonic Vector: Mapping {ketu.rashiName} Ketu ({ketu.shastiamsha.name} D60) across career, money, health, and soul trajectory.
+                Plate I — Harmonic Vector: Mapping your subconscious blueprint across career, money, health, and life trajectory.
               </figcaption>
             </figure>
 
@@ -409,8 +409,8 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
                   <dd className="text-stone-600 mt-0.5">{result.ifs.firefighter.archetypeTitle}</dd>
                 </div>
                 <div>
-                  <dt className="font-semibold text-[#9A3412]">D9 Navamsha Horizon</dt>
-                  <dd className="text-stone-700 mt-0.5">{result.ascendant.navamshaName} Lagna · {result.ifs.selfLeadershipAnchor}</dd>
+                  <dt className="font-semibold text-[#9A3412]">Mature Sovereign Center</dt>
+                  <dd className="text-stone-700 mt-0.5">{result.ifs.selfLeadershipAnchor}</dd>
                 </div>
               </dl>
             </div>

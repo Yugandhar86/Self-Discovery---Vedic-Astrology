@@ -83,7 +83,14 @@ export interface LifeFacetsImpact {
 }
 
 export interface IFSPartDetail {
-  role: 'Exile (Carried Vulnerability)' | 'Manager (Proactive Protector)' | 'Firefighter (Reactive Protector)';
+  role:
+    | 'Exile (Carried Vulnerability)'
+    | 'Manager (Proactive Protector)'
+    | 'Firefighter (Reactive Protector)'
+    | 'Vulnerable Core (Hidden Vulnerability)'
+    | 'Primary Protector (Strategic Guardian)'
+    | 'Emergency Reflex (Reactive Override)'
+    | string;
   archetypeTitle: string;
   astrologicalOrigin: string;
   coreBelief: string;
@@ -122,7 +129,18 @@ export interface AttachmentDynamics {
 }
 
 export interface BigFiveDimension {
-  trait: 'Neuroticism (Emotional Sensitivity)' | 'Openness to Experience' | 'Conscientiousness' | 'Agreeableness' | 'Extraversion';
+  trait:
+    | 'Neuroticism (Emotional Sensitivity)'
+    | 'Openness to Experience'
+    | 'Conscientiousness'
+    | 'Agreeableness'
+    | 'Extraversion'
+    | 'Emotional Sensitivity & Somatic Equanimity'
+    | 'Receptivity to Experience & Creative Fluidity'
+    | 'Sustained Craftsmanship & Devotional Rhythm'
+    | 'Relational Generosity & Sovereign Boundaries'
+    | 'Sovereign Visibility & Authentic Presence'
+    | string;
   baselineScore: number;       // 0 to 100
   reconditionedTarget: number; // 0 to 100
   karmicDefaultLabel: string;

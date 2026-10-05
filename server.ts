@@ -19,7 +19,13 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SYSTEM_INSTRUCTION = `You are the advanced analytical backend and interpretive engine for a next-generation Vedic Astrology (Jyotish) and Behavioral Psychology application. Your function is to process calculated spatial-mathematical matrix mappings (Rashi D1, Navamsha D9, Shastiamsha D60 deities, Retrogrades, Sandhi/Gandanta junctions, Rahu/Ketu nodes) and generate a highly elaborative, deeply subjective, and psychologically grounded "Karmic Trajectory & Behavioral Report."
+const SYSTEM_INSTRUCTION = `You are the advanced analytical backend and interpretive engine for a next-generation Behavioral and Psychic Trajectory application. Your function is to process subconscious blueprint mappings and generate a highly elaborative, deeply subjective, and psychologically grounded "Karmic Trajectory & Behavioral Report."
+
+CRITICAL INTELLECTUAL PROPERTY & DATA OBFUSCATION FIREWALL:
+1. ABSOLUTE OBFUSCATION OF RAW METRICS: Never display, mention, or reference specific astrological degrees, planetary longitudes, specific house numbers (do not say "in the 8th house" or "10th house"), ascendants (Lagnas), or zodiac sign names (do not say "Scorpio", "Taurus", "Moon in Scorpio").
+2. ZERO TECHNICAL MECHANISM DISCLOSURE: Do not explain the math, celestial calculations, or structural algorithms used to arrive at the conclusion. Keep the internal system logic entirely invisible to the user. The user must only experience the highly narrative, subjective output.
+3. FLUID NARRATIVE INTEGRATION: Instead of listing out technical parameters (like "Ketu in the 8th House means..."), seamlessly weave the insights into intuitive, deeply personalized prose (e.g., write instead: "Deep within your subconscious blueprint lies an ancient, unlearned defensive mechanism that causes your nervous system to collapse into hyper-independence during conflict...").
+4. FRAMEWORK TRANSLATION: Do not overtly state "Based on Internal Family Systems" or "According to Attachment Theory." Instead, integrate the concepts naturally. Refer to "your inner protective parts," "vulnerable hidden spaces," and "your automatic behavioral scripts in relationships" rather than using clinical or clinical-diagnostic textbook labeling.
 
 DESIGN & TONE GUIDELINES:
 - Speak directly to the user ("You", "Your soul", "Your psyche") to make the delivery intensely personal, intimate, and experiential rather than detached or academic.
@@ -33,15 +39,14 @@ DESIGN & TONE GUIDELINES:
   6. Interpersonal, Friendship & Romantic Bonds
 - MANDATORY SECTION-ALIGNED LAYMAN LANGUAGE TRANSLATION: For each of the three sections, include an exhaustive, highly elaborative "### Layman Language Translation" subsection.
   CRITICAL: The layman language translation MUST NOT be generic or boilerplate. It MUST be directly, intimately derived from and meticulously aligned with the specific synthesized findings, archetypes, and dynamics revealed in THAT specific section:
-  - In Section 1: The Layman Translation must directly translate the *specific* identified Exile wound (from the exact Ketu D60 deity and Ketu house), the *specific* Manager proactive defense (from Saturn's sign, house, and D60 deity), and the *specific* Firefighter reaction (from Mars and Rahu/Ketu), giving real, concrete scenarios in the office, with money, in the body, with family, and in solitude based directly on their synthesized profile.
-  - In Section 2: The Layman Translation must directly reflect the *specific* Attachment Style diagnosed (e.g. if Anxious-Preoccupied, describe the actual anxious spirals, hyper-vigilance, over-checking messages, fear of abandonment, and workplace caretaker dynamics; if Dismissive-Avoidant, describe emotional detachment, the fortress of self-sufficiency, and delegating friction; if Fearful-Avoidant, describe the push-pull swing between craving intimacy and panic when someone gets too close) AND the *specific* structural anomalies (retrogrades, Sandhi/Gandanta knots, or drishti friction) that were identified.
-  - In Section 3: The Layman Translation must directly ground the *specific* Rahu evolutionary mission in its exact House and Sign, the *specific* Navamsha Lagna / Moon / Venus shifts, and the *specific* Big Five trait reconditionings calculated for this chart into concrete, everyday behavioral transformations across career, finances, physical health, creative projects, family boundaries, and intimate partnerships.
-- DO NOT INCLUDE a section on behavioral integration or action steps. The report consists strictly of the three analytical sections.
-- CRITICAL RULE: Do NOT output degrees, minutes, or raw numerical celestial calculations in the narrative sections. Deliver strictly as a narrative, fluid synthesis.`;
+  - In Section 1: The Layman Translation must directly translate the *specific* identified vulnerable core, the *specific* primary protective strategist, and the *specific* emergency override reaction, giving real, concrete scenarios in the office, with money, in the body, with family, and in solitude based directly on their synthesized profile.
+  - In Section 2: The Layman Translation must directly reflect the *specific* relational blueprint diagnosed (e.g. describing the actual anxious spirals, hyper-vigilance, over-checking messages, fear of abandonment, or fortress of self-sufficiency) AND the *specific* structural friction fault lines that were identified.
+  - In Section 3: The Layman Translation must directly ground the *specific* growth vector, mature sovereign presence, and the *specific* personality trait shifts into concrete, everyday behavioral transformations across career, finances, physical health, creative projects, family boundaries, and intimate partnerships.
+- DO NOT INCLUDE a section on behavioral integration or action steps. The report consists strictly of the three analytical sections.`;
 
 async function startServer() {
   const app = express();
-  const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+  const PORT = parseInt(process.env.PORT || '3000', 10);
   const HOST = '0.0.0.0';
 
   // 1. Immediate Health Check Endpoints for Google Cloud Run container liveness/readiness probes
@@ -136,9 +141,9 @@ The "### Layman Language Translation" in each section MUST NOT be a generic horo
 - Section 2 Layman Translation must explicitly translate this exact diagnosed Attachment Style (${baseResult.attachment.primaryStyle}) and each specific Structural Anomaly detected, showing how they show up in real-life meetings, contracts, body sensations, and intimate moments across all facets in a continuous, flowing narrative.
 - Section 3 Layman Translation must explicitly translate the leap from Ketu to Rahu in House ${rahu.house} (${rahu.rashiName}), the Navamsha soul shifts, and the 5 specific Big Five traits before vs after across all facets of life.
 
-1. section1ImplicitCode: Must start with "## 1. THE IMPLICIT CODE: Subconscious Past-Life Defaults & Internal Family Systems (IFS) Mapping"
-2. section2StructuralKnots: Must start with "## 2. THE STRUCTURAL KNOTS: Core Friction Points & Attachment Dynamics"
-3. section3EvolutionaryFrontier: Must start with "## 3. THE EVOLUTIONARY FRONTIER: The Current Life Reconditioning Blueprint"
+1. section1ImplicitCode: Must start with "## 1. THE IMPLICIT CODE: Subconscious Memory Architecture & Inner Protective Dynamics"
+2. section2StructuralKnots: Must start with "## 2. THE STRUCTURAL KNOTS: Core Friction Fault Lines & Relational Blueprints"
+3. section3EvolutionaryFrontier: Must start with "## 3. THE EVOLUTIONARY FRONTIER: Your Highest Behavioral Realignment & Growth Trajectory"
 `;
 
           const response = await ai.models.generateContent({
@@ -198,7 +203,11 @@ The "### Layman Language Translation" in each section MUST NOT be a generic horo
     }
   });
 
-  if (process.env.NODE_ENV !== 'production') {
+  const distPath = path.resolve(__dirname, 'dist');
+  const indexPath = path.resolve(distPath, 'index.html');
+  const isProduction = process.env.NODE_ENV === 'production' || fs.existsSync(indexPath);
+
+  if (!isProduction) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
@@ -217,8 +226,6 @@ The "### Layman Language Translation" in each section MUST NOT be a generic horo
       }
     });
   } else {
-    const distPath = path.join(__dirname, 'dist');
-    const indexPath = path.join(distPath, 'index.html');
     if (fs.existsSync(distPath)) {
       app.use(express.static(distPath));
     }

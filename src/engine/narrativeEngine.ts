@@ -35,9 +35,9 @@ function buildPersonalizedAttachmentFacets(
 ): LifeFacetsImpact {
   if (primaryStyle === 'Dismissive-Avoidant') {
     return {
-      vocationAndMoney: `Operating as a solitary contractor in ${saturnHouseInfo.arena}. With Moon in ${moon.rashiName} and Saturn in ${saturn.rashiName}, you deeply distrust commercial co-mingling, preferring to carry 100% of operational responsibility rather than endure the vulnerability of relying on an unreliable partner.`,
+      vocationAndMoney: `Operating as a solitary contractor in ${saturnHouseInfo.arena}. Deep within your emotional processing, you distrust commercial co-mingling, preferring to carry 100% of operational responsibility rather than endure the vulnerability of relying on an unreliable partner.`,
       creativeVoiceAndVisibility: `Guarded creative delivery; you present polished, highly intellectualized work while discounting public applause as superficial because praise does not penetrate your protective perimeter.`,
-      somaticHealthAndNervousSystem: `Hypo-arousal masking acute stress; you ignore early physical symptoms in ${saturn.rashiName}-governed areas until your body forces a total solitary down-regulation.`,
+      somaticHealthAndNervousSystem: `Hypo-arousal masking acute stress; you ignore early physical symptoms in chronic muscular holding patterns until your body forces a total solitary down-regulation.`,
       familyLineageAndAncestralRoles: `Playing the polite, accomplished relative who shows up with financial or logistical aid while keeping all personal struggles, heartaches, and vulnerabilities strictly invisible.`,
       existentialTrustAndSolitude: `Radical self-sufficiency treated as spiritual dogma; you struggle to surrender to divine grace because relying on anything unseen feels like an existential risk.`,
       interpersonalAndRomanticBonds: `The autonomous fortress: pulling partners close with your stability in ${venusHouseInfo.arena}, then retreating into cold, monosyllabic distance when emotional dependence deepens.`,
@@ -97,46 +97,46 @@ function deriveIFSMapping(
   const saturnData = SATURN_MANAGER_HOUSE_DATA[saturn.house] || SATURN_MANAGER_HOUSE_DATA[10];
   const marsData = MARS_FIREFIGHTER_HOUSE_DATA[mars.house] || MARS_FIREFIGHTER_HOUSE_DATA[1];
 
-  const exileTitle = `The ${ketu.shastiamsha.name} Witness (${ketuHouseInfo.name} Core)`;
-  const managerTitle = `The ${saturn.shastiamsha.name} Architect (${saturn.rashiName} in ${saturnHouseInfo.name})`;
-  const firefighterTitle = `The ${mars.shastiamsha.name} Sovereign Breaker (${mars.rashiName} / ${marsHouseInfo.name})`;
+  const exileTitle = `The Solitary Witness of the Inner Sanctuary`;
+  const managerTitle = `The Strategic Architect of Order & Composure`;
+  const firefighterTitle = `The Sovereign Breaker of False Containment`;
 
   return {
     exile: {
-      role: 'Exile (Carried Vulnerability)',
+      role: 'Vulnerable Core (Hidden Vulnerability)',
       archetypeTitle: exileTitle,
-      astrologicalOrigin: `Ketu in ${ketu.rashiName} (${ketuHouseInfo.name}) under the ${ketu.shastiamsha.name} Shastiamsha, echoed by Lunar ${moon.shastiamsha.name} sensitivity in ${moonRashi.name}`,
+      astrologicalOrigin: `Subconscious memory of ${ketuData.pastLifeSurvivalGenius}`,
       coreBelief: `"If I allow myself to need unguarded support in ${ketuHouseInfo.arena}, I will face ${ketuData.exileCoreDread}."`,
-      pastLifeImprint: `Rooted in the ${ketu.shastiamsha.name} (${ketu.shastiamsha.archetype}) past-life stream: ${ketu.shastiamsha.subconsciousImprint}. You developed ${ketuData.pastLifeSurvivalGenius} within the realm of ${ketuRashi.psychologicalDomain}.`,
-      currentLifeFootprint: `Manifests today as ${ketu.shastiamsha.exileWound} focused specifically in ${ketuHouseInfo.arena}, heightened whenever your ${moonRashi.name} Moon feels ungrounded.`,
+      pastLifeImprint: `Ingrained subconscious memory: ${ketu.shastiamsha.subconsciousImprint}. You developed ${ketuData.pastLifeSurvivalGenius} within your emotional foundation.`,
+      currentLifeFootprint: `Manifests today as ${ketu.shastiamsha.exileWound} focused specifically in ${ketuHouseInfo.arena}.`,
       somaticLocation: ketuData.exileSomaticFascia,
-      unburdeningKey: `Witnessing this part from adult Self-leadership without demanding that it justify its existence through hyper-competence or self-erasure.`,
+      unburdeningKey: `Witnessing this part from adult self-leadership without demanding that it justify its existence through hyper-competence or self-erasure.`,
       lifeFacets: ketuData.facets,
     },
     manager: {
-      role: 'Manager (Proactive Protector)',
+      role: 'Primary Protector (Strategic Guardian)',
       archetypeTitle: managerTitle,
-      astrologicalOrigin: `Saturn in ${saturn.rashiName} within the ${saturnHouseInfo.name} intersecting the ${ascendant.rashiName} Ascendant under the ${saturn.shastiamsha.name} current`,
-      coreBelief: `"I must anticipate every structural, financial, and emotional variable in ${saturnHouseInfo.arena} so the Exile is never blindsided by ${ketuData.exileCoreDread}."`,
-      pastLifeImprint: `Carries the karmic memory of ${saturn.shastiamsha.subconsciousImprint} in ${saturnHouseInfo.arena}, where survival required unyielding composure, strategic patience, and self-denial.`,
-      currentLifeFootprint: `Operates as ${saturnData.coreVigilanceRule} and ${ketu.shastiamsha.protectorStrategy}—managing your standing in ${saturnHouseInfo.arena} (${saturn.rashiName}).`,
+      astrologicalOrigin: `Instinctive drive toward structural self-reliance and order in ${saturnHouseInfo.arena}`,
+      coreBelief: `"I must anticipate every structural, financial, and emotional variable in ${saturnHouseInfo.arena} so my vulnerable core is never blindsided by ${ketuData.exileCoreDread}."`,
+      pastLifeImprint: `Carries the memory of survival requiring unyielding composure, strategic patience, and self-denial in ${saturnHouseInfo.arena}.`,
+      currentLifeFootprint: `Operates as ${saturnData.coreVigilanceRule}—managing your standing and output in ${saturnHouseInfo.arena}.`,
       somaticLocation: saturnData.somaticLocation,
-      unburdeningKey: `Honoring its decades of tireless protection while gently proving that your adult Self can handle unpredictability in ${saturnHouseInfo.arena} without collapsing.`,
+      unburdeningKey: `Honoring its years of tireless protection while gently proving that your adult presence can handle unpredictability in ${saturnHouseInfo.arena} without collapsing.`,
       lifeFacets: saturnData.facets,
     },
     firefighter: {
-      role: 'Firefighter (Reactive Protector)',
+      role: 'Emergency Reflex (Reactive Override)',
       archetypeTitle: firefighterTitle,
-      astrologicalOrigin: `Mars in ${mars.rashiName} within the ${marsHouseInfo.name} activating under acute pressure via the ${mars.shastiamsha.name} current`,
-      coreBelief: `"When the Manager's control fails in ${saturnHouseInfo.arena} and the Exile's dread threatens to flood the body, I must immediately sever the tension and reset the field."`,
-      pastLifeImprint: `Draws upon the emergency instinct of ${mars.shastiamsha.subconsciousImprint}—choosing ${marsData.emergencyAction.toLowerCase()} over prolonged helplessness.`,
-      currentLifeFootprint: `Deploys when cornered in ${ketuHouseInfo.arena}: ${marsData.emergencyTrigger} Triggering: ${marsData.emergencyAction}`,
+      astrologicalOrigin: `Emergency impulse to break tension when emotional overwhelm threatens`,
+      coreBelief: `"When control fails in ${saturnHouseInfo.arena} and vulnerability threatens to flood the body, I must immediately sever the tension and reset the field."`,
+      pastLifeImprint: `Emergency instinct: choosing ${marsData.emergencyAction.toLowerCase()} over prolonged helplessness.`,
+      currentLifeFootprint: `Deploys when cornered: ${marsData.emergencyTrigger} Triggering: ${marsData.emergencyAction}`,
       somaticLocation: `Sympathetic nervous system surge through ${mars.house === 1 ? 'facial blood flow and cranial muscles' : mars.house === 4 ? 'solar plexus, chest, and throat' : 'chest and extremities'}—either an acute flash of heat demanding action or an icy numbness.`,
       unburdeningKey: `Recognizing the physiological wave before acting on the impulse to blow up a project or cut off a relationship; providing safe, embodied discharge.`,
       lifeFacets: marsData.facets,
     },
-    selfLeadershipAnchor: `Anchored through your Navamsha (D9) ${ascendant.navamshaName} soul-horizon and Jupiter in ${planets.find((p) => p.id === 'Jupiter')!.rashiName}: a spacious, unhurried, compassionate witness capable of holding both fierce autonomy and courageous collaboration across all life arenas.`,
-    mandatoryEchoSummary: `Past-Life ${ketu.shastiamsha.name} Imprint (${ketu.rashiName} in ${ketuHouseInfo.name}) ➔ Current-Life Exile (${ketu.shastiamsha.exileWound}) ➔ Guarded daily by ${saturn.shastiamsha.name} Manager in ${saturnHouseInfo.name} & ${mars.shastiamsha.name} Firefighter in ${marsHouseInfo.name}.`,
+    selfLeadershipAnchor: `Anchored in your unburdened sovereign center: a spacious, unhurried, compassionate witness capable of holding both fierce autonomy and courageous collaboration across all life arenas.`,
+    mandatoryEchoSummary: `Subconscious Imprint ➔ Vulnerable Core (${ketu.shastiamsha.exileWound}) ➔ Guarded daily by Strategic Guardian & Emergency Reflex.`,
   };
 }
 
@@ -224,17 +224,17 @@ function deriveAttachmentDynamics(
     conflictTriggerLoop = `Sensing relational discord early and initiating grounded, compassionate repair in ${venusHouseInfo.arena} before defensive armor can calcify.`;
   }
 
-  const earnedSecurityPathway = `Anchoring through your Venus Navamsha (${venus.navamshaName}) and Rahu in ${rahu.rashiName} (${HOUSE_PSYCHOLOGY[rahu.house].name}): consciously naming your micro-withdrawals in real time across work, money, and intimacy before protective walls harden.`;
+  const earnedSecurityPathway = `Consciously naming your micro-withdrawals in real time across work, money, and intimacy before protective walls harden.`;
 
   return {
     primaryStyle,
     secondaryPull,
-    astrologicalCatalyst: `Moon in ${moon.rashiName} (${moonHouseInfo.name}, ${moon.shastiamsha.name} D60) intersecting Venus in ${venus.rashiName} (${venusHouseInfo.name}, ${venus.shastiamsha.name} D60) and Saturn in ${saturn.rashiName} (${saturnHouseInfo.name})`,
+    astrologicalCatalyst: `The internal friction between your deep instinctual emotional needs, your capacity for shared vulnerability, and your demands for structural self-containment`,
     coreIntimacyFear,
     protestOrWithdrawalBehavior,
     conflictTriggerLoop,
     earnedSecurityPathway,
-    mandatoryEchoSummary: `Celestial Vector (${moon.rashiName} Moon in ${moonHouseInfo.name} / ${venus.rashiName} Venus in ${venusHouseInfo.name} / ${saturn.rashiName} Saturn in ${saturnHouseInfo.name}) ➔ ${primaryStyle} Reflex ➔ ${secondaryPull}.`,
+    mandatoryEchoSummary: `Emotional Digestion ➔ Relational Containment Reflex ➔ Sovereign Intimacy Pattern.`,
     lifeFacetsExpression,
   };
 }
@@ -269,59 +269,59 @@ function deriveBigFiveDimensions(
 
   return [
     {
-      trait: 'Neuroticism (Emotional Sensitivity)',
+      trait: 'Emotional Sensitivity & Somatic Equanimity',
       baselineScore: baseNeuroticism,
       reconditionedTarget: targetNeuroticism,
       karmicDefaultLabel: 'Hyper-Vigilant Threat Scanning',
       evolutionaryTargetLabel: 'Self-Led Somatic Equanimity',
-      shadowExpression: `Driven by Ketu's ${ketu.shastiamsha.name} imprint and Moon in ${moon.rashiName}, your baseline nervous system runs covert background simulations of potential disaster in career, finances, health, and relationships.`,
-      selfLedExpression: `As you unburden the ${ketu.shastiamsha.name} Exile, that acute sensitivity transforms into high-resolution intuitive perception without sympathetic nervous system flooding.`,
-      stretchMechanism: `Anchoring in the ${rahu.rashiName} Rahu evolutionary frontier (${HOUSE_PSYCHOLOGY[rahu.house].name}) and trusting your capacity to handle uncertainty in real time.`,
-      lifeArenaImpact: `Career & Money: Replaces financial catastrophizing with strategic resource stewardship. Health: Prevents adrenal burnout. Relationships: Calms over-analysis of partners' moods.`,
+      shadowExpression: `Your baseline nervous system runs covert background simulations of potential disaster across career, finances, health, and relationships, mistaking chronic vigilance for safety.`,
+      selfLedExpression: `As your vulnerable core is unburdened and met with calm adult presence, that acute sensitivity transforms into high-resolution intuitive perception without sympathetic nervous system flooding.`,
+      stretchMechanism: `Anchoring in your present growth frontier and trusting your capacity to handle uncertainty in real time.`,
+      lifeArenaImpact: `Career & Money: Replaces catastrophic forecasting with strategic resource stewardship. Health: Prevents adrenal burn. Relationships: Calms over-analysis of subtle emotional cues.`,
     },
     {
-      trait: 'Openness to Experience',
+      trait: 'Receptivity to Experience & Creative Fluidity',
       baselineScore: baseOpenness,
       reconditionedTarget: targetOpenness,
       karmicDefaultLabel: 'Selective Conceptual Mastery',
       evolutionaryTargetLabel: 'Embodied Experiential Fluidity',
-      shadowExpression: `With Mercury in ${mercury.rashiName} and Jupiter in ${jupiter.rashiName}, you have immense intellectual depth, yet your Manager restricts real-world experimentation when an outcome cannot be guaranteed.`,
-      selfLedExpression: `Stepping into your ${ascendant.navamshaName} Navamsha allows openness to move from the head into the body—welcoming career pivots, creative play, and unscripted life experiences.`,
+      shadowExpression: `You possess immense intellectual depth, yet your inner guardian restricts real-world experimentation when an outcome cannot be guaranteed in advance.`,
+      selfLedExpression: `Stepping into your mature presence allows curiosity to move from mental conceptualization into direct action—welcoming creative play, career pivots, and unscripted experiences.`,
       stretchMechanism: `Releasing the need to master an arena conceptually before allowing yourself to participate as an authentic beginner.`,
-      lifeArenaImpact: `Creative Voice: Releasing unpolished work without fear of critique. Vocation: Venturing into novel business models. Spirituality: Moving from academic study to direct mystical experience.`,
+      lifeArenaImpact: `Creative Voice: Releasing unpolished work without fear of critique. Vocation: Venturing into novel, high-leverage initiatives. Spirituality: Moving from conceptual study to direct living experience.`,
     },
     {
-      trait: 'Conscientiousness',
+      trait: 'Sustained Craftsmanship & Devotional Rhythm',
       baselineScore: baseConscientiousness,
       reconditionedTarget: targetConscientiousness,
       karmicDefaultLabel: 'Compulsive Armor & Over-Responsibility',
       evolutionaryTargetLabel: 'Aligned Devotional Craft',
-      shadowExpression: `Saturn in ${saturn.rashiName} (${saturn.shastiamsha.name} D60) wires a punishing work ethic where rest feels sinful and minor professional oversights trigger self-beratement.`,
-      selfLedExpression: `When conscientiousness is decoupled from survival fear, your discipline becomes joyful, sustainable mastery with abundant space for play, rest, and community.`,
-      stretchMechanism: `Replacing punitive self-monitoring with rhythm-based devotion guided by your ${saturn.navamshaName} Navamsha maturity.`,
-      lifeArenaImpact: `Health: Honoring circadian rhythms and rest days. Vocation: Delegating operational tasks without anxiety. Family: Refusing to fix problems that belong to other adults.`,
+      shadowExpression: `An ingrained, punishing work ethic where rest feels unearned and minor professional oversights trigger intense internal self-monitoring.`,
+      selfLedExpression: `When discipline is decoupled from survival anxiety, your craft becomes joyful, sustainable mastery with abundant space for restoration and community.`,
+      stretchMechanism: `Replacing punitive self-monitoring with rhythm-based devotion and trusting others to hold shared responsibilities.`,
+      lifeArenaImpact: `Health: Honoring circadian rhythms and restorative downtime. Vocation: Delegating operational tasks without anxiety. Family: Refusing to fix problems that belong to other adults.`,
     },
     {
-      trait: 'Agreeableness',
+      trait: 'Relational Generosity & Sovereign Boundaries',
       baselineScore: baseAgreeableness,
       reconditionedTarget: targetAgreeableness,
       karmicDefaultLabel: 'Polarized Compliance or Fortified Autonomy',
       evolutionaryTargetLabel: 'Boundary-Rich Compassion',
-      shadowExpression: `Under Venus in ${venus.rashiName} and Mars in ${mars.rashiName}, you alternate between over-accommodating clients, family, and lovers to keep peace, and suddenly erecting iron walls when feeling exploited.`,
-      selfLedExpression: `Integrating the ${venus.navamshaName} Navamsha allows you to stay warm, generous, and collaborative while upholding clear, non-defensive boundaries.`,
-      stretchMechanism: `Voicing small preferences, financial terms, and emotional boundaries early so your Firefighter never has to burn down relationships.`,
-      lifeArenaImpact: `Career: Negotiating fair compensation without apology. Relationships: Disagreeing without withdrawing love. Lineage: Breaking guilt-based familial obligations with grace.`,
+      shadowExpression: `You alternate between over-accommodating colleagues, clients, and partners to keep the peace, and suddenly erecting rigid emotional walls when feeling exploited.`,
+      selfLedExpression: `In your mature presence, you stay warm, generous, and collaborative while upholding clear, non-defensive boundaries from the outset.`,
+      stretchMechanism: `Voicing personal preferences, financial terms, and emotional boundaries early so resentment never has to accumulate.`,
+      lifeArenaImpact: `Career: Negotiating fair compensation without apology. Relationships: Disagreeing without withdrawing love. Lineage: Breaking guilt-based ancestral obligations with grace.`,
     },
     {
-      trait: 'Extraversion',
+      trait: 'Sovereign Visibility & Authentic Presence',
       baselineScore: baseExtraversion,
       reconditionedTarget: targetExtraversion,
       karmicDefaultLabel: 'Guarded Selective Visibility',
       evolutionaryTargetLabel: 'Sovereign Relational Presence',
-      shadowExpression: `While your ${ascendant.rashiName} Ascendant carries natural presence, Ketu in the ${HOUSE_PSYCHOLOGY[ketu.house].name} pulls you into chronic retreat, masking your true gifts behind a safe, low-profile role.`,
-      selfLedExpression: `By stepping into Rahu in the ${HOUSE_PSYCHOLOGY[rahu.house].name}, you stop performing energy for others and show up with authentic, sustainable executive and personal visibility.`,
-      stretchMechanism: `Allowing yourself to be seen, recognized, and compensated at scale rather than hiding in private competence.`,
-      lifeArenaImpact: `Vocation: Claiming leadership, public speaking, and market visibility. Creative Voice: Sharing your creations unreservedly. Community: Building a loyal, aligned tribe.`,
+      shadowExpression: `While you possess natural presence and insight, an ancient reflex pulls you into private retreat, masking your true capabilities behind safe, low-profile roles.`,
+      selfLedExpression: `By leaning into your growth frontier, you stop performing energy for others and show up with authentic, sustainable personal and leadership visibility.`,
+      stretchMechanism: `Allowing yourself to be seen, recognized, and compensated at scale rather than hiding behind private competence.`,
+      lifeArenaImpact: `Vocation: Claiming leadership, speaking opportunities, and market visibility. Creative Voice: Sharing your creations unreservedly. Community: Building an aligned, inspiring network.`,
     },
   ];
 }
@@ -371,61 +371,58 @@ export function generateExhaustiveNarrative(
 
   const polarityKey = `${ketu.house}-${rahu.house}`;
   const polarity = POLARITY_DESCRIPTIONS[polarityKey] || POLARITY_DESCRIPTIONS['1-7'];
-
-  const retroPlanets = planets.filter((p) => p.isRetrograde && p.id !== 'Rahu' && p.id !== 'Ketu');
-  const retroNames =
-    retroPlanets.length > 0
-      ? retroPlanets.map((p) => `${p.id} (${p.sanskritName}) in ${p.rashiName}`).join(' and ')
-      : `the inward-turning nodal currents across ${ketu.rashiName} and ${rahu.rashiName}`;
+  const sanitizedAxisName = polarity.axisName
+    .replace(/\(\d+(st|nd|rd|th)\)/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 
   // SECTION 1: THE IMPLICIT CODE + BESPOKE LAYMAN LANGUAGE TRANSLATION (ALL LIFE FACETS)
-  const section1ImplicitCode = `## 1. THE IMPLICIT CODE: Subconscious Past-Life Defaults & Internal Family Systems (IFS) Mapping
+  const section1ImplicitCode = `## 1. THE IMPLICIT CODE: Subconscious Memory Architecture & Inner Protective Dynamics
 
-You did not arrive in this life as an unwritten slate. Beneath your conscious career ambitions and the composed ${ascRashi.name} presence you project to the world, your psyche operates from a deeply grooved set of unlearned instincts—an implicit memory architecture forged before you ever spoke your first word in ${input.placeOfBirth.split(',')[0]}. When nobody is watching, when fatigue strips away your social conditioning, or when unexpected pressure rattles your day, your nervous system automatically slides back into the gravitational well of your South Node (Ketu) in ${ketuRashi.name} within your ${ketuHouse.name}, governed at the deepest cellular level by the **${ketu.shastiamsha.name}** past-life deity stream (*${ketu.shastiamsha.archetype}*) and nuanced by your Lunar **${moon.shastiamsha.name}** imprint.
+You did not arrive in this life as an unwritten slate. Beneath your conscious professional ambitions and the composed, capable presence you project to the world, your psyche operates from a deeply grooved set of unlearned instincts—an implicit memory architecture forged long before you ever spoke your first word in ${input.placeOfBirth.split(',')[0]}. When nobody is watching, when fatigue strips away your social conditioning, or when unexpected pressure rattles your day, your nervous system automatically slides back into an ancient gravitational well of instinctual self-reliance and protective containment.
 
-In the architecture of your soul, this ${ketu.shastiamsha.name} current represents a domain you have already over-mastered to the point of spiritual exhaustion. You carry the cellular muscle-memory of ${ketu.shastiamsha.subconsciousImprint}. Because your soul spent an entire evolutionary cycle navigating the high-stakes terrain of ${ketuRashi.psychologicalDomain} inside the arena of ${ketuHouse.arena}, you instinctively know how to read the unspoken physics of a room before anyone else realizes a shift has occurred. Yet what once served as your supreme survival genius has now calcified into an invisible prison of over-reliance. You treat self-containment in your work, money, family, and relationships not as a choice, but as an existential mandate.
+In the deeper architecture of your inner world, this current represents a domain you have already over-mastered to the point of exhaustion. You carry an ingrained muscle memory of ${ketu.shastiamsha.subconsciousImprint}. Because your internal system has deeply rehearsed the high-stakes navigation of ${ketuHouse.arena}, you instinctively know how to read the unspoken physics of a room before anyone else realizes a shift has occurred. Yet what once served as your supreme survival genius has now calcified into an invisible pattern of over-reliance. You treat self-containment in your work, money, family, and relationships not as a choice, but as an existential mandate.
 
-### The Origin of Your Core Exile: *${ifs.exile.archetypeTitle}*
-Through the lens of Internal Family Systems (IFS), this ancient ${ketu.shastiamsha.name} configuration is the exact blueprint of your primary **Exile part**: *${ifs.exile.archetypeTitle}*. Deep beneath your adult competence lives ${ketu.shastiamsha.exileWound}. This younger, sequestered part of your psyche carries a visceral, pre-verbal conviction: *${ifs.exile.coreBelief}*
+### The Hidden Vulnerability: ${ifs.exile.archetypeTitle}
+Deep beneath your adult competence lives a tender, sequestered space within your psyche. This vulnerable core carries a visceral, pre-verbal conviction: *${ifs.exile.coreBelief.replace(/"/g, '')}*
 
-Whenever life invites you to lean on colleagues, to delegate high-stakes tasks, to speak an unpolished truth, or to leave your heart unarmored, this Exile stirs in the subterranean chambers of your ${ifs.exile.somaticLocation}. It remembers the ancient cost of exposure: what happened when trust was extended without a backup plan, or when your natural sensitivity was met with volatility, scarcity, or displacement. To prevent you from ever re-experiencing that primordial hollowness, your internal system organized a sophisticated, two-tiered defensive garrison around the Exile.
+Whenever life invites you to lean unguardedly on colleagues, to delegate high-stakes decisions, to voice an unpolished truth, or to leave your heart unprotected, this vulnerable space stirs in the subterranean tissues of your ${ifs.exile.somaticLocation}. It remembers the ancient cost of exposure: what happened when trust was extended without a backup plan, or when your natural sensitivity was met with volatility or displacement. To prevent you from ever re-experiencing that primordial hollowness, your internal system organized a sophisticated, two-tiered protective garrison around this tender core.
 
-### The Proactive Shield: Your Manager Part (*${ifs.manager.archetypeTitle}*)
-To ensure that your ${ketu.shastiamsha.name} Exile is never triggered in daily life, your psyche recruited a tireless, hyper-vigilant **Manager part** anchored in your ${saturnRashi.name} Saturn within the ${saturnHouse.name} and colored by the **${saturn.shastiamsha.name}** archetype (*${saturn.shastiamsha.archetype}*). This Manager operates as the chief operating officer of your waking personality. It believes that safety is a logistical problem that can be solved through discipline, hyper-preparedness, emotional composure, and total self-reliance in ${saturnHouse.arena}.
+### Your Primary Protective Strategist: ${ifs.manager.archetypeTitle}
+To ensure that your vulnerable core is never exposed in daily life, your psyche operates a tireless, hyper-vigilant inner guardian. This protective strategist functions as the chief operating officer of your waking personality. It believes that emotional safety is an operational problem that can be solved through relentless discipline, hyper-preparedness, emotional composure, and total self-reliance in ${saturnHouse.arena}.
 
-- **The Metaphysical-to-Behavioral Echo (Manager Footprint Across All Life Facets):**
-  - **Vocation & Money:** ${saturnData.facets.vocationAndMoney}
+- **The Behavioral Footprint of Your Primary Strategist Across Life Spheres:**
+  - **Vocation & Wealth:** ${saturnData.facets.vocationAndMoney}
   - **Creative Voice & Visibility:** ${saturnData.facets.creativeVoiceAndVisibility}
   - **Somatic Health & Nervous System:** ${saturnData.facets.somaticHealthAndNervousSystem}
-  - **Family Lineage & Lineage Roles:** ${saturnData.facets.familyLineageAndAncestralRoles}
-  - **Existential Trust & Solitude:** ${saturnData.facets.existentialTrustAndSolitude}
-  - **Interpersonal & Romantic Bonds:** ${saturnData.facets.interpersonalAndRomanticBonds}
+  - **Family Lineage & Expectations:** ${saturnData.facets.familyLineageAndAncestralRoles}
+  - **Solitude & Meaning:** ${saturnData.facets.existentialTrustAndSolitude}
+  - **Intimate Partnerships:** ${saturnData.facets.interpersonalAndRomanticBonds}
 
-### The Emergency Override: Your Firefighter Part (*${ifs.firefighter.archetypeTitle}*)
-Even the most disciplined Manager cannot control every variable of modern life. When an unexpected betrayal, a sharp public critique, institutional bad faith, or prolonged emotional chaos breaches your ${saturnRashi.name} perimeter and threatens to flood your nervous system with the Exile's raw dread, your psyche immediately deploys its **Firefighter part**: *${ifs.firefighter.archetypeTitle}*, fueled by Mars in ${mars.rashiName} under the **${mars.shastiamsha.name}** current (*${mars.shastiamsha.archetype}*).
+### Your Emergency Override Reflex: ${ifs.firefighter.archetypeTitle}
+Even the most disciplined protective strategist cannot control every variable of life. When an unexpected betrayal, a sharp public critique, institutional bad faith, or prolonged emotional chaos breaches your perimeter and threatens to flood your nervous system with raw dread, your psyche deploys an emergency override reflex. This part does not negotiate; its sole objective is to sever the escalating pressure, shock the system into containment, and restore immediate psychological sovereignty.
 
-- **The Metaphysical-to-Behavioral Echo (Firefighter Footprint Across All Life Facets):**
-  - **Vocation & Money:** ${marsData.facets.vocationAndMoney}
+- **The Behavioral Footprint of Your Emergency Reflex Across Life Spheres:**
+  - **Vocation & Wealth:** ${marsData.facets.vocationAndMoney}
   - **Creative Voice & Visibility:** ${marsData.facets.creativeVoiceAndVisibility}
   - **Somatic Health & Nervous System:** ${marsData.facets.somaticHealthAndNervousSystem}
-  - **Family Lineage & Lineage Roles:** ${marsData.facets.familyLineageAndAncestralRoles}
-  - **Existential Trust & Solitude:** ${marsData.facets.existentialTrustAndSolitude}
-  - **Interpersonal & Romantic Bonds:** ${marsData.facets.interpersonalAndRomanticBonds}
+  - **Family Lineage & Expectations:** ${marsData.facets.familyLineageAndAncestralRoles}
+  - **Solitude & Meaning:** ${marsData.facets.existentialTrustAndSolitude}
+  - **Intimate Partnerships:** ${marsData.facets.interpersonalAndRomanticBonds}
 
 ---
 
-### Layman Language Translation: What Your Specific Implicit Code Actually Feels Like in Real Life
-Let's strip away all astrological and psychological jargon and examine how your exact synthesized configuration—the **${ketu.shastiamsha.name}** past-life imprint in the **${ketuHouse.name}**, proactively defended by your **${saturn.shastiamsha.name}** Manager in the **${saturnHouse.name}** and reactively salvaged by your **${mars.shastiamsha.name}** Firefighter—actually plays out in your visceral, weekly human experience across every arena of living:
+### Translating Your Implicit Code into Daily Reality
+Let us translate this psychological blueprint into your visceral, weekly human experience across every arena of living:
 
-1. **The Real-World Anatomy of Your Exile (*${ifs.exile.archetypeTitle}*):**
-   - **The Core Visceral Feeling:** Deep inside, specifically centered in your ${ifs.exile.somaticLocation}, lives an unspoken assumption: *${ifs.exile.coreBelief}* This isn't theoretical philosophy; it is a physical bracing that enters your body the moment life asks you to relax your guard in ${ketuHouse.arena}.
+1. **The Real-World Anatomy of Your Vulnerable Core:**
+   - **The Core Visceral Feeling:** Deep inside, specifically centered in your ${ifs.exile.somaticLocation}, lives an unspoken assumption: *${ifs.exile.coreBelief.replace(/"/g, '')}* This isn't theoretical philosophy; it is a physical bracing that enters your body the moment life asks you to relax your guard in ${ketuHouse.arena}.
    - **In Career & Workplace Authority:** ${ketuData.facets.vocationAndMoney}
      *Concrete Workday Scenario:* ${ketuData.realWorldTuesdayScenario.workplace}
    - **With Money & Material Security:** ${ketuData.realWorldTuesdayScenario.money}
    - **In Creative Voice & Public Visibility:** ${ketuData.facets.creativeVoiceAndVisibility}
      *What happens when sharing your work:* ${ketuData.realWorldTuesdayScenario.creative}
-   - **In Your Body & Nervous System:** ${ketuData.facets.somaticHealthAndNervousSystem}
-     *Somatic symptom profile:* ${ketuData.realWorldTuesdayScenario.somatic} Stored primarily in your ${ketuData.exileSomaticFascia}.
+   - **In Your Body & Nervous System:** ${ketuData.facets.somaticHealthAndNervousSystem} Stored primarily in your ${ketuData.exileSomaticFascia}.
    - **In Family Lineage & Ancestral Dynamics:** ${ketuData.facets.familyLineageAndAncestralRoles}
      *Your lineage default:* ${ketuData.realWorldTuesdayScenario.family}
    - **In Solitude & Existential Meaning:** ${ketuData.facets.existentialTrustAndSolitude}
@@ -433,8 +430,8 @@ Let's strip away all astrological and psychological jargon and examine how your 
    - **In Romantic & Intimate Bonds:** ${ketuData.facets.interpersonalAndRomanticBonds}
      *The intimate reflex:* ${ketuData.realWorldTuesdayScenario.romance}
 
-2. **How Your Specific Manager (*${saturnData.managerTitle}*) Dictates Your Waking Life:**
-   - **Its Operating Logic:** Anchored in Saturn within your ${saturnHouse.name} (${saturnHouse.arena}), this Manager operates on the core rule: *"${saturnData.coreVigilanceRule}"*
+2. **How Your Primary Protective Strategist Dictates Your Waking Life:**
+   - **Its Operating Logic:** This guardian operates on the core rule: *"${saturnData.coreVigilanceRule}"*
    - **At Work & In Projects:** ${saturnData.facets.vocationAndMoney}
      *A typical high-stakes scenario:* ${saturnData.weeklyWorkdayScenario}
    - **In Public Persona & Creative Presentation:** ${saturnData.facets.creativeVoiceAndVisibility}
@@ -442,8 +439,8 @@ Let's strip away all astrological and psychological jargon and examine how your 
    - **In Family & Ancestral Responsibilities:** ${saturnData.facets.familyLineageAndAncestralRoles}
    - **In Friendships & Partnerships:** ${saturnData.facets.interpersonalAndRomanticBonds}
 
-3. **How Your Specific Firefighter (*${marsData.firefighterTitle}*) Takes Over When the Perimeter Fails:**
-   - **The Emergency Threshold:** When the workload or boundary pressure in ${saturnHouse.arena} breaches the perimeter, your ${marsData.firefighterTitle} activates:
+3. **How Your Emergency Reflex Takes Over When the Perimeter Fails:**
+   - **The Emergency Threshold:** When the workload or boundary pressure breaches the perimeter:
      *Trigger point:* ${marsData.emergencyTrigger}
      *Emergency override action:* ${marsData.emergencyAction}
    - **In Career & Finance:** ${marsData.facets.vocationAndMoney}
@@ -453,74 +450,52 @@ Let's strip away all astrological and psychological jargon and examine how your 
    - **In Personal Relationships:** ${marsData.facets.interpersonalAndRomanticBonds}
 
 4. **The Synthesized Weekly Feedback Loop:**
-   - In plain English, your life repeatedly oscillates through this three-stage cycle:
-     1. **The Exile's Subtle Dread:** Uncertainty touches your life in ${ketuHouse.arena}, triggering fear of ${ketuData.exileCoreDread}.
-     2. **The Manager's Hyper-Vigilance:** You respond through ${saturnData.managerTitle}—applying ${saturnData.coreVigilanceRule} in ${saturnHouse.arena}.
-     3. **The Firefighter's Reset:** When pressure overloads your capacity, ${marsData.firefighterTitle} intervenes via ${marsData.emergencyAction.toLowerCase()}.
-   - True liberation begins not by fighting these parts, but by anchoring your adult consciousness in your **${navAscRashi.name}** Navamsha Self—letting your Manager take real rest and assuring your Exile that its survival is now protected by an adult who cannot be displaced.`;
+   In plain English, your life repeatedly oscillates through this three-stage cycle:
+   1. **The Subtle Dread of Exposure:** Uncertainty touches your life in ${ketuHouse.arena}, triggering fear of ${ketuData.exileCoreDread}.
+   2. **The Guardian's Hyper-Vigilance:** You respond through disciplined self-reliance—applying ${saturnData.coreVigilanceRule} in ${saturnHouse.arena}.
+   3. **The Emergency Reset:** When pressure overloads your capacity, your emergency reflex intervenes via ${marsData.emergencyAction.toLowerCase()}.
+   True liberation begins not by fighting these parts, but by anchoring in your unburdened sovereign center—letting your inner strategist take real rest and reassuring your vulnerable core that its safety is now protected by a capable, grounded adult.`;
 
   // SECTION 2: THE STRUCTURAL KNOTS + BESPOKE LAYMAN LANGUAGE TRANSLATION (ALL LIFE FACETS)
-  // Continuous, connected, non-repetitive narrative strictly aligned to the birth chart
-
   const activeRetrogrades = planets.filter(
     (p) => p.isRetrograde && p.id !== 'Rahu' && p.id !== 'Ketu'
   );
   const gandantaList = planets.filter((p) => p.isGandanta);
   const sandhiList = planets.filter((p) => p.isSandhi && !p.isGandanta);
 
-  const anomaliesConnectedNarrative =
-    anomalies.length > 0
-      ? anomalies
-          .map((anom, idx) => {
-            return `#### Structural Knot 0${idx + 1}: ${anom.type} — ${anom.planetsInvolved.join(' & ')}
-${anom.structuralCause}. In your internal landscape, this configuration creates a continuous psychological undertow: ${anom.psychologicalLoop}
-
-At the cellular level, your nervous system registers this tension through ${anom.somaticSignature.toLowerCase()}
-
-In your daily life, this knot does not stay confined to the theoretical sphere; it echoes directly across your worldly pursuits: in your executive decisions and career authority, ${anom.vocationalEcho.toLowerCase()} In your creative risk-taking and public visibility, ${anom.creativeEcho.toLowerCase()} In your relational bonds and intimacy boundaries, ${anom.attachmentEcho.toLowerCase()}`;
-          })
-          .join('\n\n')
-      : `#### Harmonious Planetary Dialogue: Moon in ${moonRashi.name} & Saturn in ${saturnRashi.name}
-Your chart presents a clean, unobstructed longitudinal distribution, allowing the primary conversation to flow directly between the emotional receptivity of your ${moonRashi.name} Moon and the pragmatic realism of your ${saturnRashi.name} Saturn, balancing creative depth with structural responsibility.`;
-
-  // Bespoke dynamic synthesis of the 6 life facets for Layman Language Translation
-  // Dynamically constructed from Lagna, Moon element & house, Saturn house & retrograde, Venus & Navamsha, and active anomalies
-
   let anomalyWorkplaceDetail = '';
   if (activeRetrogrades.some((p) => p.id === 'Mercury')) {
-    anomalyWorkplaceDetail = ` Because your Mercury is retrograde, you compulsively proofread contracts, proposals, and emails multiple times, agonizing over subtle phrasing and dreading that a verbal oversight will be weaponized against you in deal negotiations.`;
+    anomalyWorkplaceDetail = ` You compulsively proofread contracts, proposals, and communications multiple times, agonizing over subtle phrasing and dreading that a verbal oversight will be used against you in deal negotiations.`;
   } else if (activeRetrogrades.some((p) => p.id === 'Mars')) {
-    anomalyWorkplaceDetail = ` Because your Mars is retrograde, you tend to internalize professional irritation until your threshold is breached, leading to sudden, uncompromising boundary resets or abrupt resignations rather than quiet, incremental compromise.`;
+    anomalyWorkplaceDetail = ` You tend to internalize professional irritation until your threshold is breached, leading to sudden, uncompromising boundary resets or abrupt resignations rather than quiet, incremental compromise.`;
   } else if (activeRetrogrades.some((p) => p.id === 'Saturn')) {
-    anomalyWorkplaceDetail = ` Because your Saturn is retrograde, you carry an unshakeable conviction that nobody else possesses the operational stamina to execute properly in ${saturnHouse.arena}, leading to severe chronic overwork and an inability to delegate.`;
+    anomalyWorkplaceDetail = ` You carry an unshakeable conviction that nobody else possesses the operational stamina to execute properly in ${saturnHouse.arena}, leading to severe chronic overwork and an inability to delegate.`;
   } else if (activeRetrogrades.some((p) => p.id === 'Jupiter')) {
-    anomalyWorkplaceDetail = ` Because your Jupiter is retrograde, you possess an inherent skepticism of conventional corporate platitudes and hollow hierarchies, insisting that commercial ventures adhere to your uncompromising ethical standard.`;
+    anomalyWorkplaceDetail = ` You possess an inherent skepticism of conventional corporate platitudes and hollow hierarchies, insisting that commercial ventures adhere to your uncompromising ethical standard.`;
   } else if (gandantaList.length > 0 || sandhiList.length > 0) {
-    anomalyWorkplaceDetail = ` Because of karmic threshold junctions in your chart, major career transitions provoke acute existential tension, tempting you to abruptly terminate contracts when projects reach an institutional plateau.`;
+    anomalyWorkplaceDetail = ` Major career transitions provoke acute existential tension, tempting you to abruptly terminate contracts when projects reach an institutional plateau.`;
   } else {
-    anomalyWorkplaceDetail = ` The direct angular dialogue between your ${moonRashi.name} Moon and ${saturnRashi.name} Saturn equips you with an unreadable, composed poker face in executive meetings, maintaining an aura of quiet authority even when navigating high-stakes operational friction.`;
+    anomalyWorkplaceDetail = ` You maintain an unreadable, composed poker face in executive meetings, projecting an aura of quiet authority even when navigating high-stakes operational friction.`;
   }
 
   let laymanWorkplace = '';
   if (attachment.primaryStyle === 'Dismissive-Avoidant') {
-    laymanWorkplace = `In professional execution within ${saturnHouse.arena}, your ${ascRashi.name} rising presence and ${moon.rashiElement} Moon establish you as an autonomous island of competence. When project deadlines slip or collaborators falter, your instinct is not to convene meetings; you quietly absorb the deliverable, execute it in solitary concentration with ${saturnRashi.name} rigor, and present it as an accomplished fact.${anomalyWorkplaceDetail} You treat reliance on others as a structural risk, preferring the exhaustion of carrying 100% of the burden to the vulnerability of being let down by an under-performing partner.`;
+    laymanWorkplace = `In professional execution within ${saturnHouse.arena}, your natural presence establishes you as an autonomous island of competence. When project deadlines slip or collaborators falter, your instinct is not to convene meetings; you quietly absorb the deliverable, execute it in solitary concentration with meticulous rigor, and present it as an accomplished fact.${anomalyWorkplaceDetail} You treat reliance on others as a structural risk, preferring the exhaustion of carrying 100% of the burden to the vulnerability of being let down by an under-performing partner.`;
   } else if (attachment.primaryStyle === 'Anxious-Preoccupied') {
-    laymanWorkplace = `In your vocational arena within ${saturnHouse.arena}, your ${moon.rashiElement} Moon in the ${moonHouse.name} drives you to act as the empathic shock-absorber and caretaker for team dynamics. You arrive early, stay late to polish flawed deliverables submitted by peers, and hyper-attune to the micro-expressions of managers and clients.${anomalyWorkplaceDetail} If an executive sends a terse, formal communication without warm pleasantries, your system experiences an adrenaline drop: *"Did I drop the ball? Am I about to be marginalized?"* You immediately spend twenty minutes crafting an overly accommodating reply to re-establish safety and belonging.`;
+    laymanWorkplace = `In your vocational arena within ${saturnHouse.arena}, you tend to act as the empathic shock-absorber and caretaker for team dynamics. You arrive early, stay late to polish flawed deliverables submitted by peers, and hyper-attune to the micro-expressions of managers and clients.${anomalyWorkplaceDetail} If an executive sends a terse, formal communication without warm pleasantries, your system experiences an adrenaline drop: *"Did I drop the ball? Am I about to be marginalized?"* You immediately spend twenty minutes crafting an overly accommodating reply to re-establish safety and belonging.`;
   } else if (attachment.primaryStyle === 'Fearful-Avoidant (Disorganized)') {
-    laymanWorkplace = `In leadership and deal negotiations around ${saturnHouse.arena}, you experience a high-voltage push-pull cycle. You enter commercial alliances with charismatic brilliance and all-in dedication, demonstrating your ${ascRashi.name} capacity to solve impossible bottlenecks. But as expectations harden and colleagues begin relying heavily upon your presence, an acute claustrophobic panic sets in.${anomalyWorkplaceDetail} You begin perceiving subtle exploitation or institutional bad faith, triggering an impulse to burn bridges and exit cleanly, only to grieve the lost momentum weeks later in solitary reflection.`;
+    laymanWorkplace = `In leadership and deal negotiations around ${saturnHouse.arena}, you experience a high-voltage push-pull cycle. You enter commercial alliances with charismatic brilliance and all-in dedication, solving impossible bottlenecks. But as expectations harden and colleagues begin relying heavily upon your presence, an acute claustrophobic panic sets in.${anomalyWorkplaceDetail} You begin perceiving subtle exploitation or institutional bad faith, triggering an impulse to burn bridges and exit cleanly, only to grieve the lost momentum weeks later in solitary reflection.`;
   } else {
-    laymanWorkplace = `In executive leadership and commercial negotiations around ${saturnHouse.arena}, you balance structural boundaries with empathetic listening. Supported by your ${saturnRashi.name} Saturn, you set firm contractual milestones and hold team members accountable without emotional reactivity.${anomalyWorkplaceDetail} When high-stakes emergencies arise, you notice old urges to step in and micromanage, but consciously choose to empower your team through direct, transparent alignment.`;
+    laymanWorkplace = `In executive leadership and commercial negotiations around ${saturnHouse.arena}, you balance structural boundaries with empathetic listening. You set firm contractual milestones and hold team members accountable without emotional reactivity.${anomalyWorkplaceDetail} When high-stakes emergencies arise, you notice old urges to step in and micromanage, but consciously choose to empower your team through direct, transparent alignment.`;
   }
 
   let anomalyMoneyDetail = '';
   if (saturn.isRetrograde) {
-    anomalyMoneyDetail = ` Your retrograde Saturn creates a persistent scarcity soundtrack—an unshakeable worry that no matter how substantial your net worth grows, a single structural catastrophe could wipe out your reserves, driving you to maintain ironclad liquidity buffers.`;
+    anomalyMoneyDetail = ` You experience a persistent scarcity soundtrack—an unshakeable worry that no matter how substantial your net worth grows, a single structural catastrophe could wipe out your reserves, driving you to maintain ironclad liquidity buffers.`;
   } else if (venus.isRetrograde) {
-    anomalyMoneyDetail = ` Your retrograde Venus produces an unconventional relationship with valuation; you frequently wrestle with pricing your intellectual property at true market value, fearing that charging high rates will commodify your sacred craftsmanship.`;
-  } else if (anomalies.some((a) => a.type === 'Angular Friction (Drishti)')) {
-    anomalyMoneyDetail = ` The tension between your Moon in ${moonRashi.name} and Saturn in ${saturnRashi.name} makes financial ambiguity intensely distressing; you require transparent ledgers, unambiguous equity terms, and clearly defined exit clauses before committing resources.`;
+    anomalyMoneyDetail = ` You experience an unconventional relationship with valuation; you frequently wrestle with pricing your intellectual property at true market value, fearing that charging high rates will commodify your sacred craftsmanship.`;
   } else {
-    anomalyMoneyDetail = ` Your Venus in ${venusRashi.name} within the ${venusHouse.name} encourages you to invest in long-term enduring value rather than volatile speculative trends, treating capital as an instrument of sovereign freedom.`;
+    anomalyMoneyDetail = ` Financial ambiguity is intensely distressing to your nervous system; you require transparent ledgers, unambiguous equity terms, and clearly defined exit clauses before committing resources.`;
   }
 
   let laymanMoney = '';
@@ -531,10 +506,10 @@ Your chart presents a clean, unobstructed longitudinal distribution, allowing th
   } else if (attachment.primaryStyle === 'Fearful-Avoidant (Disorganized)') {
     laymanMoney = `Your relationship with money swings between periods of rigorous, self-denying austerity in ${saturnHouse.arena} and sudden, compensatory spending sprees when emotional pressure reaches a breaking point.${anomalyMoneyDetail} You approach commercial agreements and equity partnerships with intense scrutiny, often sensing hidden traps in the fine print and vacillating between wanting total financial independence and craving a wealthy benefactor who will shoulder the burden.`;
   } else {
-    laymanMoney = `You manage wealth and commercial risk with clarity, pragmatism, and generosity. Guided by your Venus in ${venusRashi.name} and Saturn in ${saturnRashi.name}, you establish clear financial divisions in joint ventures and negotiate compensation that accurately honors your experience.${anomalyMoneyDetail} You treat money not as an emotional substitute, but as an energetic resource to be cultivated, protected, and circulated with intentionality.`;
+    laymanMoney = `You manage wealth and commercial risk with clarity, pragmatism, and generosity. You establish clear financial divisions in joint ventures and negotiate compensation that accurately honors your experience.${anomalyMoneyDetail} You treat money not as an emotional substitute, but as an energetic resource to be cultivated, protected, and circulated with intentionality.`;
   }
 
-  let laymanSomatic = `Your physical body and autonomic nervous system serve as the true barometer for your structural planetary knots. With your Moon in ${moonRashi.name} (${moon.rashiElement} element) and Saturn anchoring your physical defenses in ${saturnRashi.name}, stress does not evaporate through intellectual analysis—it lodges directly in your ${saturnData.somaticLocation}. When deadlines intensify or relational ambiguity lingers in ${venusHouse.arena}, your nervous system engages ${
+  let laymanSomatic = `Your physical body and autonomic nervous system serve as the true barometer for your internal tension. Stress does not evaporate through intellectual analysis—it lodges directly in your ${saturnData.somaticLocation}. When deadlines intensify or relational ambiguity lingers in ${venusHouse.arena}, your nervous system engages ${
     attachment.primaryStyle === 'Anxious-Preoccupied'
       ? 'a sympathetic fight-or-flight hyper-arousal: your heart rate accelerates, breathing becomes shallow in the upper chest, stomach acid surges, and your mind races through scenarios late into the night, preventing deep restorative REM sleep.'
       : attachment.primaryStyle === 'Dismissive-Avoidant'
@@ -542,7 +517,7 @@ Your chart presents a clean, unobstructed longitudinal distribution, allowing th
         : 'an autonomic whiplash: rapid oscillations between sympathetic panic (racing pulse, solar plexus clenching, hot restlessness) and sudden dorsal collapse (brain fog, heavy limbs, and a sudden urge to sleep for fourteen hours in a darkened room).'
   } When depleted, your only reliable cure is solitary sensory deprivation in your private sanctuary, letting your nervous system slowly reset away from human demands.`;
 
-  let laymanFamily = `Within your family lineage and ancestral expectations, the placement of your Moon in ${moonRashi.name} (${moonHouse.name}) and Saturn in ${saturnRashi.name} defines the specific historical role you were assigned. ${
+  let laymanFamily = `Within your family lineage and ancestral expectations, your early conditioning defined the specific historical role you were assigned. ${
     attachment.primaryStyle === 'Dismissive-Avoidant'
       ? `You inhabit the role of the polite, accomplished family anchor who arrives with logistical solutions, legal advice, or financial support, but maintains an impenetrable barrier around your private emotional world. If parents or relatives pry into your vulnerabilities, disappointments, or heartaches, you skillfully deflect the inquiry toward current events, career updates, or real estate.`
       : attachment.primaryStyle === 'Anxious-Preoccupied'
@@ -550,7 +525,7 @@ Your chart presents a clean, unobstructed longitudinal distribution, allowing th
         : `Your family dynamic is defined by an intense approach-avoidance rhythm: fierce protective devotion and pride for your roots, contrasted with sharp, painful boundary ruptures or extended periods of silence when ancestral hypocrisies, emotional double-binds, or childhood wounds are re-opened during holiday gatherings.`
   }`;
 
-  let laymanRomance = `In romantic intimacy, the matrix between your Moon in ${moonRashi.name}, Venus in ${venusRashi.name} (${venusHouse.name}), and Navamsha Venus in ${navVenusRashi.name} creates an exquisitely specific emotional choreography. You offer partners grounded loyalty, aesthetic depth, and protective stability. However, as the relationship deepens toward true, unvetted vulnerability—discussing permanent cohabitation, emotional reliance, or mutual surrender—your core knot triggers: *${attachment.coreIntimacyFear}* ${
+  let laymanRomance = `In romantic intimacy, the dialogue between your deep instinctual emotional needs, your capacity for shared vulnerability, and your highest relational potential creates an exquisitely specific emotional choreography. You offer partners grounded loyalty, aesthetic depth, and protective stability. However, as the relationship deepens toward true, unvetted vulnerability—discussing permanent cohabitation, emotional reliance, or mutual surrender—your core knot triggers: *${attachment.coreIntimacyFear.replace(/\bin [^,.]+/g, '')}* ${
     attachment.primaryStyle === 'Dismissive-Avoidant'
       ? `A silent alarm sounds in your chest. You suddenly find yourself hyper-focusing on microscopic flaws in your partner, craving days of unbroken solitude, and pouring your focus into work. When your partner expresses hurt or asks for emotional presence, you retreat behind a wall of polite reason: *"I'm fine, just stressed with work"*, unconsciously daring them to see through your defense, yet pushing them away if they step closer.`
       : attachment.primaryStyle === 'Anxious-Preoccupied'
@@ -558,39 +533,45 @@ Your chart presents a clean, unobstructed longitudinal distribution, allowing th
         : `You experience the classic intimacy storm: you meet someone and experience an electric, magnetic soul connection, opening up with breathtaking vulnerability. But once mutual commitment solidifies, your system interprets love as an inescapable cage. You pick sudden arguments, pull away coldly, or threaten to end the connection. Yet the moment your partner actually packs their bags or emotionally detaches, a terrifying surge of loss hits you, and you scramble frantically to pull them back into the fold.`
   }`;
 
-  let laymanEarnedSecurity = `The embodied pathway to earned security is illuminated by your Venus Navamsha in **${navVenusRashi.name}** and your Rahu evolutionary trajectory in **${rahuRashi.name}** (${rahuHouse.name}):
+  let laymanEarnedSecurity = `The embodied pathway to earned relational security and inner equilibrium is illuminated by your highest evolutionary trajectory:
 - **In High-Stakes Workplace Negotiations:** When operational friction or ambiguous directives arise in ${saturnHouse.arena}, resist your default impulse to ${attachment.primaryStyle === 'Dismissive-Avoidant' ? 'silently take over the entire workload in isolation' : attachment.primaryStyle === 'Anxious-Preoccupied' ? 'over-apologize and assume personal fault' : 'abruptly terminate the project'}. Instead, schedule a 15-minute alignment checkpoint to calmly articulate expectations and deliverables in writing.
 - **With Capital Partnerships & Contracts:** Ensure all equity distributions, risk allocations, and milestone criteria are drafted with explicit, transparent terms before committing capital, protecting your psychological safety through clear agreements rather than defensive suspicion.
 - **In Intimate Partnership Moments:** When emotional claustrophobia or fear of engulfment flares in ${venusHouse.arena}, replace protective withdrawal or reactive protest with a grounded verbal script: *"I love and value our connection, and right now my nervous system is in sensory overload. Give me twenty minutes of quiet downtime to reset, and I will come back ready to listen and connect with you fully."*`;
 
-  const section2StructuralKnots = `## 2. THE STRUCTURAL KNOTS: Core Friction Points & Attachment Dynamics
+  const section2StructuralKnots = `## 2. THE STRUCTURAL KNOTS: Core Friction Fault Lines & Relational Blueprints
 
-Where your Implicit Code reveals your default defensive posture, your structural planetary knots—specifically the inward-turning vectors of ${retroNames}, the sensitive sign-border junctions (*Sandhi* and *Gandanta* thresholds), and the geometric angular friction between your Moon in ${moonRashi.name}, Venus in ${venusRashi.name}, and Saturn in ${saturnRashi.name}—reveal the exact fault lines where your psychic energy folds back upon itself. These knots do not simply affect your romantic life; they dictate how you relate to money, career authority, creative risk, family lineage, and bodily health.
+Where your implicit code reveals your default defensive posture, your deeper structural friction points reveal the exact fault lines where your emotional energy folds back upon itself. These friction points do not simply affect your romantic connections; they dictate how you relate to money, vocational authority, creative risk, family lineage, and bodily health.
 
-### The Celestial Architecture of Attachment: The Manas-Shukra-Shani Matrix
-When we translate your celestial geometry into modern Attachment Theory, your interpersonal blueprint crystallizes around a **${attachment.primaryStyle}** core, driven by an undercurrent of **${attachment.secondaryPull}**.
+### The Architecture of Your Relational Blueprint
+In interpersonal dynamics, your instinctual pattern crystallizes around an underlying reflex toward **${
+    attachment.primaryStyle === 'Dismissive-Avoidant'
+      ? 'protective self-containment and vigilant autonomy'
+      : attachment.primaryStyle === 'Anxious-Preoccupied'
+        ? 'attuned vigilance and an urgent need for reassurance'
+        : 'an intense approach-avoidance rhythm between deep craving for connection and acute fear of engulfment'
+  }**, accompanied by an undercurrent of **${attachment.secondaryPull.replace(/\bin [^,.]+/g, '')}**.
 
-In Jyotish psychology, the **Moon (Manas)** governs instinctual emotional digestion, **Venus (Shukra)** governs the capacity for mutual valuation and intimate vulnerability, while **Saturn (Shani)** governs structural boundaries and emotional containment. In your birth chart:
-- Your Moon moves through **${moonRashi.name}** (${moon.rashiElement} element) within the **${moonHouse.name}** (${moonHouse.arena}), governed at the cellular level by the **${moon.shastiamsha.name}** past-life deity stream (*${moon.shastiamsha.subconsciousImprint}*).
-- Your Venus is positioned in **${venusRashi.name}** within the **${venusHouse.name}** (${venusHouse.arena}), under the influence of the **${venus.shastiamsha.name}** deity (*${venus.shastiamsha.archetype}*).
-- Your Saturn exercises structural surveillance from **${saturnRashi.name}** within the **${saturnHouse.name}** (${saturnHouse.arena})${saturn.isRetrograde ? ', retrograding inward to enforce rigorous internal accounting' : ''}.
+In the psychological choreography of your emotional world, the tension between your deep instinctual emotional needs, your capacity for shared vulnerability, and your internal demands for structural containment produces an exquisite dynamic: *${attachment.coreIntimacyFear.replace(/\bin [^,.]+/g, '')}* When intimacy, partnership, or deep commercial collaboration deepens in ${venusHouse.arena}, your nervous system responds not with open surrender, but with an automatic protective reflex: *${attachment.protestOrWithdrawalBehavior.replace(/\bin [^,.]+/g, '')}*
 
-This celestial geometry creates an exquisite tension in your psyche: *${attachment.coreIntimacyFear}* When intimacy, partnership, or commercial collaboration deepens in ${venusHouse.arena}, your nervous system responds not with open surrender, but with a protective reflex: *${attachment.protestOrWithdrawalBehavior}*
+During moments of friction—whether with a client, co-founder, parent, or partner—this dynamic unfolds into an unconscious loop: *${attachment.conflictTriggerLoop.replace(/\bin [^,.]+/g, '')}*
 
-During moments of friction—whether with a client, co-founder, parent, or partner—this dynamic unfolds into an unconscious loop: *${attachment.conflictTriggerLoop}*
+### The Interconnected Circuit of Internal Friction Fault Lines
+Rather than isolated quirks, the internal friction points in your psyche operate as a continuous, unified circuit, each tension point reinforcing the next:
 
-### The Interconnected Circuit of Structural Planetary Anomalies
-Rather than isolated defects, the planetary knots in your chart operate as a continuous, unified psychic circuit, each tension point reinforcing the next:
+#### Primary Friction Fault Line: The Inward Psychological Crucible
+In your internal architecture, an intense, inward-turning current creates a continuous psychological undertow: an instinct to intensely scrutinize your thoughts and feelings before allowing them into the outside world. When stress rises, you experience a sharp contrast between your composed external demeanor and an internal whirlwind of mental auditing.
 
-${anomaliesConnectedNarrative}
+At the somatic level, your nervous system registers this tension through muscular tightness across your ${saturnData.somaticLocation}, shallow breath holding during complex problem-solving, and a reluctance to speak until every word has been vetted for complete precision.
 
-### How These Structural Knots Form an Interconnected Psychic Circuit
-These friction points do not fire in isolation. In your lived experience, they operate as a closed-loop system: when professional or deadline pressure mounts in ${saturnHouse.arena}, your ${saturnRashi.name} Saturn immediately tightens its defensive perimeter. If unexpected emotional vulnerability, ambiguous communication, or interpersonal tension surfaces around ${venusHouse.arena}, the inward torque of ${activeRetrogrades.length > 0 ? activeRetrogrades.map((p) => `Retrograde ${p.id}`).join(' and ') : 'your angular friction matrix'} forces an immediate reflexive retreat into ${moonHouse.arena}, converting raw feelings into analytical vigilance, physical containment, and self-reliant shielding.
+In your daily life, this inner friction echoes directly across your pursuits: in executive decisions, you compulsively double-check proposals and strategic directives, fearing that a subtle oversight will be used against you. In creative expressions, you endlessly refine drafts in private, agonizing over whether your work is ready for public scrutiny. In relationships, you hold back your spontaneous reactions, needing time alone to sort through what you really feel before articulating it.
+
+### How These Friction Fault Lines Form a Closed Loop
+These tension points do not fire in isolation. In your lived experience, they operate as a closed-loop system: when professional or deadline pressure mounts in ${saturnHouse.arena}, your inner guardian immediately tightens its perimeter. If unexpected emotional vulnerability, ambiguous communication, or interpersonal tension surfaces around ${venusHouse.arena}, your system forces an immediate reflexive retreat inward, converting raw feelings into analytical vigilance, physical containment, and self-reliant shielding.
 
 ---
 
-### Layman Language Translation: How Your Structural Knots Actually Play Out in Daily Life
-Let us strip away the astrological vectors and translate this exact matrix—your **${attachment.primaryStyle}** blueprint, your Moon in **${moonRashi.name}**, your Venus in **${venusRashi.name}**, and your specific planetary knots—into a continuous, experiential narrative of what you actually think, feel, and do across every sphere of life:
+### Translating Your Structural Knots into Everyday Experience
+Let us translate this exact psychological matrix into an experiential, everyday narrative of what you actually think, feel, and do across every sphere of life:
 
 1. **In Workplace Authority, Deal Negotiations & Leadership:**
    ${laymanWorkplace}
@@ -607,24 +588,22 @@ Let us strip away the astrological vectors and translate this exact matrix—you
 5. **In Romantic Intimacy, Vulnerability & Deep Bonds:**
    ${laymanRomance}
 
-6. **The Embodied Pathway to Earned Security in Plain English:**
+6. **The Pathway to Earned Relational Ease in Plain English:**
    ${laymanEarnedSecurity}`;
 
   // SECTION 3: THE EVOLUTIONARY FRONTIER + BESPOKE LAYMAN LANGUAGE TRANSLATION (ALL LIFE FACETS)
-  // Dynamic, personalized evolutionary monograph with zero duplication and strict alignment to the birth chart
-
   let navAscDescription = '';
   if (navAscRashi.element === 'Fire') {
-    navAscDescription = `Emerging from the conditioned hesitation or protective armor of your ${ascRashi.name} birth Lagna, your ${navAscRashi.name} Navamsha self radiates decisive, sovereign courage. In high-stakes leadership moments and organizational crossroads within ${rahuHouse.arena}, you stop asking for unanimous consensus or doubting your authority; you step forward as the unhesitating visionary.`;
+    navAscDescription = `Emerging from conditioned hesitation or protective armor, your mature presence radiates decisive, sovereign courage. In high-stakes leadership moments and organizational crossroads within ${rahuHouse.arena}, you stop asking for unanimous consensus or doubting your authority; you step forward as an unhesitating visionary.`;
   } else if (navAscRashi.element === 'Earth') {
-    navAscDescription = `Grounding the volatile anxieties or fluctuating instincts of your birth chart, your ${navAscRashi.name} Navamsha self embodies patient architectural mastery. You replace hyper-vigilant hustle with sustainable operational rhythms, building enduring systems and ventures in ${rahuHouse.arena} that compound long-term value without demanding physical exhaustion.`;
+    navAscDescription = `Grounding volatile anxieties or fluctuating instincts, your mature presence embodies patient architectural mastery. You replace hyper-vigilant hustle with sustainable operational rhythms, building enduring systems and ventures in ${rahuHouse.arena} that compound long-term value without demanding physical exhaustion.`;
   } else if (navAscRashi.element === 'Air') {
-    navAscDescription = `Transcending the territorial fortress of your birth chart, your ${navAscRashi.name} Navamsha self acts as an objective strategic synthesizer, diplomat, and innovator. You articulate complex visions with effortless clarity, convening key stakeholders and negotiating high-value alliances in ${rahuHouse.arena} with unshakeable perspective.`;
+    navAscDescription = `Transcending the territorial fortress of early defenses, your mature presence acts as an objective strategic synthesizer, diplomat, and innovator. You articulate complex visions with effortless clarity, convening key stakeholders and negotiating high-value alliances in ${rahuHouse.arena} with unshakeable perspective.`;
   } else {
-    navAscDescription = `Softening the rigid emotional containment of your birth chart, your ${navAscRashi.name} Navamsha self commands through magnetic empathic depth and intuitive timing. You read the unspoken psychological currents of rooms and partnerships, guiding people through profound transformations without absorbing their distress into your own system.`;
+    navAscDescription = `Softening rigid emotional containment, your mature presence commands through magnetic empathic depth and intuitive timing. You read the unspoken psychological currents of rooms and partnerships, guiding people through profound transformations without absorbing their distress into your own system.`;
   }
 
-  let navMoonDescription = `In your birth chart, your Moon in ${moonRashi.name} digested emotional stress through ${
+  let navMoonDescription = `In your early conditioning, you digested emotional stress through ${
     moon.rashiElement === 'Water'
       ? 'turbulent emotional absorption, intense sensitivity, and protective isolation'
       : moon.rashiElement === 'Earth'
@@ -632,70 +611,70 @@ Let us strip away the astrological vectors and translate this exact matrix—you
         : moon.rashiElement === 'Air'
           ? 'compulsive mental looping, over-analyzing relational subtexts, and restless nervous energy'
           : 'adrenal urgency, reactive frustration, and an impulse to force immediate outcomes'
-  }. In your D9 soul-matrix, your emotional consciousness ripens into **${navMoonRashi.name}**: you develop an unshakeable interior sanctuary. When external friction arises in ${saturnHouse.arena} or ${venusHouse.arena}, your nervous system no longer spirals; you anchor into self-compassionate discernment, holding space for complex feelings without losing your center.`;
+  }. In your mature psychological center, you develop an unshakeable interior sanctuary. When external friction arises in ${saturnHouse.arena} or ${venusHouse.arena}, your nervous system no longer spirals; you anchor into self-compassionate discernment, holding space for complex feelings without losing your center.`;
 
-  let navVenusDescription = `Your birth Venus in ${venusRashi.name} within the ${venusHouse.name} approached love, creativity, and financial pricing with protective armor—either under-valuing your gifts or keeping intimate partners at a safe distance. Ripening into your **${navVenusRashi.name}** Navamsha Venus, your relational capacity transforms into sacred reciprocity. You command premium compensation for your intellectual property without guilt, establish immovable contractual boundaries, and welcome deep, unarmored intimacy where mutual vulnerability is celebrated as true power.`;
+  let navVenusDescription = `In earlier chapters, you approached love, creativity, and financial pricing with protective armor—either under-valuing your gifts or keeping intimate partners at a safe distance. In your mature relational center, your relational capacity transforms into sacred reciprocity. You command premium compensation for your intellectual property without guilt, establish immovable contractual boundaries, and welcome deep, unarmored intimacy where mutual vulnerability is celebrated as true power.`;
 
   const bigFiveNarrativeBlocks = bigFive
     .map((dim, idx) => {
       return `#### Trait 0${idx + 1}: ${dim.trait}
-- **Psychometric Calibration:** Moving from Baseline ${dim.baselineScore}% (*${dim.karmicDefaultLabel}*) ➔ Evolutionary Target ${dim.reconditionedTarget}% (*${dim.evolutionaryTargetLabel}*)
-- **The Unconscious Karmic Default:** ${dim.shadowExpression}
-- **The Self-Led Evolutionary Maturation:** ${dim.selfLedExpression}
-- **The Daily Stretch Mechanism:** ${dim.stretchMechanism}
+- **Calibration Shift:** Baseline ${dim.baselineScore}% (*${dim.karmicDefaultLabel}*) ➔ Target ${dim.reconditionedTarget}% (*${dim.evolutionaryTargetLabel}*)
+- **The Unconscious Default:** ${dim.shadowExpression}
+- **The Mature Evolution:** ${dim.selfLedExpression}
+- **The Daily Behavioral Stretch:** ${dim.stretchMechanism}
 - **Impact Across Living Spheres:** ${dim.lifeArenaImpact}`;
     })
     .join('\n\n');
 
-  const section3EvolutionaryFrontier = `## 3. THE EVOLUTIONARY FRONTIER: The Current Life Reconditioning Blueprint
+  const section3EvolutionaryFrontier = `## 3. THE EVOLUTIONARY FRONTIER: Your Highest Behavioral Realignment & Growth Trajectory
 
-If Ketu in ${ketuRashi.name} (${ketuHouse.name}) and your past-life Shastiamsha imprint (${ketu.shastiamsha.name}) describe the ancient fortress you built to survive the past, your North Node (**Rahu**) in **${rahuRashi.name}** within your **${rahuHouse.name}**—governed by the **${rahu.shastiamsha.name}** deity stream (*${rahu.shastiamsha.archetype}*) and illuminated by the higher soul-blueprint of your **Navamsha (D9)** chart—describes the exact evolutionary medicine required to make you whole in this lifetime across your career, finances, creative voice, health, family, and relationships.
+If your subconscious memory blueprint describes the ancient fortress you built to survive the past, your growth frontier describes the exact evolutionary medicine required to make you whole in this lifetime across your career, finances, creative voice, health, family, and relationships.
 
-Your soul did not incarnate in ${input.placeOfBirth.split(',')[0]} to endlessly repeat the familiar, exhausted survival loops of ${ketuHouse.arena}. It deliberately chose the electric, unvetted, and generative frontier of **${rahuHouse.arena}**, expressed through the psychological wavelength of **${rahuRashi.name}** (${rahuRashi.psychologicalDomain}). To your ${saturnData.managerTitle} and ${marsData.firefighterTitle}, this Rahu frontier initially feels hazardous and destabilizing. Where Ketu in ${ketuRashi.name} demands guaranteed safety and pre-calculated outcomes before taking a single step, Rahu in ${rahuRashi.name} demands that you step into the arena *before* you feel fully ready—to risk **${rahuHouse.evolutionaryTask}**.
+Your soul did not arrive in ${input.placeOfBirth.split(',')[0]} to endlessly repeat the familiar, exhausted survival loops of your past conditioning in ${ketuHouse.arena}. It deliberately chose the electric, unvetted, and generative stretch zone of **${rahuHouse.arena}**, demanding that you embody the courage of **${rahuRashi.psychologicalDomain}**. To your inner protective parts, this growth frontier initially feels hazardous and destabilizing. Where your ancient reflex demands guaranteed safety and pre-calculated outcomes before taking a single step, your growth frontier demands that you step into the arena *before* you feel fully ready—to risk **${rahuHouse.evolutionaryTask}**.
 
-### The Nodal Polarity Axis: ${polarity.axisName}
-- **The Exhausted Past-Life Comfort Zone:** ${polarity.karmicCeiling} In your chart, this manifests as an over-developed reflex to retreat into ${ketuHouse.arena} whenever modern adult demands feel chaotic, clinging to ${ketuRashi.name} containment.
-- **Rahu's Evolutionary Imperative in this Lifetime:** ${polarity.rahuEvolutionaryCall} Stepping across this threshold requires you to embody ${rahuRashi.name} boldness within ${rahuHouse.arena}, allowing yourself to be seen, compensated, and trusted without demanding a guaranteed emergency parachute.
+### The Core Evolutionary Polarity: ${sanitizedAxisName}
+- **The Exhausted Comfort Zone You Are Leaving Behind:** ${polarity.karmicCeiling} In your lived experience, this manifests as an over-developed reflex to retreat into solitary containment in ${ketuHouse.arena} whenever modern adult demands feel chaotic.
+- **The Growth Frontier Calling You Forward:** ${polarity.rahuEvolutionaryCall} Stepping across this threshold requires you to embody grounded boldness within ${rahuHouse.arena}, allowing yourself to be seen, compensated, and trusted without demanding a guaranteed emergency parachute.
 
-### The Navamsha (D9) Soul Trajectory: Who You Become When the Armor Drops
-In Vedic structural psychology, the root birth matrix maps your inherited conditioning and defensive reflexes, while the **Navamsha** reveals the ripened fruit of your consciousness once those defenses are unburdened. Your Navamsha horizon shifts into **${navAscRashi.name}**, your emotional foundation ripens into **${navMoonRashi.name}**, and your capacity for relational and commercial harmony matures into **${navVenusRashi.name}**.
+### Your Mature Horizon: Who You Become When the Armor Drops
+As the defensive armor is unburdened, the ripened fruit of your consciousness emerges into full view:
 
 - **In Executive Authority & Career Direction:** ${navAscDescription}
 - **In Creative Voice & Public Radiance:** ${navVenusDescription}
 - **In Somatic Health & Nervous System Regulation:** ${navMoonDescription}
-- **In Family Lineage & Generational Healing:** Operating from your ${navAscRashi.name} and ${navMoonRashi.name} consciousness, you release the historical role of the family fixer or emotional sponge. You relate to relatives with genuine warmth and practical kindness while upholding sovereign, calm boundaries that protect your private peace.
-- **In Intimate Vulnerability & Sacred Partnership:** The guarded reflex of your birth Venus softens into the ${navVenusRashi.name} capacity for real-time transparency. You risk asking for what you need, welcoming true interdependence and mutual devotion without the underlying terror of entrapment or sudden loss.
+- **In Family Lineage & Generational Healing:** Operating from your centered, mature consciousness, you release the historical role of the family fixer or emotional sponge. You relate to relatives with genuine warmth and practical kindness while upholding sovereign, calm boundaries that protect your private peace.
+- **In Intimate Vulnerability & Sacred Partnership:** The guarded reflex softens into real-time transparency. You risk asking for what you need, welcoming true interdependence and mutual devotion without the underlying terror of entrapment or sudden loss.
 
-### Reconditioning Your Big Five Personality Matrix Across All Facets
-As you systematically unburden your ${ifs.exile.archetypeTitle} and invite your ${ifs.manager.archetypeTitle} to step down from 24/7 duty, your behavioral footprint undergoes a measurable, structural realignment:
+### The Realignment of Your Everyday Presence & Behavioral Footprint
+As you systematically unburden your vulnerable core and invite your primary protective parts to step down from 24/7 hyper-vigilance, your daily behavioral footprint undergoes a measurable, structural realignment:
 
 ${bigFiveNarrativeBlocks}
 
 ---
 
-### Layman Language Translation: What Stepping Into Your ${rahuRashi.name} Rahu Frontier and ${navAscRashi.name} Navamsha Actually Looks Like in Daily Life
-Let us strip away the astrological architecture and translate this grand evolutionary roadmap into an experiential, real-world narrative of how you actually think, feel, decide, and live when operating from your unburdened **${navAscRashi.name}** Self across every arena of life:
+### Translating Your Growth Frontier into Daily Life
+Let us translate this grand evolutionary roadmap into an experiential, real-world narrative of how you actually think, feel, decide, and live when operating from your unburdened, mature presence across every arena of life:
 
-1. **The Visceral Leap from Past-Life Default to Growth Frontier across Living Spheres:**
-   - **In Career, Workplace Authority & Deal-Making:** On a typical high-stakes workday, stepping into Rahu means resisting your default impulse to retreat into the comfortable, solitary technical bunker of ${ketuHouse.arena}. Instead of quietly doing the work yourself and hoping leadership notices, you step directly into ${rahuHouse.arena}—pitching your high-conviction ideas, facilitating key decision-making meetings, and accepting the scaled responsibility that matches your true intellect.
-   - **With Money, Capital Allocation & Wealth Sovereignty:** In financial management and commercial negotiations, stepping into your Rahu frontier means dismantling the old scarcity reflex or compulsive financial isolation. Guided by your ${navVenusRashi.name} Navamsha Venus, you stop discounting your rates or avoiding equity partnerships out of fear of conflict. You price your services at fair market value, establish transparent joint-venture contracts, and view capital not as a frantic survival moat, but as an energetic resource for collective impact.
-   - **In Creative Voice, Originality & Public Stature:** You stop treating your creative projects as private secrets to be hidden until they are flawless. You publish your writings, launch your products, or voice your boldest industry perspectives in ${rahuHouse.arena} while they are raw and vital, trusting that your authentic frequency will magnetically attract aligned peers and collaborators.
+1. **The Visceral Leap Across Living Spheres:**
+   - **In Career, Workplace Authority & Deal-Making:** On a typical high-stakes workday, leaning into your growth frontier means resisting your default impulse to retreat into the comfortable, solitary technical bunker of ${ketuHouse.arena}. Instead of quietly doing the work yourself and hoping leadership notices, you step directly into ${rahuHouse.arena}—pitching your high-conviction ideas, facilitating key decision-making meetings, and accepting the scaled responsibility that matches your true intellect.
+   - **With Money, Capital Allocation & Wealth Sovereignty:** In financial management and commercial negotiations, stepping into your growth frontier means dismantling the old scarcity reflex or compulsive financial isolation. You stop discounting your rates or avoiding equity partnerships out of fear of conflict. You price your services at fair market value, establish transparent joint-venture contracts, and view capital not as a frantic survival moat, but as an energetic resource for collective impact.
+   - **In Creative Voice, Originality & Public Stature:** You stop treating your creative projects as private secrets to be hidden until they are flawless. You publish your writings, launch your products, or voice your boldest perspectives in ${rahuHouse.arena} while they are raw and vital, trusting that your authentic frequency will magnetically attract aligned peers and collaborators.
    - **In the Physical Body, Nervous System & Somatic Restoration:** Your body physically registers this evolutionary leap as a profound, cellular sigh of relief. You deliberately interrupt the chronic habit of holding tension in your ${saturnData.somaticLocation}. You institute non-negotiable sleep rhythms, step away from digital screens during meals, and allow your body to experience deep, unhurried parasympathetic restoration.
    - **In Family Lineage & Ancestral Dynamics:** In real-world family interactions, you stop participating in inherited generational guilt triangles. When relatives attempt to draw you into old conflicts or demand that you play the compliant caretaker, you smile with genuine warmth and say: *"I love you dearly, and I know you have the strength to resolve this yourself."* You break centuries of lineage codependency by remaining lovingly sovereign.
-   - **In Solitude, Spiritual Peace & Existential Surrender:** When spending time alone in your personal sanctuary, solitude ceases to be an anxious bunker where your mind simulates worst-case disasters. It becomes a sacred, nourishing temple of renewal where you commune with the divine intelligence of the cosmos, knowing at the cellular level that you are guided and protected.
+   - **In Solitude, Spiritual Peace & Existential Surrender:** When spending time alone in your personal sanctuary, solitude ceases to be an anxious bunker where your mind simulates worst-case disasters. It becomes a sacred, nourishing temple of renewal where you commune with the deeper intelligence of existence, knowing at the cellular level that you are guided and protected.
    - **In Romantic Intimacy & Sacred Interdependence:** In the living room with your intimate partner, stepping into your frontier means replacing your conditioned withdrawal or anxious protest with courageous vulnerability. When feeling tender or overwhelmed, you don't shut down behind work or pick a petty fight; you look your partner in the eyes, take a breath, and say: *"I am feeling a little tender right now, and I just need you to hold me for five minutes."* You discover that being fully known does not destroy your freedom—it deepens it.
 
-2. **Operating From Your Navamsha (D9) Consciousness in Plain English:**
-   - **Your ${navAscRashi.name} Navamsha Ascendant in Action:** In executive meetings, client presentations, or unexpected crises, you no longer react from the conditioned defensiveness of your birth chart. You carry yourself with grounded posture, breathe into your abdomen, and communicate with the natural authority, poise, and clarity of ${navAscRashi.name}.
-   - **Your Navamsha Moon in ${navMoonRashi.name} in Action:** When unexpected emotional friction, client criticism, or partner distance occurs, your Navamsha Moon acts as a steady emotional gyroscope. You don't flood into panic or numbness; you validate your own feelings, self-soothe with compassion, and respond with thoughtful discernment.
-   - **Your Navamsha Venus in ${navVenusRashi.name} in Action:** In commercial contract negotiations, creative collaborations, and romantic relationships, you operate from an innate certainty of your worth. You attract collaborators and lovers who meet you with equal respect, mutual transparency, and sacred reciprocity.
+2. **Operating From Your Mature Sovereign Consciousness in Plain English:**
+   - **Your Executive Presence in Action:** In executive meetings, client presentations, or unexpected crises, you no longer react from conditioned defensiveness. You carry yourself with grounded posture, breathe into your abdomen, and communicate with natural authority, poise, and clarity.
+   - **Your Emotional Poise in Action:** When unexpected emotional friction, client criticism, or partner distance occurs, your inner emotional center acts as a steady gyroscope. You don't flood into panic or numbness; you validate your own feelings, self-soothe with compassion, and respond with thoughtful discernment.
+   - **Your Relational Maturity in Action:** In commercial contract negotiations, creative collaborations, and romantic relationships, you operate from an innate certainty of your worth. You attract collaborators and lovers who meet you with equal respect, mutual transparency, and sacred reciprocity.
 
-3. **Five Concrete Real-World Behavioral Stretches (Big Five in Daily Action):**
-   - **Micro-Experiment 01 (For Neuroticism ➔ Emotional Equanimity):** When a sudden wave of threat-scanning or catastrophic worry spikes around your career or personal life, practice the **3-Minute Somatic Anchor**. Place one hand firmly on your ${saturnData.somaticLocation}, take 3 slow diaphragmatic breaths, and speak out loud: *"My system is recalling a past-life defense; in this exact moment, I am safe and fully capable of handling reality."*
-   - **Micro-Experiment 02 (For Openness ➔ Experiential Fluidity):** Practice the **70% Threshold Rule**. When developing a new proposal, artistic creation, or business initiative, release it to collaborators or your audience when you are 70% satisfied rather than waiting for 100% conceptual mastery, allowing real-world engagement to polish the final outcome.
-   - **Micro-Experiment 03 (For Conscientiousness ➔ Aligned Devotional Craft):** Institute the **Sacred Work Curfew**. Once this week, close your laptop at a predetermined evening hour regardless of unfinished tasks. Choose one operational responsibility in ${saturnHouse.arena} to delegate entirely without surveillance, trusting your team and honoring your body's right to rest.
-   - **Micro-Experiment 04 (For Agreeableness ➔ Boundary-Rich Compassion):** Practice the **Clean Single-Sentence Boundary**. When a client, colleague, or family member requests labor or compromises that infringe upon your health or fair value, decline with warmth in a single declarative sentence without offering defensive apologies or over-explanations.
-   - **Micro-Experiment 05 (For Extraversion ➔ Sovereign Visibility):** Take the **Center-Stage Step**. In your next professional meeting or public forum within ${rahuHouse.arena}, voice your perspective first, share your authentic accomplishments without self-effacing humor, and allow yourself to be acknowledged and compensated at scale.`;
+3. **Five Concrete Real-World Behavioral Micro-Experiments:**
+   - **Micro-Experiment 01 (For Emotional Sensitivity ➔ Grounded Equanimity):** When a sudden wave of threat-scanning or catastrophic worry spikes around your career or personal life, practice the **3-Minute Somatic Anchor**. Place one hand firmly on your ${saturnData.somaticLocation}, take 3 slow diaphragmatic breaths, and speak out loud: *"My system is recalling an ancient protective defense; in this exact moment, I am safe and fully capable of handling reality."*
+   - **Micro-Experiment 02 (For Receptivity ➔ Creative Fluidity):** Practice the **70% Threshold Rule**. When developing a new proposal, artistic creation, or business initiative, release it to collaborators or your audience when you are 70% satisfied rather than waiting for 100% conceptual certainty, allowing real-world engagement to polish the final outcome.
+   - **Micro-Experiment 03 (For Craftsmanship ➔ Devotional Rhythm):** Institute the **Sacred Work Curfew**. Once this week, close your laptop at a predetermined evening hour regardless of unfinished tasks. Choose one operational responsibility in ${saturnHouse.arena} to delegate entirely without surveillance, trusting your team and honoring your body's right to rest.
+   - **Micro-Experiment 04 (For Relational Generosity ➔ Sovereign Boundaries):** Practice the **Clean Single-Sentence Boundary**. When a client, colleague, or family member requests labor or compromises that infringe upon your health or fair value, decline with warmth in a single declarative sentence without offering defensive apologies or over-explanations.
+   - **Micro-Experiment 05 (For Visibility ➔ Authentic Presence):** Take the **Center-Stage Step**. In your next professional meeting or public forum within ${rahuHouse.arena}, voice your perspective first, share your authentic accomplishments without self-effacing humor, and allow yourself to be acknowledged and compensated at scale.`;
 
   return {
     section1ImplicitCode,
