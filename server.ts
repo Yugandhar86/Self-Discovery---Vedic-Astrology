@@ -122,28 +122,32 @@ INTERNAL GEOMETRIC & DIVISIONAL MATRIX:
 CRITICAL ANTI-OVERLAP & BESPOKE PERSONALIZATION INSTRUCTION:
 Every finding, scenario, and layman language explanation MUST be exclusively personalized to this individual's birth chart. DO NOT use generic template paragraphs, generic corporate clichés (such as over-preparing slide decks unless specifically rooted in a 2nd/10th house placement), or standardized horoscope fillers. Every section must stem strictly from this chart's distinct combination of Ascendant, Ketu house, Saturn house, Mars house, Rahu polarity, Moon/Venus placements, and diagnosed attachment style.
 
-SECTION 2 "THE STRUCTURAL KNOTS" STRICT DIRECTIVES:
-1. Continuous, Connected Psychic Narrative: Weave the identified structural knots (retrograde planets, Gandanta water-fire thresholds, Rashi Sandhi borders, and the Saturn-Moon-Venus angular dialogue / Drishti aspects) into an interconnected psychic circuit. Avoid repetitive bullet points or isolated laundry lists. Explain how one knot triggers another in a continuous psychological narrative.
-2. Zero Overlap With Other Sections: Do NOT repeat the Nodal axis (Ketu/Rahu past-life defaults) in Section 2, as that is the exclusive domain of Sections 1 and 3. Section 2 focuses strictly on structural planetary friction and attachment dynamics.
-3. 100% Chart-Specific Layman Translation: The Layman Language Translation must be an experiential, continuous, and non-repetitive narrative explaining how their specific Moon, Saturn, Venus, active knots, and diagnosed attachment style (${baseResult.attachment.primaryStyle}) play out in real life across (1) Workplace Authority & Deal Negotiations, (2) Money & Commercial Risk, (3) Somatic Holding & Nervous System, (4) Family Lineage, (5) Romantic Intimacy, and (6) The Embodied Pathway to Earned Security.
+SECTION 1 "THE CHRONICLES OF TIME: Your Multidimensional Soul Matrix" STRICT DIRECTIVES:
+- Translate the multi-layered past-life evolutionary narrative into three distinct dimensions:
+  1. The Core Identity Layer: The conscious persona and worldly interface.
+  2. The Hidden Evolutionary Compass: The maturing soul trajectory and emerging purpose.
+  3. The Ancient Deep-Seated Karmic Root System: The subterranean subconscious bedrock and unlearned survival instincts.
+- Completely erase any mention of "D1", "D9", "D60", "Rashi", "Navamsha", "Shastiamsha", planetary degrees, house numbers, aspect lines, or specific deity names.
 
-SECTION 3 "THE EVOLUTIONARY FRONTIER" STRICT DIRECTIVES:
-1. 100% Chart Personalization & Zero Overlap: Ground the entire section strictly in this chart's specific Rahu sign, house, and Shastiamsha deity, the Nodal Polarity Axis (${polarity.axisName}), the exact transition from birth Lagna/Moon/Venus to Navamsha (${baseResult.ascendant.navamshaName}, ${moon.navamshaName}, ${venus.navamshaName}), and the calculated Big Five trait shifts. DO NOT use generic template paragraphs or cliché self-help slogans.
-2. Distinct, Non-Repetitive Layman Language Translation: The Layman Translation MUST NOT repeat the analytical section's bullets or text. Instead, it must be an experiential translation showing concrete, real-life human scenarios:
-   - The visceral shift from past-life Ketu comfort to Rahu growth across (1) Career & Leadership, (2) Money & Wealth Allocation, (3) Creative Voice & Visibility, (4) Somatic Health & Regulation, (5) Family Lineage Healing, (6) Solitude & Spiritual Trust, and (7) Romantic Devotion.
-   - What operating from their specific Navamsha Lagna (${baseResult.ascendant.navamshaName}), Navamsha Moon (${moon.navamshaName}), and Navamsha Venus (${venus.navamshaName}) looks and feels like during high-stakes challenges.
-   - Five concrete everyday micro-experiments for the Big Five personality traits in real-life situations.
+SECTION 2 "THE INNER ARCHETYPES: Your Subconscious Cast of Characters" STRICT DIRECTIVES:
+- Describe the internal cast naturally as:
+  1. Your deeply hidden vulnerable core (holding ancient wounds and unlearned dread of exposure).
+  2. Your proactive day-to-day protector parts (the strategic inner guardians that enforce competence, control, and composure).
+  3. Your reactive emergency coping mechanisms (the sudden override reflexes that sever tension, shut down, or blow up boundaries when overwhelmed).
+- Show how ancient past-life conditioning triggers these exact internal characters in current-life psychology.
+- Do NOT use clinical or textbook labels like "Internal Family Systems," "IFS," "Exiles," "Managers," "Firefighters," or "Attachment Theory."
 
-Generate the THREE exhaustive Markdown sections in JSON format (do NOT include section 4 on behavioral integration).
-CRITICAL ALIGNMENT FOR LAYMAN LANGUAGE TRANSLATIONS:
-The "### Layman Language Translation" in each section MUST NOT be a generic horoscope summary. It must be directly, intimately based on and aligned with the specific synthesized data of that section:
-- Section 1 Layman Translation must explicitly translate this exact Exile, Manager, and Firefighter into plain English, showing their concrete weekly impact across (1) Vocation/Career, (2) Money/Finances, (3) Creative Voice, (4) Physical Health/Stress Holding, (5) Family Lineage, (6) Solitude, and (7) Romantic Bonds.
-- Section 2 Layman Translation must explicitly translate this exact diagnosed Attachment Style (${baseResult.attachment.primaryStyle}) and each specific Structural Anomaly detected, showing how they show up in real-life meetings, contracts, body sensations, and intimate moments across all facets in a continuous, flowing narrative.
-- Section 3 Layman Translation must explicitly translate the leap from Ketu to Rahu in House ${rahu.house} (${rahu.rashiName}), the Navamsha soul shifts, and the 5 specific Big Five traits before vs after across all facets of life.
+SECTION 3 "THE SPHERES OF EXISTENCE: Real-World Behavioral Footprints" STRICT DIRECTIVES:
+- Seamlessly transition the narrative into practical, everyday life pillars:
+  1. Pillar 1: Relationships, Intimacy & Sacred Vulnerability
+  2. Pillar 2: Career, Worldly Purpose & Wealth Sovereignty
+  3. Pillar 3: Vitality, Somatic Health & Inner Peace
+  4. Real-World Behavioral Micro-Experiments for everyday transformation.
+- Do NOT map insights back to specific astrological houses (no "7th house", no "10th house"). Describe exactly how ancient baggage or evolutionary stretch zones materialize as automatic habits in modern office environments or romantic life.
 
-1. section1ImplicitCode: Must start with "## 1. THE IMPLICIT CODE: Subconscious Memory Architecture & Inner Protective Dynamics"
-2. section2StructuralKnots: Must start with "## 2. THE STRUCTURAL KNOTS: Core Friction Fault Lines & Relational Blueprints"
-3. section3EvolutionaryFrontier: Must start with "## 3. THE EVOLUTIONARY FRONTIER: Your Highest Behavioral Realignment & Growth Trajectory"
+1. section1ImplicitCode: Must start with "## 1. THE CHRONICLES OF TIME: Your Multidimensional Soul Matrix"
+2. section2StructuralKnots: Must start with "## 2. THE INNER ARCHETYPES: Your Subconscious Cast of Characters"
+3. section3EvolutionaryFrontier: Must start with "## 3. THE SPHERES OF EXISTENCE: Real-World Behavioral Footprints"
 `;
 
           const response = await ai.models.generateContent({

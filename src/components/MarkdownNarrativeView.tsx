@@ -263,7 +263,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             onClick={() => scrollToSection(1)}
             className="hover:text-[#9A3412] transition-colors font-medium whitespace-nowrap cursor-pointer"
           >
-            01 / The Implicit Code (Inner Protective Dynamics & Grounded Translation)
+            01 / The Chronicles of Time: Multidimensional Soul Matrix
           </button>
           <span className="text-stone-300" aria-hidden="true">·</span>
           <button
@@ -271,7 +271,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             onClick={() => scrollToSection(2)}
             className="hover:text-[#9A3412] transition-colors font-medium whitespace-nowrap cursor-pointer"
           >
-            02 / The Structural Knots (Relational Blueprints & Grounded Translation)
+            02 / The Inner Archetypes: Subconscious Cast of Characters
           </button>
           <span className="text-stone-300" aria-hidden="true">·</span>
           <button
@@ -279,7 +279,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             onClick={() => scrollToSection(3)}
             className="hover:text-[#9A3412] transition-colors font-medium whitespace-nowrap cursor-pointer"
           >
-            03 / The Evolutionary Frontier (Behavioral Realignment & Grounded Translation)
+            03 / The Spheres of Existence: Real-World Behavioral Footprints
           </button>
         </div>
       </div>
@@ -339,20 +339,20 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
               </figcaption>
             </figure>
 
-            {/* Facets of Life Echo Ledger */}
+            {/* Real-World Spheres of Existence Ledger */}
             <div className="border border-stone-300 bg-[#F3EFE6]/70 p-5 space-y-4">
               <div className="border-b border-stone-300 pb-2.5">
                 <p className="text-[11px] uppercase tracking-widest text-[#9A3412]">
-                  All Facets of Life Ledger
+                  Real-World Spheres of Existence
                 </p>
                 <h3 className="text-lg font-semibold text-stone-900 mt-0.5">
-                  How the Karmic Code Impacts Every Sphere
+                  How Ancient Conditioning Manifests in Daily Life
                 </h3>
               </div>
 
               <div className="space-y-3.5 text-xs leading-relaxed text-stone-700">
                 <div>
-                  <span className="font-semibold text-stone-900 block">Vocation, Leadership & Money:</span>
+                  <span className="font-semibold text-stone-900 block">Career, Purpose & Wealth:</span>
                   <span className="text-stone-600">
                     {result.ifs.exile.lifeFacets.vocationAndMoney}
                   </span>
@@ -364,7 +364,7 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
                   </span>
                 </div>
                 <div className="border-t border-stone-200 pt-2.5">
-                  <span className="font-semibold text-stone-900 block">Somatic Health & Nervous System:</span>
+                  <span className="font-semibold text-stone-900 block">Vitality, Somatic Health & Calm:</span>
                   <span className="text-stone-600">
                     {result.ifs.exile.lifeFacets.somaticHealthAndNervousSystem}
                   </span>
@@ -376,15 +376,15 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
                   </span>
                 </div>
                 <div className="border-t border-stone-200 pt-2.5">
-                  <span className="font-semibold text-stone-900 block">Existential Trust & Spirituality:</span>
+                  <span className="font-semibold text-stone-900 block">Existential Trust & Solitude:</span>
                   <span className="text-stone-600">
                     {result.ifs.exile.lifeFacets.existentialTrustAndSolitude}
                   </span>
                 </div>
                 <div className="border-t border-stone-200 pt-2.5">
-                  <span className="font-semibold text-stone-900 block">Interpersonal & Intimate Bonds:</span>
+                  <span className="font-semibold text-stone-900 block">Relationships, Intimacy & Trust:</span>
                   <span className="text-stone-600">
-                    {result.attachment.primaryStyle} reflex: {result.attachment.coreIntimacyFear}
+                    {result.attachment.primaryStyle.split(' ')[0]} reflex: {result.attachment.coreIntimacyFear}
                   </span>
                 </div>
               </div>
@@ -393,19 +393,19 @@ export const MarkdownNarrativeView: React.FC<MarkdownNarrativeViewProps> = ({
             {/* Quick Parts Snapshot */}
             <div className="border border-stone-300 bg-[#FBF9F5] p-5 space-y-3">
               <div className="text-xs uppercase tracking-widest text-stone-500">
-                IFS Parts Architecture
+                Subconscious Cast of Characters
               </div>
               <dl className="space-y-3 text-xs">
                 <div className="border-b border-stone-200 pb-2.5">
-                  <dt className="font-semibold text-stone-900">Exile (Vulnerability)</dt>
+                  <dt className="font-semibold text-stone-900">Vulnerable Core (Hidden)</dt>
                   <dd className="text-stone-600 mt-0.5">{result.ifs.exile.archetypeTitle}</dd>
                 </div>
                 <div className="border-b border-stone-200 pb-2.5">
-                  <dt className="font-semibold text-stone-900">Manager (Control)</dt>
+                  <dt className="font-semibold text-stone-900">Proactive Day-to-Day Protector</dt>
                   <dd className="text-stone-600 mt-0.5">{result.ifs.manager.archetypeTitle}</dd>
                 </div>
                 <div className="border-b border-stone-200 pb-2.5">
-                  <dt className="font-semibold text-stone-900">Firefighter (Escape)</dt>
+                  <dt className="font-semibold text-stone-900">Reactive Emergency Reflex</dt>
                   <dd className="text-stone-600 mt-0.5">{result.ifs.firefighter.archetypeTitle}</dd>
                 </div>
                 <div>

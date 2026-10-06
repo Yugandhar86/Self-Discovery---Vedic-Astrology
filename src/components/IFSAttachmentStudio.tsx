@@ -1,400 +1,252 @@
 import React, { useState } from 'react';
-import { IFSPartDetail, KarmicSynthesisResult } from '../types/jyotish';
+import { KarmicSynthesisResult } from '../types/jyotish';
 
 interface IFSAttachmentStudioProps {
   result: KarmicSynthesisResult;
   mirrorImagePath: string;
 }
 
+type InnerArchetype = 'vulnerableCore' | 'proactiveProtector' | 'reactiveEmergency';
+type LifePillar = 'relationships' | 'career' | 'vitality';
+
 export const IFSAttachmentStudio: React.FC<IFSAttachmentStudioProps> = ({
   result,
   mirrorImagePath,
 }) => {
-  const [selectedPartRole, setSelectedPartRole] = useState<'exile' | 'manager' | 'firefighter'>('exile');
-  const [selfLeadershipLevel, setSelfLeadershipLevel] = useState<number>(65);
-  const [selectedLifeFacet, setSelectedLifeFacet] = useState<
-    'vocationAndMoney' | 'creativeVoiceAndVisibility' | 'somaticHealthAndNervousSystem' | 'familyLineageAndAncestralRoles' | 'existentialTrustAndSolitude' | 'interpersonalAndRomanticBonds'
-  >('vocationAndMoney');
+  const [activeArchetype, setActiveArchetype] = useState<InnerArchetype>('vulnerableCore');
+  const [activePillar, setActivePillar] = useState<LifePillar>('relationships');
   const [imgError, setImgError] = useState(false);
 
-  const partMap: Record<'exile' | 'manager' | 'firefighter', IFSPartDetail> = {
-    exile: result.ifs.exile,
-    manager: result.ifs.manager,
-    firefighter: result.ifs.firefighter,
+  const archetypeData = {
+    vulnerableCore: {
+      title: 'Your Deeply Hidden Vulnerable Core',
+      roleSubtitle: 'The tender space holding ancient memories & fear of exposure',
+      coreBelief: result.ifs.exile.coreBelief.replace(/"/g, ''),
+      somaticArea: result.ifs.exile.somaticLocation,
+      pastGenesis: `Born from ancient soul chapters where trusting others without a defensive perimeter resulted in profound betrayal, sudden displacement, or emotional exile. It learned that needing support was dangerous.`,
+      currentBehavior: `In modern life, this part quietly hides behind your adult competence. It braces your nervous system whenever someone invites you to relax your guard, delegate a high-stakes decision, or speak an unpolished truth.`,
+      unburdeningKey: `Reassuring this tender space from your grounded adult presence that the ancient danger is over, and that you are now fully equipped to protect its safety without emotional isolation.`,
+    },
+    proactiveProtector: {
+      title: 'Your Proactive Day-to-Day Protector Parts',
+      roleSubtitle: 'The strategic inner guardian enforcing order, competence & composure',
+      coreBelief: `I must anticipate every variable and maintain absolute self-reliance so my vulnerable core is never blindsided again.`,
+      somaticArea: result.ifs.manager.somaticLocation,
+      pastGenesis: `Forged as an operational shield to guarantee survival through relentless discipline, emotional self-containment, and hyper-preparedness. It believes safety is an engineering problem to be solved.`,
+      currentBehavior: `Operates as the chief operating officer of your daily life. It convinces you that you must carry 100% of the burden at work, scrutinize communications for perfection, and maintain private financial reserves.`,
+      unburdeningKey: `Inviting this guardian to step down from 24/7 emergency vigilance, learning that collaborative delegation and genuine rest do not invite catastrophe.`,
+    },
+    reactiveEmergency: {
+      title: 'Your Reactive Emergency Coping Mechanisms',
+      roleSubtitle: 'The sudden override reflexes that sever tension when overwhelmed',
+      coreBelief: `When pressure threatens to flood the body, I must immediately sever the tension and restore sovereign control at any cost.`,
+      somaticArea: result.ifs.firefighter.somaticLocation,
+      pastGenesis: `Developed as an emergency circuit breaker. When prolonged emotional chaos or bad faith breached the perimeter, this part learned to blow up the field or retreat into icy silence rather than endure helplessness.`,
+      currentBehavior: `Deploys when your perimeter is breached by unexpected disrespect or emotional entrapment. It triggers abrupt communication cutoffs, sudden boundary resets, or fierce verbal counter-attacks to force immediate space.`,
+      unburdeningKey: `Recognizing the physiological wave of adrenaline before acting on the impulse to burn bridges or retreat; grounding the nervous system in physical safety first.`,
+    },
   };
 
-  const activePart = partMap[selectedPartRole];
-
-  const facetLabels: Record<typeof selectedLifeFacet, string> = {
-    vocationAndMoney: 'Vocation, Leadership & Money',
-    creativeVoiceAndVisibility: 'Creative Voice & Visibility',
-    somaticHealthAndNervousSystem: 'Somatic Health & Nervous System',
-    familyLineageAndAncestralRoles: 'Family Lineage & Ancestral Roles',
-    existentialTrustAndSolitude: 'Existential Trust & Spirituality',
-    interpersonalAndRomanticBonds: 'Interpersonal & Romantic Bonds',
+  const pillarData = {
+    relationships: {
+      title: 'Relationships, Intimacy & Sacred Vulnerability',
+      subtitle: 'How ancient conditioning and your growth stretch play out in partnership',
+      defaultHabit: `When romantic intimacy deepens toward unvetted vulnerability, a silent alarm sounds within your chest. You find yourself hyper-focusing on small flaws in your partner, withdrawing behind polite busyness, or provoking subtle conflict to regain breathing room. Your system instinctively tests whether love will cost you your freedom.`,
+      growthStretch: `Your evolutionary stretch invites you into sacred interdependence. You realize that true power is not surviving in a solitary fortress, but having the courage to lean unguardedly upon another. When tender or overwhelmed, you voice your honest need directly: "My nervous system is in sensory overload; I just need you to hold space for me while I reset."`,
+      experiment: `Share one tender, unarmored feeling with your partner or a close ally before you have had time to intellectualize or defend it.`,
+    },
+    career: {
+      title: 'Career, Purpose & Wealth Sovereignty',
+      subtitle: 'How ancient conditioning and your growth stretch play out in professional life',
+      defaultHabit: `In the workplace, ancient conditioning manifests as the lone-wolf operator syndrome. When project deadlines tighten or teammates falter, your default reflex is not to convene an alignment meeting; you quietly take the entire workload upon your shoulders, executing with meticulous perfectionism late into the night. With capital, you operate under an unshakeable scarcity soundtrack, keeping private reserves and avoiding equity partnerships out of fear of losing control.`,
+      growthStretch: `Leaning into your growth vector means stepping center-stage into visionary collaborative leadership. You pitch your high-conviction ideas, delegate operational milestones with transparent accountability, and command premium compensation for your intellectual property without apology. You treat wealth not as a defensive moat, but as an energetic resource for collective impact.`,
+      experiment: `Select one recurring operational task that you stubbornly manage alone and delegate it entirely to a trusted colleague, consciously letting go of micromanagement.`,
+    },
+    vitality: {
+      title: 'Vitality, Somatic Health & Inner Peace',
+      subtitle: 'How stress holding patterns and restorative calm manifest in the physical body',
+      defaultHabit: `Under chronic stress, your body registers tension as physical bracing across your shoulders, jaw, and solar plexus. You tend to live from the neck up, ignoring early physical signals of fatigue until your body forces a total shutdown. When exhausted, solitude can feel like an anxious bunker where your mind simulates catastrophic scenarios.`,
+      growthStretch: `Stepping into vitality means reclaiming your body as an unhurried temple. You deliberately interrupt the habit of physical holding through conscious breathwork, firm work curfews, and meals without digital screens. Solitude transforms from an anxious fortress into a nourishing sanctuary of deep spiritual trust and cellular renewal.`,
+      experiment: `Practice the 3-Minute Somatic Anchor: place one hand over your heart or stomach, take three slow diaphragmatic breaths, and speak out loud: "In this moment, I am safe, supported, and grounded."`,
+    },
   };
+
+  const activeA = archetypeData[activeArchetype];
+  const activeP = pillarData[activePillar];
 
   return (
-    <div className="space-y-12">
-      {/* Header */}
-      <div className="border-b border-stone-300 pb-6">
-        <p className="text-xs uppercase tracking-widest text-[#9A3412]">
-          All Facets of Life Studio · IFS · Attachment · Big Five
-        </p>
-        <h2 className="text-3xl font-semibold text-stone-900 mt-1">
-          IFS Parts Work Across Career, Money, Body & Bonds
-        </h2>
-        <p className="text-sm text-stone-600 mt-1 max-w-3xl">
-          Your karmic trajectory and past-life Shastiamsha imprints do not operate solely in romantic relationships. Explore how your Exile, Manager, and Firefighter parts manifest across your career authority, financial choices, creative courage, bodily health, family lineage, and existential trust.
-        </p>
-      </div>
-
-      {/* Life Facet Switcher Tabs */}
-      <div className="border border-stone-300 bg-[#F3EFE6] p-4">
-        <div className="text-xs uppercase tracking-wider text-stone-600 mb-2 font-semibold">
-          Select Life Sphere to Inspect Active Dynamics:
+    <div className="space-y-14">
+      {/* SECTION 2: THE INNER ARCHETYPES */}
+      <section className="space-y-6">
+        <div className="border-b border-stone-300 pb-6">
+          <p className="text-xs uppercase tracking-widest text-[#9A3412]">
+            Section 02 · The Inner Archetypes
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-stone-900 mt-1">
+            2. THE INNER ARCHETYPES: Your Subconscious Cast of Characters
+          </h2>
+          <p className="text-sm text-stone-600 mt-2 max-w-3xl leading-relaxed">
+            Your psyche is populated by an exquisitely organized cast of internal characters born from ancient soul conditioning. Explore your deeply hidden vulnerable core, your proactive day-to-day protector parts, and your reactive emergency coping mechanisms.
+          </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
-          {(
-            Object.keys(facetLabels) as Array<typeof selectedLifeFacet>
-          ).map((facetKey) => (
-            <button
-              key={facetKey}
-              type="button"
-              onClick={() => setSelectedLifeFacet(facetKey)}
-              className={`p-2.5 text-xs text-left transition-colors cursor-pointer border ${
-                selectedLifeFacet === facetKey
-                  ? 'bg-[#FBF9F5] border-[#9A3412] text-stone-900 font-semibold shadow-xs'
-                  : 'bg-[#FBF9F5]/70 border-stone-300 text-stone-600 hover:text-stone-900 hover:bg-[#FBF9F5]'
-              }`}
-            >
-              {facetLabels[facetKey]}
-            </button>
-          ))}
-        </div>
-      </div>
 
-      {/* 1. IFS Parts Constellation */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-8 space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <h3 className="text-2xl font-semibold text-stone-900">
-              01. Active Sub-Personality Constellation
-            </h3>
-            <div className="flex items-center gap-1 p-1 bg-stone-200/80 border border-stone-300">
-              <button
-                type="button"
-                onClick={() => setSelectedPartRole('exile')}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap cursor-pointer ${
-                  selectedPartRole === 'exile'
-                    ? 'bg-[#FBF9F5] text-stone-900 shadow-xs'
-                    : 'text-stone-600 hover:text-stone-900'
-                }`}
-              >
-                Exile (Core Vulnerability)
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedPartRole('manager')}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap cursor-pointer ${
-                  selectedPartRole === 'manager'
-                    ? 'bg-[#FBF9F5] text-stone-900 shadow-xs'
-                    : 'text-stone-600 hover:text-stone-900'
-                }`}
-              >
-                Manager (Proactive Shield)
-              </button>
-              <button
-                type="button"
-                onClick={() => setSelectedPartRole('firefighter')}
-                className={`px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap cursor-pointer ${
-                  selectedPartRole === 'firefighter'
-                    ? 'bg-[#FBF9F5] text-stone-900 shadow-xs'
-                    : 'text-stone-600 hover:text-stone-900'
-                }`}
-              >
-                Firefighter (Emergency Reset)
-              </button>
-            </div>
+        {/* 3 Archetype Selector Buttons */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {(['vulnerableCore', 'proactiveProtector', 'reactiveEmergency'] as InnerArchetype[]).map(
+            (archKey) => {
+              const item = archetypeData[archKey];
+              const isSelected = activeArchetype === archKey;
+              return (
+                <button
+                  key={archKey}
+                  type="button"
+                  onClick={() => setActiveArchetype(archKey)}
+                  className={`p-4 text-left border transition-all cursor-pointer ${
+                    isSelected
+                      ? 'border-[#9A3412] bg-[#FBF9F5] shadow-xs'
+                      : 'border-stone-300 bg-[#F3EFE6]/60 hover:bg-[#FBF9F5]'
+                  }`}
+                >
+                  <div className="text-xs font-semibold text-[#9A3412]">
+                    {isSelected ? '● Active Archetype' : '○ Select Archetype'}
+                  </div>
+                  <h3 className="text-sm font-semibold text-stone-900 mt-1">{item.title}</h3>
+                  <p className="text-xs text-stone-600 mt-0.5 line-clamp-2">{item.roleSubtitle}</p>
+                </button>
+              );
+            }
+          )}
+        </div>
+
+        {/* Detailed Archetype Dossier */}
+        <div className="border border-stone-300 bg-[#FBF9F5] p-6 sm:p-8 space-y-6">
+          <div className="border-b border-stone-200 pb-4">
+            <span className="text-xs uppercase tracking-widest text-[#9A3412] font-semibold">
+              Subconscious Character Profile
+            </span>
+            <h3 className="text-2xl font-semibold text-stone-900 mt-1">{activeA.title}</h3>
+            <p className="text-sm text-stone-600 mt-0.5">{activeA.roleSubtitle}</p>
           </div>
 
-          {/* Detailed Part Dossier */}
-          <div className="border border-stone-300 bg-[#FBF9F5] p-6 space-y-5">
-            <div className="border-b border-stone-200 pb-4">
-              <div className="text-xs uppercase tracking-widest text-[#9A3412]">
-                {activePart.role}
-              </div>
-              <h4 className="text-2xl font-semibold text-stone-900 mt-1">
-                {activePart.archetypeTitle}
+          <blockquote className="p-4 bg-[#F3EFE6] border-l-2 border-[#9A3412] font-display text-lg italic text-stone-900 leading-relaxed">
+            "{activeA.coreBelief}"
+          </blockquote>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+            <div className="p-4 bg-[#F3EFE6]/50 border border-stone-200 space-y-1.5">
+              <h4 className="font-semibold text-stone-900 text-xs uppercase tracking-wider">
+                Ancient Conditioning & Genesis
               </h4>
-              <p className="text-xs text-stone-500 mt-1">
-                Celestial Root: {activePart.astrologicalOrigin}
+              <p className="text-stone-700 leading-relaxed text-xs sm:text-sm">
+                {activeA.pastGenesis}
               </p>
             </div>
-
-            <blockquote className="p-4 bg-[#F3EFE6] border-l-2 border-[#9A3412] font-display text-lg italic text-stone-900">
-              {activePart.coreBelief}
-            </blockquote>
-
-            {/* Selected Facet Highlight */}
-            <div className="p-4 bg-[#F3EFE6]/80 border border-[#9A3412]/30">
-              <div className="text-xs font-semibold uppercase tracking-wider text-[#9A3412] mb-1">
-                Expression in {facetLabels[selectedLifeFacet]}:
-              </div>
-              <p className="text-sm text-stone-800 leading-relaxed font-medium">
-                {activePart.lifeFacets[selectedLifeFacet]}
+            <div className="p-4 bg-[#F3EFE6]/50 border border-stone-200 space-y-1.5">
+              <h4 className="font-semibold text-stone-900 text-xs uppercase tracking-wider">
+                Current-Life Behavioral Expression
+              </h4>
+              <p className="text-stone-700 leading-relaxed text-xs sm:text-sm">
+                {activeA.currentBehavior}
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-              <div>
-                <h5 className="font-semibold text-stone-900 mb-1">
-                  Metaphysical Cause (D60 Origin)
-                </h5>
-                <p className="text-stone-700 leading-relaxed">{activePart.pastLifeImprint}</p>
-              </div>
-              <div>
-                <h5 className="font-semibold text-stone-900 mb-1">
-                  Behavioral Footprint (The Current Echo)
-                </h5>
-                <p className="text-stone-700 leading-relaxed">{activePart.currentLifeFootprint}</p>
-              </div>
-              <div>
-                <h5 className="font-semibold text-stone-900 mb-1">Somatic Body Location</h5>
-                <p className="text-stone-700 leading-relaxed">{activePart.somaticLocation}</p>
-              </div>
-              <div>
-                <h5 className="font-semibold text-[#9A3412] mb-1">Self-Led Unburdening Key</h5>
-                <p className="text-stone-700 leading-relaxed">{activePart.unburdeningKey}</p>
-              </div>
             </div>
           </div>
 
-          {/* Interactive Self-Leadership Slider */}
-          <div className="border border-stone-300 bg-[#F3EFE6]/60 p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-xs uppercase tracking-widest text-stone-500">
-                  Interactive State Calibration
-                </span>
-                <h4 className="text-lg font-semibold text-stone-900">
-                  Protector Blending vs. Navamsha Self-Leadership
-                </h4>
-              </div>
-              <span className="text-xl font-mono-tabular font-semibold text-[#9A3412]">
-                {selfLeadershipLevel}% Self-Led
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm border-t border-stone-200 pt-5">
+            <div>
+              <span className="text-xs uppercase tracking-wider text-stone-500 font-semibold block mb-1">
+                Somatic Holding Center in the Body:
+              </span>
+              <span className="font-medium text-stone-900">{activeA.somaticArea}</span>
+            </div>
+            <div>
+              <span className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold block mb-1">
+                The Unburdening Key:
+              </span>
+              <span className="text-stone-800 leading-relaxed text-xs sm:text-sm">
+                {activeA.unburdeningKey}
               </span>
             </div>
-
-            <input
-              type="range"
-              min={10}
-              max={95}
-              value={selfLeadershipLevel}
-              onChange={(e) => setSelfLeadershipLevel(Number(e.target.value))}
-              aria-label="Self-Leadership Calibration"
-              className="w-full accent-[#9A3412] cursor-pointer"
-            />
-
-            <div className="flex justify-between text-[11px] text-stone-500 font-mono-tabular">
-              <span>10% · High Threat Vigilance</span>
-              <span>50% · Conscious Dual-Awareness</span>
-              <span>95% · Navamsha Soul Leadership</span>
-            </div>
-
-            <div className="p-4 bg-[#FBF9F5] border border-stone-200 text-sm text-stone-800 leading-relaxed">
-              {selfLeadershipLevel < 40 ? (
-                <p>
-                  <strong className="text-stone-900">High Protector Blending:</strong> Your{' '}
-                  <em>{result.ifs.manager.archetypeTitle}</em> runs the show across work, money, and personal boundaries. Uncertainty in {facetLabels[selectedLifeFacet]} registers as a crisis; you automatically over-work, withdraw, or micromanage to keep the Exile protected.
-                </p>
-              ) : selfLeadershipLevel < 75 ? (
-                <p>
-                  <strong className="text-stone-900">Dual-Awareness State:</strong> You notice the familiar tension in your jaw or stomach, but instead of compulsively reacting, your adult Self steps in to observe: *"I see my protector getting nervous about {facetLabels[selectedLifeFacet].toLowerCase()}, but I am capable of holding this."*
-                </p>
-              ) : (
-                <p>
-                  <strong className="text-[#9A3412]">Navamsha Self-Leadership:</strong>{' '}
-                  {result.ifs.selfLeadershipAnchor} You approach {facetLabels[selectedLifeFacet].toLowerCase()} with grounded authority, clarity, and creative freedom.
-                </p>
-              )}
-            </div>
           </div>
         </div>
+      </section>
 
-        {/* Right Art Plate & Echo Chain */}
-        <div className="lg:col-span-4 space-y-6">
-          <figure className="border border-stone-300 bg-[#F3EFE6] p-3">
-            {!imgError ? (
-              <img
-                src={mirrorImagePath}
-                alt="Concentric Psychological Parts Reflection"
-                referrerPolicy="no-referrer"
-                onError={() => setImgError(true)}
-                className="w-full aspect-4/3 object-cover border border-stone-200"
-              />
-            ) : (
-              <div className="w-full aspect-4/3 bg-[#EBE6DF] flex items-center justify-center p-4 text-center">
-                <span className="font-display text-sm italic text-stone-600">
-                  Plate II — Concentric Mirror of Parts Architecture
-                </span>
-              </div>
-            )}
-            <figcaption className="text-xs italic text-stone-600 mt-2">
-              Plate II — The internal ecology of Exiles and Protectors orbiting your core Navamsha Self.
-            </figcaption>
-          </figure>
-
-          <div className="border border-stone-300 bg-[#FBF9F5] p-5 space-y-3">
-            <div className="text-xs uppercase tracking-widest text-[#9A3412]">
-              The Full-Life Echo Chain
-            </div>
-            <p className="text-sm text-stone-800 leading-relaxed font-medium">
-              {result.ifs.mandatoryEchoSummary}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Attachment Dynamics Across Facets */}
-      <div className="border-t border-stone-300 pt-10 space-y-6">
-        <div>
+      {/* SECTION 3: THE SPHERES OF EXISTENCE */}
+      <section className="space-y-6 pt-6 border-t border-stone-300">
+        <div className="border-b border-stone-300 pb-6">
           <p className="text-xs uppercase tracking-widest text-[#9A3412]">
-            Interpersonal, Professional & Familial Mirroring
+            Section 03 · Real-World Behavioral Footprints
           </p>
-          <h3 className="text-2xl font-semibold text-stone-900 mt-1">
-            02. Attachment Dynamics: {result.attachment.primaryStyle}
-          </h3>
-          <p className="text-sm text-stone-600 mt-1">
-            Secondary Pull: {result.attachment.secondaryPull}
+          <h2 className="text-3xl sm:text-4xl font-semibold text-stone-900 mt-1">
+            3. THE SPHERES OF EXISTENCE: Real-World Behavioral Footprints
+          </h2>
+          <p className="text-sm text-stone-600 mt-2 max-w-3xl leading-relaxed">
+            How your ancient default baggage and your emerging evolutionary stretch zones materialize as automatic habits across three practical, everyday life pillars: Relationships, Career/Purpose, and Vitality.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-            <div className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold">
-              Vocation & Money Attachment
-            </div>
-            <p className="text-sm text-stone-700 mt-2 leading-relaxed">
-              {result.attachment.lifeFacetsExpression.vocationAndMoney}
-            </p>
-          </div>
-          <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-            <div className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold">
-              Creative Voice & Visibility
-            </div>
-            <p className="text-sm text-stone-700 mt-2 leading-relaxed">
-              {result.attachment.lifeFacetsExpression.creativeVoiceAndVisibility}
-            </p>
-          </div>
-          <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-            <div className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold">
-              Somatic Stress & Body
-            </div>
-            <p className="text-sm text-stone-700 mt-2 leading-relaxed">
-              {result.attachment.lifeFacetsExpression.somaticHealthAndNervousSystem}
-            </p>
-          </div>
-          <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-            <div className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold">
-              Family of Origin Lineage
-            </div>
-            <p className="text-sm text-stone-700 mt-2 leading-relaxed">
-              {result.attachment.lifeFacetsExpression.familyLineageAndAncestralRoles}
-            </p>
-          </div>
-          <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-            <div className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold">
-              Existential Purpose & Solitude
-            </div>
-            <p className="text-sm text-stone-700 mt-2 leading-relaxed">
-              {result.attachment.lifeFacetsExpression.existentialTrustAndSolitude}
-            </p>
-          </div>
-          <div className="border border-stone-300 bg-[#F3EFE6] p-5">
-            <div className="text-xs uppercase tracking-wider text-[#9A3412] font-semibold">
-              Intimacy & Romantic Bonds
-            </div>
-            <p className="text-sm text-stone-800 mt-2 leading-relaxed">
-              {result.attachment.lifeFacetsExpression.interpersonalAndRomanticBonds}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. Big Five Reconditioning Across Arenas */}
-      <div className="border-t border-stone-300 pt-10 space-y-6">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-stone-500">
-            Karmic Default Baseline vs. Navamsha Self-Led Target
-          </p>
-          <h3 className="text-2xl font-semibold text-stone-900 mt-1">
-            03. Big Five Personality Reconditioning Matrix
-          </h3>
+        {/* 3 Pillar Selector */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {(['relationships', 'career', 'vitality'] as LifePillar[]).map((pillKey) => {
+            const p = pillarData[pillKey];
+            const isSelected = activePillar === pillKey;
+            return (
+              <button
+                key={pillKey}
+                type="button"
+                onClick={() => setActivePillar(pillKey)}
+                className={`p-4 text-left border transition-all cursor-pointer ${
+                  isSelected
+                    ? 'border-[#9A3412] bg-[#FBF9F5] shadow-xs'
+                    : 'border-stone-300 bg-[#F3EFE6]/60 hover:bg-[#FBF9F5]'
+                }`}
+              >
+                <div className="text-xs font-semibold text-[#9A3412]">
+                  {isSelected ? '● Active Pillar' : '○ Select Pillar'}
+                </div>
+                <h3 className="text-sm font-semibold text-stone-900 mt-1">{p.title}</h3>
+                <p className="text-xs text-stone-600 mt-0.5 line-clamp-2">{p.subtitle}</p>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="space-y-6">
-          {result.bigFive.map((dim) => (
-            <div key={dim.trait} className="border border-stone-300 bg-[#FBF9F5] p-6">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-stone-200 pb-4 mb-4">
-                <div>
-                  <h4 className="text-xl font-semibold text-stone-900">{dim.trait}</h4>
-                  <p className="text-xs text-stone-500 mt-0.5">
-                    Shifting from <strong>{dim.karmicDefaultLabel}</strong> ➔{' '}
-                    <strong className="text-[#9A3412]">{dim.evolutionaryTargetLabel}</strong>
-                  </p>
-                </div>
-                <div className="flex items-center gap-4 text-xs font-mono-tabular">
-                  <span className="text-stone-600">
-                    Baseline: <strong>{dim.baselineScore}%</strong>
-                  </span>
-                  <span aria-hidden="true">➔</span>
-                  <span className="text-[#9A3412] font-semibold">
-                    Target: {dim.reconditionedTarget}%
-                  </span>
-                </div>
-              </div>
+        {/* Pillar Behavioral Transformation Card */}
+        <div className="border border-stone-300 bg-[#FBF9F5] p-6 sm:p-8 space-y-6">
+          <div className="border-b border-stone-200 pb-4">
+            <span className="text-xs uppercase tracking-widest text-[#9A3412] font-semibold">
+              Practical Pillar Analysis
+            </span>
+            <h3 className="text-2xl font-semibold text-stone-900 mt-1">{activeP.title}</h3>
+            <p className="text-sm text-stone-600 mt-0.5">{activeP.subtitle}</p>
+          </div>
 
-              {/* Comparative Dual Bars */}
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="w-36 text-stone-500 shrink-0">Karmic Default</span>
-                  <div className="flex-1 h-2 bg-stone-200 overflow-hidden">
-                    <div className="h-full bg-stone-500" style={{ width: `${dim.baselineScore}%` }} />
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="w-36 text-[#9A3412] font-medium shrink-0">Self-Led Target</span>
-                  <div className="flex-1 h-2 bg-stone-200 overflow-hidden">
-                    <div className="h-full bg-[#9A3412]" style={{ width: `${dim.reconditionedTarget}%` }} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm pt-2">
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-stone-400 mb-1">
-                    Shadow Expression
-                  </div>
-                  <p className="text-stone-700 leading-relaxed">{dim.shadowExpression}</p>
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-[#9A3412] mb-1">
-                    Self-Led Integration
-                  </div>
-                  <p className="text-stone-700 leading-relaxed">{dim.selfLedExpression}</p>
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-stone-600 mb-1">
-                    Life Arena Impact
-                  </div>
-                  <p className="text-stone-700 leading-relaxed">{dim.lifeArenaImpact}</p>
-                </div>
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* The Conditioned Default */}
+            <div className="p-5 bg-[#F3EFE6] border-l-4 border-stone-400 space-y-2">
+              <span className="text-xs uppercase tracking-widest font-semibold text-stone-600 block">
+                Conditioned Past Default (The Armor)
+              </span>
+              <p className="text-stone-800 text-sm leading-relaxed">{activeP.defaultHabit}</p>
             </div>
-          ))}
+
+            {/* The Evolutionary Growth Stretch */}
+            <div className="p-5 bg-[#F3EFE6] border-l-4 border-[#9A3412] space-y-2">
+              <span className="text-xs uppercase tracking-widest font-semibold text-[#9A3412] block">
+                Evolutionary Growth Stretch (Mature Sovereignty)
+              </span>
+              <p className="text-stone-800 text-sm leading-relaxed">{activeP.growthStretch}</p>
+            </div>
+          </div>
+
+          {/* Practical Grounded Experiment */}
+          <div className="p-5 bg-stone-900 text-[#FBF9F5] space-y-2">
+            <span className="text-xs uppercase tracking-widest font-semibold text-[#FDBA74] block">
+              Grounded Everyday Micro-Experiment
+            </span>
+            <p className="text-sm leading-relaxed text-stone-200">{activeP.experiment}</p>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

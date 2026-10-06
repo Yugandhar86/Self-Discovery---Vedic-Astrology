@@ -60,9 +60,7 @@ export default function App() {
     const immediate = synthesizeKarmicReport(presetInput);
     setResult(immediate);
     setStatusMessage(
-      `Calibrated Lahiri Ayanamsha (${immediate.lahiriAyanamshaDegrees.toFixed(2)}°) & D60 ${
-        immediate.planets.find((p) => p.id === 'Ketu')?.shastiamsha.name
-      } matrix for ${presetInput.placeOfBirth}.`
+      `Calibrated multidimensional soul matrix for ${presetInput.placeOfBirth}.`
     );
   };
 
@@ -75,7 +73,7 @@ export default function App() {
     setRawSchemaText(formatRawSchemaInput(activeInput));
     setIsSynthesizing(true);
     setStatusMessage(
-      'Executing spatial-mathematical matrix (Lahiri Ayanamsha, D9 Navamsha, D60 Shastiamsha) & multi-facet psychological synthesis...'
+      'Synthesizing multidimensional soul matrix, inner archetypes & real-world behavioral spheres...'
     );
 
     const localSynthesis = synthesizeKarmicReport(activeInput);
@@ -140,7 +138,7 @@ export default function App() {
                 : 'hover:text-stone-900'
             }`}
           >
-            Narrative Monograph
+            Soul Chronicles Monograph
           </button>
           <button
             type="button"
@@ -151,7 +149,7 @@ export default function App() {
                 : 'hover:text-stone-900'
             }`}
           >
-            Divisional Matrix (D1 · D9 · D60)
+            Multidimensional Soul Matrix
           </button>
           <button
             type="button"
@@ -162,7 +160,7 @@ export default function App() {
                 : 'hover:text-stone-900'
             }`}
           >
-            IFS & All Life Facets
+            Inner Archetypes & Spheres
           </button>
         </nav>
 
@@ -196,7 +194,7 @@ export default function App() {
             activeTab === 'narrative' ? 'text-[#9A3412] font-semibold underline' : 'text-stone-600'
           }`}
         >
-          01. Narrative Monograph
+          01. Soul Chronicles
         </button>
         <button
           type="button"
@@ -205,7 +203,7 @@ export default function App() {
             activeTab === 'matrix' ? 'text-[#9A3412] font-semibold underline' : 'text-stone-600'
           }`}
         >
-          02. Divisional Matrix
+          02. Multidimensional Matrix
         </button>
         <button
           type="button"
@@ -214,7 +212,7 @@ export default function App() {
             activeTab === 'psychology' ? 'text-[#9A3412] font-semibold underline' : 'text-stone-600'
           }`}
         >
-          03. IFS & Life Facets
+          03. Inner Archetypes & Spheres
         </button>
       </div>
 
@@ -417,31 +415,31 @@ export default function App() {
 
           <div className="border-t border-stone-300 pt-5 space-y-3">
             <div className="text-xs uppercase tracking-widest text-stone-500">
-              Active Parameters
+              Active Soul Dimensions
             </div>
             <div className="space-y-2 text-xs text-stone-700">
               <div className="flex justify-between">
-                <span className="text-stone-500">Lagna (D1 / D9):</span>
+                <span className="text-stone-500">Core Identity:</span>
                 <span className="font-medium text-stone-900">
-                  {result.ascendant.rashiName} / {result.ascendant.navamshaName}
+                  Conscious Waking Interface
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-stone-500">Ketu D60 Deity:</span>
+                <span className="text-stone-500">Evolutionary Vector:</span>
                 <span className="font-semibold text-[#9A3412]">
-                  {result.planets.find((p) => p.id === 'Ketu')?.shastiamsha.name}
+                  Sacred Interdependence
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-stone-500">Attachment Core:</span>
+                <span className="text-stone-500">Relational Blueprint:</span>
                 <span className="font-medium text-stone-900">
-                  {result.attachment.primaryStyle.split(' ')[0]}
+                  {result.attachment.primaryStyle.split(' ')[0]} Protection
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-stone-500">Lahiri Ayanamsha:</span>
-                <span className="font-mono-tabular text-stone-800">
-                  {result.lahiriAyanamshaDegrees.toFixed(3)}°
+                <span className="text-stone-500">Subconscious Origin:</span>
+                <span className="text-stone-800">
+                  Ancient Unlearned Genius
                 </span>
               </div>
             </div>
@@ -496,7 +494,7 @@ export default function App() {
       <footer className="border-t border-stone-300 bg-[#F3EFE6]/50 px-6 py-6 text-xs text-stone-500">
         <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            Jyotish Soul Synthesis · Lahiri Precessional Engine · Internal Family Systems & Multi-Facet Psychological Mapping
+            Jyotish Soul Synthesis · Multidimensional Soul Matrix & Experiential Behavioral Mapping
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -504,7 +502,7 @@ export default function App() {
               onClick={() => setActiveTab('narrative')}
               className="hover:text-stone-900 transition-colors cursor-pointer"
             >
-              Narrative Monograph
+              Soul Chronicles Monograph
             </button>
             <span aria-hidden="true">·</span>
             <button
@@ -512,7 +510,7 @@ export default function App() {
               onClick={() => setActiveTab('matrix')}
               className="hover:text-stone-900 transition-colors cursor-pointer"
             >
-              D1 / D9 / D60 Matrix
+              Multidimensional Matrix
             </button>
             <span aria-hidden="true">·</span>
             <button
@@ -520,7 +518,7 @@ export default function App() {
               onClick={() => setActiveTab('psychology')}
               className="hover:text-stone-900 transition-colors cursor-pointer"
             >
-              IFS & Life Facets
+              Inner Archetypes & Spheres
             </button>
             <span aria-hidden="true">·</span>
             <button

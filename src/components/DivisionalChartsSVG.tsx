@@ -1,478 +1,261 @@
 import React, { useState } from 'react';
-import { KarmicSynthesisResult, PlanetaryPosition } from '../types/jyotish';
-import { RASHI_LIST } from '../engine/jyotishEngine';
+import { KarmicSynthesisResult } from '../types/jyotish';
 
 interface DivisionalChartsSVGProps {
   result: KarmicSynthesisResult;
 }
 
-const PLANET_ABBR: Record<string, string> = {
-  Ascendant: 'As',
-  Sun: 'Su',
-  Moon: 'Mo',
-  Mars: 'Ma',
-  Mercury: 'Me',
-  Jupiter: 'Ju',
-  Venus: 'Ve',
-  Saturn: 'Sa',
-  Rahu: 'Ra',
-  Ketu: 'Ke',
-};
+type MatrixLayer = 'core' | 'compass' | 'roots';
 
 export const DivisionalChartsSVG: React.FC<DivisionalChartsSVGProps> = ({ result }) => {
-  const [chartStyle, setChartStyle] = useState<'south' | 'north'>('south');
-  const [selectedPlanet, setSelectedPlanet] = useState<PlanetaryPosition>(
-    result.planets.find((p) => p.id === 'Ketu') || result.planets[0]
-  );
+  const [activeLayer, setActiveLayer] = useState<MatrixLayer>('core');
 
-  const allBodies = [result.ascendant, ...result.planets];
+  const ketu = result.planets.find((p) => p.id === 'Ketu')!;
+  const rahu = result.planets.find((p) => p.id === 'Rahu')!;
+  const moon = result.planets.find((p) => p.id === 'Moon')!;
+  const saturn = result.planets.find((p) => p.id === 'Saturn')!;
+  const venus = result.planets.find((p) => p.id === 'Venus')!;
 
-  const d1ByRashi: Record<number, PlanetaryPosition[]> = {};
-  const d9ByRashi: Record<number, PlanetaryPosition[]> = {};
-  for (let i = 0; i < 12; i++) {
-    d1ByRashi[i] = [];
-    d9ByRashi[i] = [];
-  }
-  for (const body of allBodies) {
-    d1ByRashi[body.rashiIndex]?.push(body);
-    d9ByRashi[body.navamshaIndex]?.push(body);
-  }
-
-  const d1ByHouse: Record<number, PlanetaryPosition[]> = {};
-  const d9ByHouse: Record<number, PlanetaryPosition[]> = {};
-  for (let h = 1; h <= 12; h++) {
-    d1ByHouse[h] = [];
-    d9ByHouse[h] = [];
-  }
-  const d9AscIndex = result.ascendant.navamshaIndex;
-  for (const body of allBodies) {
-    d1ByHouse[body.house]?.push(body);
-    const d9House = ((body.navamshaIndex - d9AscIndex + 12) % 12) + 1;
-    d9ByHouse[d9House]?.push(body);
-  }
-
-  const southGridCells: Array<{ rashiIndex: number; row: number; col: number }> = [
-    { rashiIndex: 11, row: 0, col: 0 },
-    { rashiIndex: 0, row: 0, col: 1 },
-    { rashiIndex: 1, row: 0, col: 2 },
-    { rashiIndex: 2, row: 0, col: 3 },
-    { rashiIndex: 3, row: 1, col: 3 },
-    { rashiIndex: 4, row: 2, col: 3 },
-    { rashiIndex: 5, row: 3, col: 3 },
-    { rashiIndex: 6, row: 3, col: 2 },
-    { rashiIndex: 7, row: 3, col: 1 },
-    { rashiIndex: 8, row: 3, col: 0 },
-    { rashiIndex: 9, row: 2, col: 0 },
-    { rashiIndex: 10, row: 1, col: 0 },
-  ];
-
-  const northHouseCenters: Record<number, { x: number; y: number }> = {
-    1: { x: 160, y: 88 },
-    2: { x: 82, y: 42 },
-    3: { x: 42, y: 82 },
-    4: { x: 92, y: 160 },
-    5: { x: 42, y: 238 },
-    6: { x: 82, y: 278 },
-    7: { x: 160, y: 232 },
-    8: { x: 238, y: 278 },
-    9: { x: 278, y: 238 },
-    10: { x: 228, y: 160 },
-    11: { x: 278, y: 82 },
-    12: { x: 238, y: 42 },
+  const layerData = {
+    core: {
+      number: '01',
+      title: 'The Core Identity Layer',
+      subtitle: 'The Conscious Waking Persona & Worldly Interface',
+      tagline: 'How you naturally perceive, initiate, and organize reality in daily life',
+      narrative: `At the surface of your waking awareness lies your primary worldly persona. This is the conscious vessel you inhabit every single day—the natural frequency through which you think, make executive decisions, and project your authority into society. It determines how your voice resonates in a high-stakes meeting, how your nervous system absorbs sudden surprises, and how you instinctively establish order amid worldly noise. While this layer represents your most functional interface with modern culture, it is merely the outer gate of a far deeper psychic continuum.`,
+      traits: [
+        { label: 'Cognitive Orientation', desc: 'Discerning, strategic mental processing that synthesizes complex concepts into actionable clarity.' },
+        { label: 'Worldly Presence', desc: 'Poised and self-contained, projecting an innate aura of competence and reliability.' },
+        { label: 'Instinctual Tempo', desc: 'Patient and deliberate, preferring methodical craftsmanship over hurried, reactive impulses.' },
+      ],
+      color: '#9A3412',
+    },
+    compass: {
+      number: '02',
+      title: 'The Hidden Evolutionary Compass',
+      subtitle: 'The Maturing Soul Vector & Ripening Destiny',
+      tagline: 'Who your consciousness is actively striving to become as the armor drops',
+      narrative: `Beneath your conditioned personality lives a subtle, maturing soul current. Quiet in early youth, this interior compass exerts an increasingly magnetic pull as adult life deepens. Where your outer personality reflects the defenses and roles you learned to survive childhood and early adulthood, this second dimension reflects the ripened fruit of your soul’s destiny. As you encounter major life crossroads—career evolutions, profound heartbreak, or spiritual surrender—your outer persona gradually softens to align with this sovereign inner trajectory.`,
+      traits: [
+        { label: 'Mature Leadership', desc: 'Moving from solitary control into visionary guidance that inspires and elevates collaborative partners.' },
+        { label: 'Relational Evolution', desc: 'Replacing guarded hyper-vigilance with sacred, courageous transparency and mutual interdependence.' },
+        { label: 'Creative Radiance', desc: 'Claiming your authentic frequency and commanding full value for your gifts without self-effacing modesty.' },
+      ],
+      color: '#B45309',
+    },
+    roots: {
+      number: '03',
+      title: 'The Ancient Deep-Seated Root System',
+      subtitle: 'The Subconscious Bedrock & Primordial Instincts',
+      tagline: 'Unlearned memories, ancient survival genius, and subterranean anchors',
+      narrative: `Deepest of all, beneath conscious thought and modern ambition, lies your ancient karmic root system. Long before you drew your first breath in this lifetime, your nervous system was already shaped by an unlearned, instinctual genius for survival. In forgotten chapters of your soul's journey, you mastered the art of enduring isolation and reading unspoken room dynamics. Because your system over-rehearsed these survival patterns, you treat self-containment as a biological mandate. Understanding this root system allows you to honor its wisdom while gently stepping out of its gravitational trap.`,
+      traits: [
+        { label: 'Primordial Genius', desc: 'An unlearned, almost psychic instinct for reading unspoken tension and detecting operational risk before anyone else.' },
+        { label: 'The Ancient Fortress', desc: 'An automatic reflex to retreat into solitary self-reliance whenever vulnerability feels hazardous.' },
+        { label: 'The Unburdening Key', desc: 'Realizing that the ancient struggle is over—allowing your grounded adult self to guide your safety today.' },
+      ],
+      color: '#431407',
+    },
   };
 
-  const renderSouthChart = (
-    title: string,
-    subtitle: string,
-    byRashi: Record<number, PlanetaryPosition[]>,
-    ascRashiIdx: number
-  ) => (
-    <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-      <div className="flex items-baseline justify-between border-b border-stone-200 pb-3 mb-4">
-        <div>
-          <h3 className="text-xl font-semibold text-stone-900">{title}</h3>
-          <p className="text-xs text-stone-500 mt-0.5">{subtitle}</p>
-        </div>
-        <span className="text-xs font-mono-tabular text-stone-600">
-          Lagna: {RASHI_LIST[ascRashiIdx].name} ({RASHI_LIST[ascRashiIdx].sanskrit})
-        </span>
-      </div>
-
-      <div className="grid grid-cols-4 border-t border-l border-stone-800/80 aspect-square max-w-[360px] mx-auto bg-[#F7F4EE]">
-        {[0, 1, 2, 3].map((row) =>
-          [0, 1, 2, 3].map((col) => {
-            if ((row === 1 || row === 2) && (col === 1 || col === 2)) {
-              if (row === 1 && col === 1) {
-                return (
-                  <div
-                    key="center-box"
-                    className="col-span-2 row-span-2 border-r border-b border-stone-800/80 flex flex-col items-center justify-center p-4 text-center bg-[#FBF9F5]"
-                  >
-                    <span className="font-display text-lg font-semibold text-stone-900 tracking-wide">
-                      {title.split('·')[0].trim()}
-                    </span>
-                    <span className="text-xs text-stone-500 mt-1">
-                      {result.coordinates.city}, {result.coordinates.country}
-                    </span>
-                    <span className="text-[11px] font-mono-tabular text-stone-500 mt-1">
-                      {result.input.dateOfBirth} · {result.input.birthTime}
-                    </span>
-                  </div>
-                );
-              }
-              return null;
-            }
-
-            const cell = southGridCells.find((c) => c.row === row && c.col === col)!;
-            const rashi = RASHI_LIST[cell.rashiIndex];
-            const occupants = byRashi[cell.rashiIndex] || [];
-            const isAsc = cell.rashiIndex === ascRashiIdx;
-
-            return (
-              <div
-                key={`${row}-${col}`}
-                className={`border-r border-b border-stone-800/80 p-2 flex flex-col justify-between relative min-h-[78px] ${
-                  isAsc ? 'bg-[#9A3412]/8' : ''
-                }`}
-              >
-                <div className="flex items-center justify-between text-[10px] text-stone-500 font-mono-tabular">
-                  <span>{rashi.sanskrit.slice(0, 5)}</span>
-                  {isAsc && <span className="text-[#9A3412] font-semibold">ASC</span>}
-                </div>
-                <div className="flex flex-wrap gap-1 my-1">
-                  {occupants.map((p) => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => setSelectedPlanet(p)}
-                      className={`text-xs font-mono-tabular px-1 py-0.5 transition-colors cursor-pointer ${
-                        selectedPlanet.id === p.id
-                          ? 'bg-[#9A3412] text-white font-semibold'
-                          : p.id === 'Ascendant'
-                          ? 'text-[#9A3412] font-semibold underline'
-                          : 'text-stone-900 hover:bg-stone-200'
-                      }`}
-                      title={`${p.id} in ${rashi.name} (D60: ${p.shastiamsha.name})`}
-                    >
-                      {PLANET_ABBR[p.id]}
-                      {p.isRetrograde && p.id !== 'Rahu' && p.id !== 'Ketu' ? 'ᴿ' : ''}
-                    </button>
-                  ))}
-                </div>
-                <div className="text-[9px] text-stone-400 font-mono-tabular text-right">
-                  {rashi.index + 1}
-                </div>
-              </div>
-            );
-          })
-        )}
-      </div>
-    </div>
-  );
-
-  const renderNorthChart = (
-    title: string,
-    subtitle: string,
-    byHouse: Record<number, PlanetaryPosition[]>,
-    ascRashiIdx: number
-  ) => (
-    <div className="border border-stone-300 bg-[#FBF9F5] p-5">
-      <div className="flex items-baseline justify-between border-b border-stone-200 pb-3 mb-4">
-        <div>
-          <h3 className="text-xl font-semibold text-stone-900">{title}</h3>
-          <p className="text-xs text-stone-500 mt-0.5">{subtitle}</p>
-        </div>
-        <span className="text-xs font-mono-tabular text-stone-600">
-          Lagna: {RASHI_LIST[ascRashiIdx].name}
-        </span>
-      </div>
-
-      <div className="max-w-[360px] mx-auto">
-        <svg
-          viewBox="0 0 320 320"
-          className="w-full h-auto bg-[#F7F4EE] border border-stone-800"
-          role="img"
-          aria-label={title}
-        >
-          <rect x="2" y="2" width="316" height="316" fill="none" stroke="#292524" strokeWidth="1.5" />
-          <line x1="2" y1="2" x2="318" y2="318" stroke="#292524" strokeWidth="1.2" />
-          <line x1="318" y1="2" x2="2" y2="318" stroke="#292524" strokeWidth="1.2" />
-          <polygon
-            points="160,2 318,160 160,318 2,160"
-            fill="none"
-            stroke="#292524"
-            strokeWidth="1.2"
-          />
-
-          {Object.entries(northHouseCenters).map(([hStr, pt]) => {
-            const h = Number(hStr);
-            const rashiNum = ((ascRashiIdx + h - 1) % 12) + 1;
-            const occupants = (byHouse[h] || []).filter((p) => p.id !== 'Ascendant');
-            const labelStr = occupants
-              .map(
-                (p) =>
-                  `${PLANET_ABBR[p.id]}${
-                    p.isRetrograde && p.id !== 'Rahu' && p.id !== 'Ketu' ? 'ᴿ' : ''
-                  }`
-              )
-              .join(' ');
-
-            return (
-              <g key={h}>
-                <text
-                  x={pt.x}
-                  y={pt.y - 10}
-                  textAnchor="middle"
-                  className="fill-stone-400 text-[9px] font-mono-tabular"
-                >
-                  {rashiNum}
-                </text>
-                <text
-                  x={pt.x}
-                  y={pt.y + 6}
-                  textAnchor="middle"
-                  className="fill-stone-900 text-[11px] font-mono-tabular font-semibold"
-                >
-                  {labelStr || '·'}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
-      </div>
-    </div>
-  );
+  const current = layerData[activeLayer];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-300 pb-5">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-stone-500">
-            Internal Spatial-Mathematical Matrix · Lahiri Ayanamsha
-          </p>
-          <h2 className="text-3xl font-semibold text-stone-900 mt-1">
-            Divisional Harmonic Architecture (D1 · D9 · D60)
-          </h2>
-          <p className="text-sm text-stone-600 mt-1 max-w-2xl">
-            This technical workbench displays the celestial vector calculations, Navamsha soul trajectory, and all 60 Parashara Shastiamsha past-life deities governing each planet.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-1 p-1 bg-stone-200/80 border border-stone-300 self-start">
-          <button
-            type="button"
-            onClick={() => setChartStyle('south')}
-            className={`px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap cursor-pointer ${
-              chartStyle === 'south'
-                ? 'bg-[#FBF9F5] text-stone-900 shadow-xs'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            South Indian Grid
-          </button>
-          <button
-            type="button"
-            onClick={() => setChartStyle('north')}
-            className={`px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap cursor-pointer ${
-              chartStyle === 'north'
-                ? 'bg-[#FBF9F5] text-stone-900 shadow-xs'
-                : 'text-stone-600 hover:text-stone-900'
-            }`}
-          >
-            North Indian Kundali
-          </button>
-        </div>
-      </div>
-
-      {/* Telemetry Bar */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 border-b border-stone-200 pb-6">
-        <div>
-          <div className="text-xs uppercase tracking-wider text-stone-500">Lahiri Ayanamsha</div>
-          <div className="text-2xl font-mono-tabular font-semibold text-stone-900 mt-1">
-            {result.lahiriAyanamshaDegrees.toFixed(4)}
-            <span className="text-xs font-mono-tabular text-stone-500 ml-1">deg</span>
-          </div>
-          <div className="text-xs text-stone-500 mt-0.5">Chitra Paksha Precession</div>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-wider text-stone-500">Julian Ephemeris Day</div>
-          <div className="text-2xl font-mono-tabular font-semibold text-stone-900 mt-1">
-            {result.julianDay.toFixed(2)}
-            <span className="text-xs font-mono-tabular text-stone-500 ml-1">JD</span>
-          </div>
-          <div className="text-xs text-stone-500 mt-0.5">
-            UTC {result.coordinates.utcOffsetHours >= 0 ? `+${result.coordinates.utcOffsetHours}` : result.coordinates.utcOffsetHours}h
-          </div>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-wider text-stone-500">Geodetic Location</div>
-          <div className="text-2xl font-mono-tabular font-semibold text-stone-900 mt-1">
-            {result.coordinates.latitude.toFixed(2)}°
-            <span className="text-xs font-mono-tabular text-stone-500 ml-1">
-              / {result.coordinates.longitude.toFixed(2)}°
-            </span>
-          </div>
-          <div className="text-xs text-stone-500 mt-0.5">
-            {result.coordinates.city}, {result.coordinates.country}
-          </div>
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-wider text-stone-500">Ketu D60 Deity</div>
-          <div className="text-2xl font-display font-semibold text-[#9A3412] mt-1">
-            {result.planets.find((p) => p.id === 'Ketu')?.shastiamsha.name}
-          </div>
-          <div className="text-xs text-stone-500 mt-0.5">
-            {result.planets.find((p) => p.id === 'Ketu')?.shastiamsha.archetype}
-          </div>
-        </div>
-      </div>
-
-      {/* D1 & D9 Side by Side */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {chartStyle === 'south' ? (
-          <>
-            {renderSouthChart(
-              'Rashi Chakra · D1 Root Matrix',
-              'Physical foundation, baseline defenses, and inherited conditioning',
-              d1ByRashi,
-              result.ascendant.rashiIndex
-            )}
-            {renderSouthChart(
-              'Navamsha · D9 Soul Trajectory',
-              'Ninth harmonic wave of relational, creative, and vocational maturation',
-              d9ByRashi,
-              result.ascendant.navamshaIndex
-            )}
-          </>
-        ) : (
-          <>
-            {renderNorthChart(
-              'Rashi Kundali · D1 Root Matrix',
-              'House-centric baseline and inherited conditioning',
-              d1ByHouse,
-              result.ascendant.rashiIndex
-            )}
-            {renderNorthChart(
-              'Navamsha Kundali · D9 Soul Trajectory',
-              'Ninth harmonic wave of soul trajectory',
-              d9ByHouse,
-              result.ascendant.navamshaIndex
-            )}
-          </>
-        )}
-      </div>
-
-      {/* Selected Graha Spotlight */}
-      <div className="border border-stone-300 bg-[#F3EFE6]/60 p-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-stone-300 pb-3 mb-4">
-          <div>
-            <span className="text-xs uppercase tracking-widest text-[#9A3412]">
-              Active Shastiamsha (D60) Spotlight · Click Any Graha in Table Below
-            </span>
-            <h3 className="text-2xl font-semibold text-stone-900 mt-0.5">
-              {selectedPlanet.id} ({selectedPlanet.sanskritName}) in {selectedPlanet.rashiName} · Governed by {selectedPlanet.shastiamsha.name} ({selectedPlanet.shastiamsha.archetype})
-            </h3>
-          </div>
-          <div className="text-xs font-mono-tabular text-stone-600">
-            Division #{selectedPlanet.shastiamsha.index}/60 · {selectedPlanet.shastiamsha.nature}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-          <div>
-            <h4 className="font-semibold text-stone-900 mb-1">Subconscious Imprint</h4>
-            <p className="text-stone-700 leading-relaxed capitalize-first">
-              {selectedPlanet.shastiamsha.subconsciousImprint}.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-stone-900 mb-1">Carried Vulnerability (Exile)</h4>
-            <p className="text-stone-700 leading-relaxed">
-              Manifests as {selectedPlanet.shastiamsha.exileWound}.
-            </p>
-          </div>
-          <div>
-            <h4 className="font-semibold text-stone-900 mb-1">Protective Defense (Manager)</h4>
-            <p className="text-stone-700 leading-relaxed">
-              Deploys {selectedPlanet.shastiamsha.protectorStrategy}.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Complete Table */}
-      <div>
-        <h3 className="text-2xl font-semibold text-stone-900 mb-2">
-          Complete Planetary & Shastiamsha (D60) Matrix
-        </h3>
-        <p className="text-xs text-stone-500 mb-4">
-          Select any row to inspect its specific D60 deity imprint and psychological translation above.
+      <div className="border-b border-stone-300 pb-6">
+        <p className="text-xs uppercase tracking-widest text-[#9A3412]">
+          Section 01 · Experiential Soul Exploration
         </p>
+        <h2 className="text-3xl sm:text-4xl font-semibold text-stone-900 mt-1">
+          1. THE CHRONICLES OF TIME: Your Multidimensional Soul Matrix
+        </h2>
+        <p className="text-sm text-stone-600 mt-2 max-w-3xl leading-relaxed">
+          An evocative journey through the three concentric planes of your consciousness: your conscious worldly persona, your maturing evolutionary soul compass, and the ancient subconscious root system carrying unlearned instincts from forgotten horizons.
+        </p>
+      </div>
 
-        <div className="overflow-x-auto border border-stone-300 bg-[#FBF9F5]">
-          <table className="w-full text-left border-collapse text-sm">
-            <thead>
-              <tr className="border-b border-stone-300 bg-[#F3EFE6] text-xs uppercase tracking-wider text-stone-600">
-                <th className="py-3 px-4 font-semibold">Graha</th>
-                <th className="py-3 px-4 font-semibold">D1 Rashi</th>
-                <th className="py-3 px-4 font-semibold">Bhava</th>
-                <th className="py-3 px-4 font-semibold">Arc</th>
-                <th className="py-3 px-4 font-semibold">D9 Navamsha</th>
-                <th className="py-3 px-4 font-semibold">D60 Shastiamsha Deity</th>
-                <th className="py-3 px-4 font-semibold">Structural State</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-200">
-              {allBodies.map((body) => {
-                const isSelected = selectedPlanet.id === body.id;
-                const stateFlags: string[] = [];
-                if (body.isRetrograde && body.id !== 'Rahu' && body.id !== 'Ketu') {
-                  stateFlags.push('Vakri (Retrograde)');
-                }
-                if (body.isGandanta) stateFlags.push('Gandanta Knot');
-                else if (body.isSandhi) stateFlags.push('Rashi Sandhi');
-                if (body.dignity !== 'Neutral') stateFlags.push(body.dignity);
-                if (stateFlags.length === 0) stateFlags.push('Nominal Vector');
+      {/* 3-Layer Plane Selector */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        {(['core', 'compass', 'roots'] as MatrixLayer[]).map((layerKey) => {
+          const l = layerData[layerKey];
+          const isSelected = activeLayer === layerKey;
+          return (
+            <button
+              key={layerKey}
+              type="button"
+              onClick={() => setActiveLayer(layerKey)}
+              className={`p-5 text-left border transition-all cursor-pointer ${
+                isSelected
+                  ? 'border-[#9A3412] bg-[#FBF9F5] shadow-xs'
+                  : 'border-stone-300 bg-[#F3EFE6]/60 hover:bg-[#FBF9F5]'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono-tabular font-semibold text-[#9A3412]">
+                  Dimension {l.number}
+                </span>
+                {isSelected && (
+                  <span className="text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 bg-[#9A3412] text-white">
+                    Inspecting
+                  </span>
+                )}
+              </div>
+              <h3 className="text-base font-semibold text-stone-900 mt-2">{l.title}</h3>
+              <p className="text-xs text-stone-600 mt-1 line-clamp-2 leading-relaxed">
+                {l.tagline}
+              </p>
+            </button>
+          );
+        })}
+      </div>
 
-                return (
-                  <tr
-                    key={body.id}
-                    onClick={() => setSelectedPlanet(body)}
-                    className={`cursor-pointer transition-colors ${
-                      isSelected ? 'bg-[#9A3412]/10' : 'hover:bg-stone-100/80'
-                    }`}
-                  >
-                    <td className="py-3 px-4 font-medium text-stone-900 whitespace-nowrap">
-                      {body.id} <span className="text-stone-500 font-normal">· {body.sanskritName}</span>
-                    </td>
-                    <td className="py-3 px-4 text-stone-800 whitespace-nowrap">
-                      {body.rashiName} <span className="text-stone-400">({body.rashiSanskrit})</span>
-                    </td>
-                    <td className="py-3 px-4 font-mono-tabular text-stone-700">
-                      H{body.house}
-                    </td>
-                    <td className="py-3 px-4 font-mono-tabular text-stone-700 whitespace-nowrap">
-                      {body.degreeInRashi.toFixed(2)}°
-                    </td>
-                    <td className="py-3 px-4 text-stone-800 whitespace-nowrap">
-                      {body.navamshaName}
-                    </td>
-                    <td className="py-3 px-4 text-stone-900">
-                      <span className="font-semibold text-[#9A3412]">{body.shastiamsha.name}</span>
-                      <span className="text-stone-500 text-xs ml-1.5">
-                        · {body.shastiamsha.archetype}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-xs text-stone-600 whitespace-nowrap">
-                      {stateFlags.join(' · ')}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+      {/* Interactive Concentric Cosmogram Visualization */}
+      <div className="border border-stone-300 bg-[#FBF9F5] p-6 sm:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          {/* Left: Artistic Concentric Soul Mandala SVG */}
+          <div className="lg:col-span-5 flex flex-col items-center justify-center p-4">
+            <svg
+              viewBox="0 0 320 320"
+              className="w-full max-w-[280px] h-auto drop-shadow-xs"
+              aria-label="Multidimensional Soul Matrix Cosmogram"
+            >
+              <defs>
+                <radialGradient id="matrixGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#9A3412" stopOpacity="0.25" />
+                  <stop offset="60%" stopColor="#9A3412" stopOpacity="0.08" />
+                  <stop offset="100%" stopColor="#9A3412" stopOpacity="0" />
+                </radialGradient>
+              </defs>
+
+              <circle cx="160" cy="160" r="150" fill="url(#matrixGlow)" />
+
+              {/* Outer Layer: Core Identity Layer */}
+              <circle
+                cx="160"
+                cy="160"
+                r="135"
+                fill="none"
+                stroke={activeLayer === 'core' ? '#9A3412' : '#D6D3D1'}
+                strokeWidth={activeLayer === 'core' ? '3' : '1.5'}
+                strokeDasharray={activeLayer === 'core' ? 'none' : '4 4'}
+                className="transition-all duration-300"
+              />
+              <circle
+                cx="160"
+                cy="25"
+                r={activeLayer === 'core' ? '7' : '4'}
+                fill={activeLayer === 'core' ? '#9A3412' : '#A8A29E'}
+              />
+              <circle
+                cx="295"
+                cy="160"
+                r={activeLayer === 'core' ? '7' : '4'}
+                fill={activeLayer === 'core' ? '#9A3412' : '#A8A29E'}
+              />
+              <circle
+                cx="160"
+                cy="295"
+                r={activeLayer === 'core' ? '7' : '4'}
+                fill={activeLayer === 'core' ? '#9A3412' : '#A8A29E'}
+              />
+              <circle
+                cx="25"
+                cy="160"
+                r={activeLayer === 'core' ? '7' : '4'}
+                fill={activeLayer === 'core' ? '#9A3412' : '#A8A29E'}
+              />
+
+              {/* Middle Layer: Hidden Evolutionary Compass */}
+              <circle
+                cx="160"
+                cy="160"
+                r="95"
+                fill="none"
+                stroke={activeLayer === 'compass' ? '#B45309' : '#D6D3D1'}
+                strokeWidth={activeLayer === 'compass' ? '3' : '1.5'}
+                strokeDasharray={activeLayer === 'compass' ? 'none' : '6 4'}
+                className="transition-all duration-300"
+              />
+              <circle
+                cx="227"
+                cy="93"
+                r={activeLayer === 'compass' ? '7' : '4'}
+                fill={activeLayer === 'compass' ? '#B45309' : '#A8A29E'}
+              />
+              <circle
+                cx="93"
+                cy="227"
+                r={activeLayer === 'compass' ? '7' : '4'}
+                fill={activeLayer === 'compass' ? '#B45309' : '#A8A29E'}
+              />
+
+              {/* Inner Core: Ancient Karmic Root System */}
+              <circle
+                cx="160"
+                cy="160"
+                r="55"
+                fill={activeLayer === 'roots' ? '#F3EFE6' : 'none'}
+                stroke={activeLayer === 'roots' ? '#431407' : '#D6D3D1'}
+                strokeWidth={activeLayer === 'roots' ? '3.5' : '1.5'}
+                className="transition-all duration-300"
+              />
+              <circle
+                cx="160"
+                cy="160"
+                r={activeLayer === 'roots' ? '12' : '6'}
+                fill={activeLayer === 'roots' ? '#431407' : '#78716C'}
+                className="transition-all duration-300"
+              />
+
+              {/* Axis cross lines */}
+              <line x1="160" y1="35" x2="160" y2="285" stroke="#E7E5E4" strokeWidth="1" strokeDasharray="3 3" />
+              <line x1="35" y1="160" x2="285" y2="160" stroke="#E7E5E4" strokeWidth="1" strokeDasharray="3 3" />
+            </svg>
+            <span className="text-xs italic text-stone-500 mt-3 text-center">
+              Active Plane: {current.title}
+            </span>
+          </div>
+
+          {/* Right: Rich Narrative Monograph Dossier */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="border-b border-stone-200 pb-3">
+              <span className="text-xs uppercase tracking-widest text-[#9A3412] font-semibold">
+                Dimension {current.number}
+              </span>
+              <h3 className="text-2xl font-semibold text-stone-900 mt-0.5">{current.title}</h3>
+              <p className="text-sm font-medium text-stone-700 mt-1">{current.subtitle}</p>
+            </div>
+
+            <p className="text-stone-800 leading-relaxed text-sm sm:text-base">
+              {current.narrative}
+            </p>
+
+            <div className="border-t border-stone-200 pt-4 space-y-3">
+              <h4 className="text-xs uppercase tracking-wider text-stone-600 font-semibold">
+                Key Signatures of this Dimension:
+              </h4>
+              <div className="space-y-2.5">
+                {current.traits.map((t, idx) => (
+                  <div key={idx} className="p-3 bg-[#F3EFE6]/70 border border-stone-200 text-xs">
+                    <span className="font-semibold text-stone-900 block mb-0.5">{t.label}:</span>
+                    <span className="text-stone-700 leading-relaxed">{t.desc}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* The Unified Continuum of Consciousness */}
+      <div className="border border-stone-300 bg-[#F3EFE6]/50 p-6 sm:p-8 space-y-4">
+        <h3 className="text-xl font-semibold text-stone-900">
+          How These Three Dimensions Breathe Together
+        </h3>
+        <p className="text-sm text-stone-700 leading-relaxed">
+          Your life is not a battle between these layers; it is an integrated symphony. When operating from fear or exhaustion, your awareness collapses into the ancient root system, resorting to hyper-independence. When operating on autopilot, you function through your outer identity layer with competent decorum. But when you pause, take a deep breath, and unburden your protective parts, your awareness opens into your evolutionary compass—allowing you to create, lead, and love with unhesitating sovereign presence.
+        </p>
       </div>
     </div>
   );
